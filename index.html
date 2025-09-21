@@ -376,7 +376,7 @@
             { id: 27, name: 'Ancient Warrior', maxSkill: 135, attack: 542, colValue: 39092, resaleAmount: '', howToObtain: 'Blacksmithing' },
             { id: 28, name: 'Shadow Guardian', maxSkill: 140, attack: 570, colValue: 40600, resaleAmount: '', howToObtain: 'Lizard' },
             { id: 29, name: 'Dark Repulser Mk II', maxSkill: 140, attack: 570, colValue: 40600, resaleAmount: '', howToObtain: 'Blacksmithing' },
-            { id: 30, name: 'Deepsea SwiftBlade', maxSkill: 145, attack: 598, colValue: , resaleAmount: '', howToObtain: 'Floor 9 Shop' },
+            { id: 30, name: 'Deepsea SwiftBlade', maxSkill: 145, attack: 598, colValue: 41992, resaleAmount: '', howToObtain: 'Floor 9 Shop' },
             { id: 31, name: 'Aqua Blade', maxSkill: 150, attack: 627, colValue: 41992, resaleAmount: '', howToObtain: 'Jellyfish' },
             { id: 32, name: 'Corroded Crusader', maxSkill: 155, attack: 655, colValue: 44892, resaleAmount: '', howToObtain: 'Blacksmithing' },
             { id: 33, name: 'Butterfly Blade', maxSkill: 165, attack: 714, colValue: 47792, resaleAmount: '', howToObtain: 'Floor 10 Shop' },
@@ -386,7 +386,7 @@
             { id: 37, name: 'Dark Repulser Mk III', maxSkill: 190, attack: 866, colValue: 55099, resaleAmount: '', howToObtain: 'Blacksmithing' },
             { id: 38, name: 'Vindictus Blade', maxSkill: 190, attack: 866, colValue: 55099, resaleAmount: '', howToObtain: 'Knight' },
             { id: 39, name: 'Yang Katana', maxSkill: 192, attack: 878, colValue: 55679, resaleAmount: '', howToObtain: '«Hotoke The Enlightened»' },
-            { id: 40, name: 'Forest Warrior', maxSkill: 200, attack: 929, colValue: 5799, resaleAmount: '', howToObtain: 'Blacksmithing' },
+            { id: 40, name: 'Forest Warrior', maxSkill: 200, attack: 929, colValue: 57999, resaleAmount: '', howToObtain: 'Blacksmithing' },
             { id: 41, name: 'Stalhrim Blade', maxSkill: 205, attack: 961, colValue: 59391, resaleAmount: '', howToObtain: 'Floor 12 Shop' },
             { id: 42, name: 'Purification', maxSkill: 210, attack: 993, colValue: 60899, resaleAmount: '', howToObtain: 'Land Anemone' },
             { id: 43, name: 'Queens Resolve', maxSkill: 211, attack: 999, colValue: 61131, resaleAmount: '', howToObtain: '«Buffed Knight»' },
@@ -405,11 +405,11 @@
             { id: 56, name: 'Sweet Blade', maxSkill: 305, attack: 1655, colValue: 88392, resaleAmount: '', howToObtain: 'Floor 17 Shop' },
             { id: 57, name: 'Candy Katana', maxSkill: 310, attack: 1692, colValue: 89900, resaleAmount: '', howToObtain: 'Candy Soldier' },
             { id: 58, name: 'Poisonous Cleaver', maxSkill: 311, attack: 1699, colValue: 90132, resaleAmount: '', howToObtain: 'Leader Goblin' },
-            { id: 59, name: 'Crowbar Edge', maxSkill: 325, attack: 1805, colValue: 'TBD', resaleAmount: 'TBD', howToObtain: 'Slugger Street Thug' },
+            { id: 59, name: 'Crowbar Edge', maxSkill: 325, attack: 1805, colValue: null, resaleAmount: 'TBD', howToObtain: 'Slugger Street Thug' },
             { id: 60, name: 'Enforcer Blade', maxSkill: 330, attack: 1843, colValue: 95700, resaleAmount: '', howToObtain: 'Floor 18 Squid Game Dungeon Merchant' },
             { id: 61, name: 'Butterscotch Blade', maxSkill: 335, attack: 1881, colValue: 97062, resaleAmount: '', howToObtain: 'Blacksmithing' },
-            { id: 62, name: 'Black Verdict', maxSkill: 375, attack: 2196, colValue: 'TBD', resaleAmount: 'TBD', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' },
-            { id: 63, name: 'Decree', maxSkill: 395, attack: 2357, colValue: 'TBD', resaleAmount: 'TBD', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' }
+            { id: 62, name: 'Black Verdict', maxSkill: 375, attack: 2196, colValue: null, resaleAmount: 'TBD', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' },
+            { id: 63, name: 'Decree', maxSkill: 395, attack: 2357, colValue: null, resaleAmount: 'TBD', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' },
         ];
 
         let filteredSwords = [...swords];
@@ -420,7 +420,7 @@
         }
 
         function updateStats() {
-            const completedSwords = swords.filter(sword => sword.colValue !== ).length;
+            const completedSwords = swords.filter(sword => sword.colValue !== null).length;
             const percentage = Math.round((completedSwords / swords.length) * 100);
             
             document.getElementById('progress-value').textContent = `${completedSwords}/${swords.length}`;
@@ -431,9 +431,9 @@
             filteredSwords = swords.filter(sword => 
                 sword.name.toLowerCase().includes(searchTerm.toLowerCase())
             ).sort((a, b) => {
-                if (a.colValue ===  && b.colValue === ) return 0;
-                if (a.colValue === ) return 1;
-                if (b.colValue === ) return -1;
+                if (a.colValue === null && b.colValue === null) return 0;
+                if (a.colValue === null) return 1;
+                if (b.colValue === null) return -1;
                 return a.colValue - b.colValue;
             });
             
@@ -458,8 +458,8 @@
                     <td>${sword.maxSkill}</td>
                     <td>${sword.attack}</td>
                     <td>
-                        <span class="col-value ${sword.colValue ===  ? 'missing' : 'completed'}">
-                            ${sword.colValue ===  ? 'TBD' : sword.colValue.toLocaleString()}
+                        <span class="col-value ${sword.colValue === null ? 'missing' : 'completed'}">
+                            ${sword.colValue === null ? 'TBD' : sword.colValue.toLocaleString()}
                         </span>
                     </td>
                     <td>
