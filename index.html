@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SBOR Sword Col Value Database</title>
+    <title>SBOR Weapon Col Value Database</title>
     <style>
         * {
             margin: 0;
@@ -280,18 +280,18 @@
 <body>
     <div class="container">
         <div class="main-card">
-            <h1 class="title">SBOR Sword Col Value Database</h1>
+            <h1 class="title">SBOR Weapon Col Value Database</h1>
             
             <!-- Stats Cards -->
             <div class="stats-grid">
                 <div class="stat-card progress">
                     <h3 class="stat-title">Index Progress</h3>
-                    <p class="stat-value" id="progress-value">javascript disabled</p>
+                    <p class="stat-value" id="progress-value">61/64</p>
                     <p class="stat-subtitle">Col values indexed</p>
                 </div>
                 <div class="stat-card completion">
                     <h3 class="stat-title">Database Complete</h3>
-                    <p class="stat-value" id="completion-percentage">enable it otherwise this shit won't work</p>
+                    <p class="stat-value" id="completion-percentage">95%</p>
                     <p class="stat-subtitle">of entries filled out</p>
                 </div>
             </div>
@@ -300,8 +300,18 @@
             <div class="controls">
                 <div class="search-container">
                     <span class="search-icon"></span>
-                    <input type="text" id="search-input" class="search-input" placeholder="Search swords...">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search weapons...">
                 </div>
+                
+                <select id="category-filter" class="export-btn" style="padding: 8px 16px; margin-right: 8px;">
+                    <option value="all">All Weapons</option>
+                    <option value="one-handed">One-Handed</option>
+                    <option value="two-handed">Two-Handed</option>
+                    <option value="rapier">Rapier</option>
+                    <option value="dagger">Dagger</option>
+                    <option value="melee">Melee</option>
+                </select>
+                
                 <button class="export-btn" id="export-button">
                     📥 Export CSV
                 </button>
@@ -310,14 +320,14 @@
             <!-- Data Table -->
             <div class="table-container">
                 <div class="table-header">
-                    <h3 class="table-title" id="table-title">Sword Database (64 swords)</h3>
+                    <h3 class="table-title" id="table-title">All Weapons (64 weapons)</h3>
                 </div>
                 
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
-                                <th>Sword Name</th>
+                                <th>Weapon Name</th>
                                 <th>Max Skill</th>
                                 <th>Attack</th>
                                 <th>Col Value (Worth)</th>
@@ -325,7 +335,7 @@
                                 <th>How to Obtain</th>
                             </tr>
                         </thead>
-                        <tbody id="sword-table">
+                        <tbody id="weapon-table">
                         </tbody>
                     </table>
                 </div>
@@ -335,20 +345,21 @@
             <div class="instructions">
                 <h3>How to Use This Database:</h3>
                 <ul>
-                    <li><strong>Click sword names</strong> to visit their wiki pages at swordbloxonlinerebirth.fandom.com</li>
+                    <li><strong>Click weapon names</strong> to visit their wiki pages at swordbloxonlinerebirth.fandom.com</li>
+                    <li><strong>Use the category filter</strong> to view specific weapon types</li>
                     <li><strong>Look for "Worth"</strong> in the weapon's stats table to find Col values</li>
-                    <li><strong>Red "TBD"</strong> means the Col value still needs to be indexed</li>
+                    <li><strong>Red "TBD"</strong> means the Col value still needs to be researched</li>
                     <li><strong>Green numbers</strong> show completed Col value entries</li>
-                    <li><strong>Use the search</strong> to quickly find specific swords</li>
-                    <li>If you found this useful, happy to be helpful otherwise idk</li>
+                    <li><strong>Use the search</strong> to quickly find specific weapons</li>
                 </ul>
             </div>
         </div>
     </div>
 
     <script>
-        const swords = [
-            { id: 1, name: 'Beginner Sword', maxSkill: 1, attack: 3.4, colValue: 231, resaleAmount: '', howToObtain: 'Starter Inventory' },
+        const weapons = {
+            'one-handed': [
+                { id: 1, name: 'Beginner Sword', maxSkill: 1, attack: 3.4, colValue: 231, resaleAmount: '', howToObtain: 'Starter Inventory' },
             { id: 2, name: 'Iron Sword', maxSkill: 1, attack: 3.4, colValue: 231, resaleAmount: '', howToObtain: 'Floor 1 Shop' },
             { id: 3, name: 'Steel Sword', maxSkill: 5, attack: 8.4, colValue: 1392, resaleAmount: '', howToObtain: 'Floor 1 Shop, Floor 2 Shop' },
             { id: 4, name: 'Master Steel Sword', maxSkill: 10, attack: 17.4, colValue: 1392, resaleAmount: '', howToObtain: 'Blacksmithing, Floor 1 Shop, Floor 2 Shop' },
@@ -377,7 +388,7 @@
             { id: 27, name: 'Ancient Warrior', maxSkill: 135, attack: 542, colValue: 39092, resaleAmount: '', howToObtain: 'Blacksmithing' },
             { id: 28, name: 'Shadow Guardian', maxSkill: 140, attack: 570, colValue: 40600, resaleAmount: '', howToObtain: 'Lizard' },
             { id: 29, name: 'Dark Repulser Mk II', maxSkill: 140, attack: 570, colValue: 40600, resaleAmount: '', howToObtain: 'Blacksmithing' },
-            { id: 30, name: 'Deepsea SwiftBlade', maxSkill: 145, attack: 598, colValue: 41992, resaleAmount: '', howToObtain: 'Floor 9 Shop' },
+            { id: 30, name: 'Deepsea SwiftBlade', maxSkill: 145, attack: 598, colValue: null, resaleAmount: 'TBD', howToObtain: 'Floor 9 Shop' },
             { id: 31, name: 'Aqua Blade', maxSkill: 150, attack: 627, colValue: 41992, resaleAmount: '', howToObtain: 'Jellyfish' },
             { id: 32, name: 'Corroded Crusader', maxSkill: 155, attack: 655, colValue: 44892, resaleAmount: '', howToObtain: 'Blacksmithing' },
             { id: 33, name: 'Butterfly Blade', maxSkill: 165, attack: 714, colValue: 47792, resaleAmount: '', howToObtain: 'Floor 10 Shop' },
@@ -411,26 +422,45 @@
             { id: 61, name: 'Butterscotch Blade', maxSkill: 335, attack: 1881, colValue: 97062, resaleAmount: '', howToObtain: 'Blacksmithing' },
             { id: 62, name: 'Black Verdict', maxSkill: 375, attack: 2196, colValue: null, resaleAmount: 'TBD', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' },
             { id: 63, name: 'Decree', maxSkill: 395, attack: 2357, colValue: null, resaleAmount: 'TBD', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' },
-        ];
+                            { id: 64, name: 'Shadowflame Katana', maxSkill: 400, attack: 2400, colValue: null, resaleAmount: 'TBD', howToObtain: 'Event Weapon' }
+            ],
+            'two-handed': [
+                // Add two-handed weapons here
+            ],
+            'rapier': [
+                // Add rapier weapons here
+            ],
+            'dagger': [
+                // Add dagger weapons here
+            ],
+            'melee': [
+                // Add melee weapons here
+            ]
+        };
 
-        let filteredSwords = [...swords];
+        // Flatten all weapons into a single array
+        const allWeapons = Object.values(weapons).flat();
+        let filteredWeapons = [...allWeapons];
+        let currentCategory = 'all';
 
-        function generateWikiUrl(swordName) {
-            const formattedName = swordName.replace(/ /g, '_');
+        function generateWikiUrl(weaponName) {
+            const formattedName = weaponName.replace(/ /g, '_');
             return `https://swordbloxonlinerebirth.fandom.com/wiki/${formattedName}`;
         }
 
         function updateStats() {
-            const completedSwords = swords.filter(sword => sword.colValue !== null).length;
-            const percentage = Math.round((completedSwords / swords.length) * 100);
+            const completedWeapons = allWeapons.filter(weapon => weapon.colValue !== null).length;
+            const percentage = Math.round((completedWeapons / allWeapons.length) * 100);
             
-            document.getElementById('progress-value').textContent = `${completedSwords}/${swords.length}`;
+            document.getElementById('progress-value').textContent = `${completedWeapons}/${allWeapons.length}`;
             document.getElementById('completion-percentage').textContent = `${percentage}%`;
         }
 
-        function filterSwords(searchTerm) {
-            filteredSwords = swords.filter(sword => 
-                sword.name.toLowerCase().includes(searchTerm.toLowerCase())
+        function filterWeapons(searchTerm, category = 'all') {
+            let weaponsToFilter = category === 'all' ? allWeapons : weapons[category] || [];
+            
+            filteredWeapons = weaponsToFilter.filter(weapon => 
+                weapon.name.toLowerCase().includes(searchTerm.toLowerCase())
             ).sort((a, b) => {
                 if (a.colValue === null && b.colValue === null) return 0;
                 if (a.colValue === null) return 1;
@@ -438,36 +468,41 @@
                 return a.colValue - b.colValue;
             });
             
-            document.getElementById('table-title').textContent = `Sword Database (${filteredSwords.length} swords)`;
+            const categoryText = category === 'all' ? 'All Weapons' : 
+                                category === 'one-handed' ? 'One-Handed' :
+                                category === 'two-handed' ? 'Two-Handed' :
+                                category.charAt(0).toUpperCase() + category.slice(1);
+            
+            document.getElementById('table-title').textContent = `${categoryText} (${filteredWeapons.length} weapons)`;
             renderTable();
         }
 
         function renderTable() {
-            const tbody = document.getElementById('sword-table');
+            const tbody = document.getElementById('weapon-table');
             tbody.innerHTML = '';
 
-            filteredSwords.forEach(sword => {
+            filteredWeapons.forEach(weapon => {
                 const row = document.createElement('tr');
-                const wikiUrl = generateWikiUrl(sword.name);
+                const wikiUrl = generateWikiUrl(weapon.name);
                 
                 row.innerHTML = `
                     <td>
                         <a href="${wikiUrl}" target="_blank" rel="noopener noreferrer" class="sword-name">
-                            ${sword.name}
+                            ${weapon.name}
                         </a>
                     </td>
-                    <td>${sword.maxSkill}</td>
-                    <td>${sword.attack}</td>
+                    <td>${weapon.maxSkill}</td>
+                    <td>${weapon.attack}</td>
                     <td>
-                        <span class="col-value ${sword.colValue === null ? 'missing' : 'completed'}">
-                            ${sword.colValue === null ? 'TBD' : sword.colValue.toLocaleString()}
+                        <span class="col-value ${weapon.colValue === null ? 'missing' : 'completed'}">
+                            ${weapon.colValue === null ? 'TBD' : weapon.colValue.toLocaleString()}
                         </span>
                     </td>
                     <td>
-                        <span class="resale-amount">${sword.resaleAmount || '-'}</span>
+                        <span class="resale-amount">${weapon.resaleAmount || '-'}</span>
                     </td>
-                    <td class="how-to-obtain" title="${sword.howToObtain}">
-                        ${sword.howToObtain}
+                    <td class="how-to-obtain" title="${weapon.howToObtain}">
+                        ${weapon.howToObtain}
                     </td>
                 `;
                 
@@ -476,16 +511,16 @@
         }
 
         function exportData() {
-            const csvContent = 'Sword Name,Max Skill,Attack,Col Value (Worth),Resale Amount,How to Obtain,Wiki URL\n' + 
-                swords.map(sword => 
-                    `"${sword.name}",${sword.maxSkill},${sword.attack},${sword.colValue || 'TBD'},"${sword.resaleAmount}","${sword.howToObtain}","${generateWikiUrl(sword.name)}"`
+            const csvContent = 'Weapon Name,Max Skill,Attack,Col Value (Worth),Resale Amount,How to Obtain,Wiki URL\n' + 
+                allWeapons.map(weapon => 
+                    `"${weapon.name}",${weapon.maxSkill},${weapon.attack},${weapon.colValue || 'TBD'},"${weapon.resaleAmount}","${weapon.howToObtain}","${generateWikiUrl(weapon.name)}"`
                 ).join('\n');
             
             const blob = new Blob([csvContent], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'sbor_sword_col_values.csv';
+            a.download = 'sbor_weapon_col_values.csv';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -494,14 +529,20 @@
 
         // Event listeners
         document.getElementById('search-input').addEventListener('input', function(e) {
-            filterSwords(e.target.value);
+            filterWeapons(e.target.value, currentCategory);
+        });
+
+        document.getElementById('category-filter').addEventListener('change', function(e) {
+            currentCategory = e.target.value;
+            const searchTerm = document.getElementById('search-input').value;
+            filterWeapons(searchTerm, currentCategory);
         });
 
         document.getElementById('export-button').addEventListener('click', exportData);
 
         // Initialize the app
         updateStats();
-        filterSwords('');
+        filterWeapons('', 'all');
     </script>
 </body>
 </html>
