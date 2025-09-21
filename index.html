@@ -1,34 +1,4 @@
-function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                console.log('Wiki URL copied to clipboard');
-            }).catch(function(err) {
-                console.error('Failed to copy URL: ', err);
-            });
-        }        .actions {
-            display: flex;
-            gap: 4px;
-        }
-        
-        .action-btn {
-            padding: 4px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-        
-        .action-btn:hover {
-            background: #f3f4f6;
-        }
-        
-        .copy-btn {
-            color: #6b7280;
-        }
-        
-        .copy-btn:hover {
-            color: #374151;
-        }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,7 +12,7 @@ function copyToClipboard(text) {
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
             background: linear-gradient(135deg, #f0f8ff 0%, #f3f0ff 100%);
             min-height: 100vh;
             padding: 24px;
@@ -255,32 +225,6 @@ function copyToClipboard(text) {
             color: #6b7280;
         }
         
-        .actions {
-            display: flex;
-            gap: 4px;
-        }
-        
-        .action-btn {
-            padding: 4px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-        
-        .action-btn:hover {
-            background: #f3f4f6;
-        }
-        
-        .copy-btn {
-            color: #6b7280;
-        }
-        
-        .copy-btn:hover {
-            color: #374151;
-        }
-        
         .instructions {
             margin-top: 32px;
             padding: 16px;
@@ -341,9 +285,9 @@ function copyToClipboard(text) {
             <!-- Stats Cards -->
             <div class="stats-grid">
                 <div class="stat-card progress">
-                    <h3 class="stat-title">Research Progress</h3>
-                    <p class="stat-value" id="progress-value">3/66</p>
-                    <p class="stat-subtitle">Col values researched</p>
+                    <h3 class="stat-title">Index Progress</h3>
+                    <p class="stat-value" id="progress-value">3/64</p>
+                    <p class="stat-subtitle">Col values indexed</p>
                 </div>
                 <div class="stat-card completion">
                     <h3 class="stat-title">Database Complete</h3>
@@ -366,7 +310,7 @@ function copyToClipboard(text) {
             <!-- Data Table -->
             <div class="table-container">
                 <div class="table-header">
-                    <h3 class="table-title" id="table-title">Sword Database (66 swords)</h3>
+                    <h3 class="table-title" id="table-title">Sword Database (64 swords)</h3>
                 </div>
                 
                 <div class="table-wrapper">
@@ -379,7 +323,6 @@ function copyToClipboard(text) {
                                 <th>Col Value (Worth)</th>
                                 <th>Resale Amount</th>
                                 <th>How to Obtain</th>
-
                             </tr>
                         </thead>
                         <tbody id="sword-table">
@@ -394,7 +337,6 @@ function copyToClipboard(text) {
                 <ul>
                     <li><strong>Click sword names</strong> to visit their wiki pages at swordbloxonlinerebirth.fandom.com</li>
                     <li><strong>Look for "Worth"</strong> in the weapon's stats table to find Col values</li>
-                    <li><strong>Copy Wiki URLs</strong> by clicking the 📋 button next to each sword</li>
                     <li><strong>Red "TBD"</strong> means the Col value still needs to be researched</li>
                     <li><strong>Green numbers</strong> show completed Col value entries</li>
                     <li><strong>Use the search</strong> to quickly find specific swords</li>
@@ -459,18 +401,16 @@ function copyToClipboard(text) {
             { id: 52, name: 'Akikos Will', maxSkill: 255, attack: 1295, colValue: null, resaleAmount: '', howToObtain: 'Quest #60 Reward' },
             { id: 53, name: 'Blessed Blade', maxSkill: 260, attack: 1330, colValue: null, resaleAmount: '', howToObtain: 'Blacksmithing' },
             { id: 54, name: 'Das Chaos', maxSkill: 270, attack: 1400, colValue: null, resaleAmount: '', howToObtain: '«Young Celestia»' },
-            { id: 55, name: 'Forsaken Soul Slayer', maxSkill: 270, attack: 1400, colValue: null, resaleAmount: '', howToObtain: '«Soulbane the Forsaken» (2%)' },
-            { id: 56, name: 'Bloodred Knight Blade', maxSkill: 275, attack: 1436, colValue: null, resaleAmount: '', howToObtain: '«Bloodred Knight Commander» (1.66%)' },
-            { id: 57, name: 'Gilded Blade', maxSkill: 290, attack: 1544, colValue: null, resaleAmount: '', howToObtain: 'Orc' },
-            { id: 58, name: 'Sweet Blade', maxSkill: 305, attack: 1655, colValue: null, resaleAmount: '', howToObtain: 'Floor 17 Shop' },
-            { id: 59, name: 'Candy Katana', maxSkill: 310, attack: 1692, colValue: null, resaleAmount: '', howToObtain: 'Candy Soldier' },
-            { id: 60, name: 'Poisonous Cleaver', maxSkill: 311, attack: 1699, colValue: null, resaleAmount: '', howToObtain: 'Leader Goblin' },
-            { id: 61, name: 'Crowbar Edge', maxSkill: 325, attack: 1805, colValue: null, resaleAmount: '', howToObtain: 'Slugger Street Thug' },
-            { id: 62, name: 'Enforcer Blade', maxSkill: 330, attack: 1843, colValue: null, resaleAmount: '', howToObtain: 'Floor 18 Squid Game Dungeon Merchant' },
-            { id: 63, name: 'Butterscotch Blade', maxSkill: 335, attack: 1881, colValue: null, resaleAmount: '', howToObtain: 'Blacksmithing' },
-            { id: 64, name: 'Redline Protocol', maxSkill: 337, attack: 1897, colValue: null, resaleAmount: '', howToObtain: '«The Arbitrator»' },
-            { id: 65, name: 'Black Verdict', maxSkill: 375, attack: 2196, colValue: null, resaleAmount: '', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' },
-            { id: 66, name: 'Decree', maxSkill: 395, attack: 2357, colValue: null, resaleAmount: '', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' }
+            { id: 55, name: 'Gilded Blade', maxSkill: 290, attack: 1544, colValue: null, resaleAmount: '', howToObtain: 'Orc' },
+            { id: 56, name: 'Sweet Blade', maxSkill: 305, attack: 1655, colValue: null, resaleAmount: '', howToObtain: 'Floor 17 Shop' },
+            { id: 57, name: 'Candy Katana', maxSkill: 310, attack: 1692, colValue: null, resaleAmount: '', howToObtain: 'Candy Soldier' },
+            { id: 58, name: 'Poisonous Cleaver', maxSkill: 311, attack: 1699, colValue: null, resaleAmount: '', howToObtain: 'Leader Goblin' },
+            { id: 59, name: 'Crowbar Edge', maxSkill: 325, attack: 1805, colValue: null, resaleAmount: '', howToObtain: 'Slugger Street Thug' },
+            { id: 60, name: 'Enforcer Blade', maxSkill: 330, attack: 1843, colValue: null, resaleAmount: '', howToObtain: 'Floor 18 Squid Game Dungeon Merchant' },
+            { id: 61, name: 'Butterscotch Blade', maxSkill: 335, attack: 1881, colValue: null, resaleAmount: '', howToObtain: 'Blacksmithing' },
+            { id: 62, name: 'Redline Protocol', maxSkill: 337, attack: 1897, colValue: null, resaleAmount: '', howToObtain: '«The Arbitrator»' },
+            { id: 63, name: 'Black Verdict', maxSkill: 375, attack: 2196, colValue: null, resaleAmount: '', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' },
+            { id: 64, name: 'Decree', maxSkill: 395, attack: 2357, colValue: null, resaleAmount: '', howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing' }
         ];
 
         let filteredSwords = [...swords];
@@ -532,14 +472,6 @@ function copyToClipboard(text) {
                 `;
                 
                 tbody.appendChild(row);
-            });
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                console.log('Wiki URL copied to clipboard');
-            }).catch(function(err) {
-                console.error('Failed to copy URL: ', err);
             });
         }
 
