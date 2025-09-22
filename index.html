@@ -355,7 +355,7 @@
         </div>
     </div>
 
-    <script>
+     <script>
         const weapons = {
             'one-handed': [{
                     id: 1,
@@ -896,6 +896,17 @@
                     resaleAmountVM: '',
                     howToObtain: '«Young Celestia»'
                 },
+		{
+                    id: 55,
+                    name: 'Gigas Spirit',
+                    maxSkill: 280,
+                    attack: 1700,
+                    colValue: 81200,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: '«Young Celestia»'
+                },
+
                 {
                     id: 55,
                     name: 'Gilded Blade',
@@ -965,22 +976,35 @@
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
                 },
-                {
+		{
                     id: 62,
+                    name: 'Divinity',
+                    maxSkill: 340,
+                    attack: 2304,
+                    colValue: 98600,
+                    resaleAmount: 'Cannot be sold',
+		    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+
+                {
+                    id: 63,
                     name: 'Black Verdict',
                     maxSkill: 375,
                     attack: 2196,
                     colValue: null,
                     resaleAmount: 'TBD',
+		    resaleAmountVM: '',
                     howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
                 },
                 {
-                    id: 63,
+                    id: 64,
                     name: 'Decree',
                     maxSkill: 395,
                     attack: 2357,
                     colValue: null,
                     resaleAmount: 'TBD',
+		    resaleAmountVM: '',
                     howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
                 },
             ],
@@ -991,14 +1015,14 @@
                     attack: 3,
                     colValue: 231,
                     resaleAmount: '80',
-                    resaleAmountVM: '',
+                    resaleAmountVM: '103',
                     howToObtain: 'Starter, Floor 1 shop'
                 }, {
                     id: 2,
                     name: 'Steel Greatsword',
                     maxSkill: 5,
                     attack: 10,
-                    colValue: null,
+                    colValue: 1392,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 1 Shop, Floor 2 Shop'
@@ -1008,7 +1032,7 @@
                     name: 'Master Steel Greatsword',
                     maxSkill: 10,
                     attack: 21,
-                    colValue: null,
+                    colValue: 2900,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing, Floor 1 Shop, Floor 2 Shop'
@@ -1018,7 +1042,7 @@
                     name: 'Master Steel Greatsword Mk II',
                     maxSkill: 13,
                     attack: 29,
-                    colValue: null,
+                    colValue: 3711,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1028,7 +1052,7 @@
                     name: 'GrandMaster Steel Greatsword',
                     maxSkill: 16,
                     attack: 38,
-                    colValue: null,
+                    colValue: 4640,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Corrupted Sentinel'
@@ -1038,7 +1062,7 @@
                     name: 'Corruption Buster',
                     maxSkill: 20,
                     attack: 51,
-                    colValue: null,
+                    colValue: 5800,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1048,7 +1072,7 @@
                     name: 'GrandMaster Steel Greatsword Mk II',
                     maxSkill: 24,
                     attack: 65,
-                    colValue: null,
+                    colValue: 6959,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1058,7 +1082,7 @@
                     name: 'Basin Buster',
                     maxSkill: 26,
                     attack: 72,
-                    colValue: null,
+                    colValue: 7539,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 2 Shop, Floor 3 Shop'
@@ -1068,7 +1092,7 @@
                     name: 'Glade Striker',
                     maxSkill: 30,
                     attack: 88,
-                    colValue: null,
+                    colValue: 8700,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Marshland Crocodile'
@@ -1078,7 +1102,7 @@
                     name: 'GrandMaster Steel Greatsword Mk III',
                     maxSkill: 35,
                     attack: 108,
-                    colValue: null,
+                    colValue: 10092,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1088,7 +1112,7 @@
                     name: 'Great Scimitar',
                     maxSkill: 45,
                     attack: 152,
-                    colValue: null,
+                    colValue: 12992,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 4 Shop'
@@ -1098,7 +1122,7 @@
                     name: 'Lightning Edge',
                     maxSkill: 50,
                     attack: 175,
-                    colValue: null,
+                    colValue: 14499,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Albino Scorpion'
@@ -1108,7 +1132,7 @@
                     name: 'Legendary Malachite Blade',
                     maxSkill: 52,
                     attack: 185,
-                    colValue: null,
+                    colValue: 15079,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: '«Lord Slug»'
@@ -1118,7 +1142,7 @@
                     name: 'Malachite Greatsword',
                     maxSkill: 55,
                     attack: 199,
-                    colValue: null,
+                    colValue: 15891,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1128,7 +1152,7 @@
                     name: 'Mirror Shatterer',
                     maxSkill: 65,
                     attack: 300,
-                    colValue: null,
+                    colValue: 18792,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 5 Shop'
@@ -1138,7 +1162,7 @@
                     name: 'Legendary Stalhrim Blade',
                     maxSkill: 70,
                     attack: 277,
-                    colValue: null,
+                    colValue: 20300,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Frost Chaurus'
@@ -1148,7 +1172,7 @@
                     name: 'Sandstorm Buster',
                     maxSkill: 75,
                     attack: 304,
-                    colValue: null,
+                    colValue: 20300,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1158,7 +1182,7 @@
                     name: 'Dark Steel Greatsword',
                     maxSkill: 85,
                     attack: 361,
-                    colValue: null,
+                    colValue: 24592,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 5 Shop'
@@ -1168,7 +1192,7 @@
                     name: 'Infernal Cleaver',
                     maxSkill: 90,
                     attack: 390,
-                    colValue: null,
+                    colValue: 26100,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Ember Spider'
@@ -1178,7 +1202,7 @@
                     name: 'Permafrost Greatsword',
                     maxSkill: 95,
                     attack: 420,
-                    colValue: null,
+                    colValue: 27491,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1188,7 +1212,7 @@
                     name: 'Inyo Buster',
                     maxSkill: 105,
                     attack: 481,
-                    colValue: null,
+                    colValue: 30391,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 7 Shop'
@@ -1198,7 +1222,7 @@
                     name: 'Shiek Greatsword',
                     maxSkill: 110,
                     attack: 513,
-                    colValue: null,
+                    colValue: 31899,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Stone Golem'
@@ -1208,7 +1232,7 @@
                     name: 'Yukkis Mourne',
                     maxSkill: 112,
                     attack: 525,
-                    colValue: null,
+                    colValue: 32479,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: '«Uakmaroth, the Demon Lord»'
@@ -1218,7 +1242,7 @@
                     name: 'Demonic Greatsword',
                     maxSkill: 115,
                     attack: 545,
-                    colValue: null,
+                    colValue: 33292,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1228,7 +1252,7 @@
                     name: 'Shadow Destroyer',
                     maxSkill: 125,
                     attack: 610,
-                    colValue: null,
+                    colValue: 36192,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 5 Shop'
@@ -1238,7 +1262,7 @@
                     name: 'Wretched Greatsword',
                     maxSkill: 130,
                     attack: 644,
-                    colValue: null,
+                    colValue: 37700,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Shadow Walker'
@@ -1248,7 +1272,7 @@
                     name: 'Ancient Berserker',
                     maxSkill: 135,
                     attack: 678,
-                    colValue: null,
+                    colValue: 39092,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1258,7 +1282,7 @@
                     name: 'Charus Claymore',
                     maxSkill: 145,
                     attack: 748,
-                    colValue: null,
+                    colValue: 41992,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 9 Shop'
@@ -1268,7 +1292,7 @@
                     name: 'Aqua Buster',
                     maxSkill: 150,
                     attack: 783,
-                    colValue: null,
+                    colValue: 43500,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Sea Turtle'
@@ -1278,7 +1302,7 @@
                     name: 'Corroded Berserker',
                     maxSkill: 155,
                     attack: 819,
-                    colValue: null,
+                    colValue: 44892,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1288,7 +1312,7 @@
                     name: 'Butterfly Buster',
                     maxSkill: 165,
                     attack: 892,
-                    colValue: null,
+                    colValue: 47792,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 10 Shop'
@@ -1298,7 +1322,7 @@
                     name: 'Kamikaze Katana',
                     maxSkill: 170,
                     attack: 929,
-                    colValue: null,
+                    colValue: 49300,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Oni'
@@ -1308,7 +1332,7 @@
                     name: 'Atlantic Destroyer',
                     maxSkill: 175,
                     attack: 967,
-                    colValue: null,
+                    colValue: 50692,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1318,7 +1342,7 @@
                     name: 'Shadow Edge',
                     maxSkill: 185,
                     attack: 1043,
-                    colValue: null,
+                    colValue: 53591,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 10 Shop'
@@ -1328,7 +1352,7 @@
                     name: 'Doomed Treasure',
                     maxSkill: 190,
                     attack: 1082,
-                    colValue: null,
+                    colValue: 55099,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Fallen Noble'
@@ -1338,7 +1362,7 @@
                     name: 'Forest Buster',
                     maxSkill: 200,
                     attack: 1161,
-                    colValue: null,
+                    colValue: 57999,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1348,7 +1372,7 @@
                     name: 'Stalhrim Greatsword',
                     maxSkill: 205,
                     attack: 1201,
-                    colValue: null,
+                    colValue: 59391,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 12 Shop'
@@ -1358,7 +1382,7 @@
                     name: 'Trunk Destroyer',
                     maxSkill: 210,
                     attack: 1241,
-                    colValue: null,
+                    colValue: 60899,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Land Anemone , «Laurellis Convict»'
@@ -1368,7 +1392,7 @@
                     name: 'Whale',
                     maxSkill: 212,
                     attack: 1257,
-                    colValue: null,
+                    colValue: 61479,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: '«Grimlock the Fallen King»'
@@ -1378,7 +1402,7 @@
                     name: 'Zweihander',
                     maxSkill: 215,
                     attack: 1282,
-                    colValue: null,
+                    colValue: 62291,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1388,7 +1412,7 @@
                     name: 'Twilight Buster',
                     maxSkill: 220,
                     attack: 1587,
-                    colValue: null,
+                    colValue: 63799,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing: Legendary Tier'
@@ -1398,7 +1422,7 @@
                     name: 'Shadow Buster',
                     maxSkill: 225,
                     attack: 1364,
-                    colValue: null,
+                    colValue: 65191,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 12 Shop'
@@ -1408,7 +1432,7 @@
                     name: 'Cursed Buster',
                     maxSkill: 230,
                     attack: 1406,
-                    colValue: null,
+                    colValue: 6700,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: '«Tormented Spectrum»'
@@ -1418,7 +1442,7 @@
                     name: 'Floral Buster',
                     maxSkill: 235,
                     attack: 1448,
-                    colValue: null,
+                    colValue: 68092,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1428,7 +1452,7 @@
                     name: 'Holy Buster',
                     maxSkill: 250,
                     attack: 1575,
-                    colValue: null,
+                    colValue: 72500,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Luo'
@@ -1438,7 +1462,7 @@
                     name: 'Hope Buster',
                     maxSkill: 252,
                     attack: 1593,
-                    colValue: null,
+                    colValue: 73080,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: '«The Tormented Soul»'
@@ -1448,7 +1472,7 @@
                     name: 'Blessed Greatsword',
                     maxSkill: 260,
                     attack: 1662,
-                    colValue: null,
+                    colValue: 75400,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1458,7 +1482,7 @@
                     name: 'Der Zerstorer',
                     maxSkill: 270,
                     attack: 1751,
-                    colValue: null,
+                    colValue: 78300,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: '«Young Celestia»'
@@ -1468,9 +1492,9 @@
                     name: 'Gigas Soul',
                     maxSkill: 280,
                     attack: 2208,
-                    colValue: null,
-                    resaleAmount: '',
-                    resaleAmountVM: '',
+                    colValue: 81200,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
                     howToObtain: 'Blacksmithing: Legendary Tier'
                 },
                 {
@@ -1478,7 +1502,7 @@
                     name: 'Rugged Greatsword',
                     maxSkill: 290,
                     attack: 1930,
-                    colValue: null,
+                    colValue: 84100,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Werewolf'
@@ -1488,7 +1512,7 @@
                     name: 'Sweet Buster',
                     maxSkill: 305,
                     attack: 2068,
-                    colValue: null,
+                    colValue: 88392,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 17 Shop'
@@ -1498,7 +1522,7 @@
                     name: 'Candy Halberd',
                     maxSkill: 310,
                     attack: 2115,
-                    colValue: null,
+                    colValue: 89900,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Chubby Dragon'
@@ -1508,7 +1532,7 @@
                     name: 'Giant Hammer',
                     maxSkill: 312,
                     attack: 2134,
-                    colValue: null,
+                    colValue: 90480,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: '«Two-Headed Giant»'
@@ -1528,7 +1552,7 @@
                     name: 'Executioner Buster',
                     maxSkill: 330,
                     attack: 2304,
-                    colValue: null,
+                    colValue: 95700,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 18 Squid Game Dungeon Merchant'
@@ -1538,33 +1562,23 @@
                     name: 'Cinnamon Sword',
                     maxSkill: 335,
                     attack: 2532,
-                    colValue: null,
+                    colValue: 97062,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
                 },
                 {
                     id: 57,
-                    name: 'Gamebreaker Greatsword',
-                    maxSkill: 337,
-                    attack: 2371,
-                    colValue: null,
-                    resaleAmount: '',
-                    resaleAmountVM: '',
-                    howToObtain: '«The Arbitrator»'
-                },
-                {
-                    id: 58,
                     name: 'Zurandal',
                     maxSkill: 340,
                     attack: 2880,
-                    colValue: null,
-                    resaleAmount: '',
-                    resaleAmountVM: '',
+                    colValue: 98600,
+                    resaleAmount: 'cannot be sold',
+                    resaleAmountVM: 'cannot be sold',
                     howToObtain: 'Blacksmithing: Legendary Tier'
                 },
                 {
-                    id: 59,
+                    id: 58,
                     name: 'Obsidian Breaker',
                     maxSkill: 375,
                     attack: 2745,
@@ -1574,7 +1588,7 @@
                     howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
                 },
                 {
-                    id: 60,
+                    id: 59,
                     name: 'Finale',
                     maxSkill: 395,
                     attack: 2947,
@@ -1591,7 +1605,7 @@
                     name: 'Iron Rapier ',
                     maxSkill: 1,
                     attack: 2.6,
-                    colValue: null,
+                    colValue: 231,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Starter, Floor 1 shop'
@@ -1601,7 +1615,7 @@
                     name: 'Steel Rapier',
                     maxSkill: 5,
                     attack: 7.6,
-                    colValue: null,
+                    colValue: 1392,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 1 Shop, Floor 2 Shop'
@@ -1611,7 +1625,7 @@
                     name: 'Noble Rapier',
                     maxSkill: 10,
                     attack: 15.6,
-                    colValue: null,
+                    colValue: 2900,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing, Floor 1 Shop, Floor 2 Shop'
@@ -1621,7 +1635,7 @@
                     name: 'Noble Rapier Mk II',
                     maxSkill: 13,
                     attack: 20,
-                    colValue: null,
+                    colValue: 3711,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1631,7 +1645,7 @@
                     name: 'GrandMaster Steel Rapier',
                     maxSkill: 16,
                     attack: 26,
-                    colValue: null,
+                    colValue: 4292,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Corrupted Sentinel'
@@ -1641,7 +1655,7 @@
                     name: 'GrandMaster Steel Rapier Mk II',
                     maxSkill: 18,
                     attack: 31,
-                    colValue: null,
+                    colValue: 5220,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1651,7 +1665,7 @@
                     name: 'Corruption Stinger',
                     maxSkill: 20,
                     attack: 36,
-                    colValue: null,
+                    colValue: 5800,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Blacksmithing'
@@ -1661,7 +1675,7 @@
                     name: 'Tree Branch Rapier',
                     maxSkill: 26,
                     attack: 51,
-                    colValue: null,
+                    colValue: 7539,
                     resaleAmount: '',
                     resaleAmountVM: '',
                     howToObtain: 'Floor 2 Shop'
