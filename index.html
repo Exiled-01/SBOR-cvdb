@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2510,9 +2511,33 @@
         const allWeapons = Object.values(weapons).flat();
         let filteredWeapons = [...allWeapons];
         let currentCategory = 'all';
-        
-        // Use in-memory storage instead of localStorage
+
+        // Use localStorage for persistent storage
         let ownedWeapons = new Set();
+
+        // Load owned weapons from localStorage on page load
+        function loadOwnedWeapons() {
+            try {
+                const stored = localStorage.getItem('sbor-owned-weapons');
+                if (stored) {
+                    const weaponArray = JSON.parse(stored);
+                    ownedWeapons = new Set(weaponArray);
+                }
+            } catch (error) {
+                console.warn('Could not load owned weapons from localStorage:', error);
+                ownedWeapons = new Set();
+            }
+        }
+
+        // Save owned weapons to localStorage
+        function saveOwnedWeapons() {
+            try {
+                const weaponArray = Array.from(ownedWeapons);
+                localStorage.setItem('sbor-owned-weapons', JSON.stringify(weaponArray));
+            } catch (error) {
+                console.warn('Could not save owned weapons to localStorage:', error);
+            }
+        }
 
         // Helper functions
         function updateOwnedWeaponsCount() {
@@ -2525,6 +2550,7 @@
             } else {
                 ownedWeapons.delete(name);
             }
+            saveOwnedWeapons();
             updateOwnedWeaponsCount();
         }
 
@@ -2534,19 +2560,19 @@
 
         function renderWeaponRow(weapon) {
             const tr = document.createElement("tr");
-            
+
             // Checkbox cell
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.className = "weapon-checkbox";
             checkbox.checked = ownedWeapons.has(weapon.name);
-            checkbox.onchange = () => toggleWeaponOwnership(weapon.name, checkbox);
-            
+            checkbox.addEventListener('change', () => toggleWeaponOwnership(weapon.name, checkbox));
+
             const checkboxCell = document.createElement("td");
             checkboxCell.className = "checkbox-cell";
             checkboxCell.appendChild(checkbox);
             tr.appendChild(checkboxCell);
-            
+
             // Name cell with wiki link
             const nameCell = document.createElement("td");
             const link = document.createElement("a");
@@ -2556,40 +2582,41 @@
             link.target = "_blank";
             nameCell.appendChild(link);
             tr.appendChild(nameCell);
-            
+
             // Other cells
             const maxSkillCell = document.createElement("td");
             maxSkillCell.textContent = weapon.maxSkill || "";
             tr.appendChild(maxSkillCell);
-            
+
             const attackCell = document.createElement("td");
             attackCell.textContent = weapon.attack || "";
             tr.appendChild(attackCell);
-            
+
             const colValueCell = document.createElement("td");
             const colValueSpan = document.createElement("span");
             colValueSpan.className = "col-value " + (weapon.colValue === null ? "missing" : "completed");
             colValueSpan.textContent = weapon.colValue === null ? "TBD" : weapon.colValue;
             colValueCell.appendChild(colValueSpan);
             tr.appendChild(colValueCell);
-            
+
             const resaleCell = document.createElement("td");
             resaleCell.className = "resale-amount";
             resaleCell.textContent = weapon.resaleAmount || "-";
             tr.appendChild(resaleCell);
-            
+
             const obtainCell = document.createElement("td");
             obtainCell.className = "how-to-obtain";
             obtainCell.title = weapon.howToObtain || "";
             obtainCell.textContent = weapon.howToObtain || "";
             tr.appendChild(obtainCell);
-            
+
             return tr;
         }
 
         function renderTable() {
             const tbody = document.getElementById("weapon-table");
             tbody.innerHTML = "";
+
             filteredWeapons.forEach(weapon => {
                 tbody.appendChild(renderWeaponRow(weapon));
             });
@@ -2598,25 +2625,25 @@
         function updateStats() {
             const completedWeapons = allWeapons.filter(weapon => weapon.colValue !== null).length;
             const completionPercentage = allWeapons.length > 0 ? Math.round((completedWeapons / allWeapons.length) * 100) : 0;
-            
+
             document.getElementById("progress-value").textContent = `${completedWeapons}/${allWeapons.length}`;
             document.getElementById("completion-percentage").textContent = `${completionPercentage}%`;
         }
 
         function filterWeapons(searchTerm = "", category = "all") {
             let weaponList = category === "all" ? allWeapons : (weapons[category] || []);
-            
-            filteredWeapons = weaponList.filter(weapon => 
+
+            filteredWeapons = weaponList.filter(weapon =>
                 weapon.name.toLowerCase().includes(searchTerm.toLowerCase())
             ).sort((a, b) => {
                 const aValue = a.colValue ?? Number.MAX_SAFE_INTEGER;
                 const bValue = b.colValue ?? Number.MAX_SAFE_INTEGER;
                 return aValue - bValue;
             });
-            
+
             const categoryName = category === "all" ? "All Weapons" : category;
             document.getElementById("table-title").textContent = `${categoryName} (${filteredWeapons.length} weapons)`;
-            
+
             renderTable();
         }
 
@@ -2630,19 +2657,21 @@
                 const resale = `"${weapon.resaleAmount || ""}"`;
                 const howToObtain = `"${weapon.howToObtain || ""}"`;
                 const wikiLink = `"${wikiUrl(weapon.name)}"`;
-                
+
                 return `${name},${maxSkill},${attack},${colValue},${resale},${howToObtain},${wikiLink}`;
             }).join("\n");
-            
+
             const csvContent = csvHeader + csvRows;
-            const blob = new Blob([csvContent], { type: "text/csv" });
+            const blob = new Blob([csvContent], {
+                type: "text/csv"
+            });
             const url = URL.createObjectURL(blob);
-            
+
             const link = document.createElement("a");
             link.href = url;
             link.download = "sbor_weapon_col_values.csv";
             link.click();
-            
+
             URL.revokeObjectURL(url);
         }
 
@@ -2659,9 +2688,13 @@
         document.getElementById("export-button").addEventListener("click", exportData);
 
         // Initialize the application
+        console.log(`Total weapons loaded: ${allWeapons.length}`);
+        loadOwnedWeapons();
+        console.log(`Owned weapons loaded: ${ownedWeapons.size}`);
         updateStats();
         filterWeapons();
         updateOwnedWeaponsCount();
     </script>
 </body>
+
 </html>
