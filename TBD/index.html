@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Previous head section remains the same -->
+
+<head>
+    <!-- ... (keep existing head content) ... -->
+    <style>
+        /* Add these new styles to your existing CSS */
+        .checkbox-cell {
+            width: 40px;
+            text-align: center;
+        }
+        
+        .weapon-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        /* Add a new stat card for owned weapons */
+        .stat-card.owned {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+        }
+        
+        /* Existing styles remain the same */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main-card">
+            <h1 class="title">SBOR Weapon Col Value Database</h1>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card progress">
+                    <h3 class="stat-title">Index Progress</h3>
+                    <p class="stat-value" id="progress-value">61/64</p>
+                    <p class="stat-subtitle">Col values indexed</p>
+                </div>
+                <div class="stat-card completion">
+                    <h3 class="stat-title">Database Complete</h3>
+                    <p class="stat-value" id="completion-percentage">95%</p>
+                    <p class="stat-subtitle">of entries filled out</p>
+                </div>
+                <div class="stat-card owned">
+                    <h3 class="stat-title">Weapons Owned</h3>
+                    <p class="stat-value" id="owned-weapons">0/64</p>
+                    <p class="stat-subtitle">weapons in collection</p>
+                </div>
+            </div>
+
+            <!-- Rest of the existing controls section -->
+
+            <!-- Updated table structure -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title" id="table-title">All Weapons (64 weapons)</h3>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="checkbox-cell">Own</th>
+                                <th>Weapon Name</th>
+                                <th>Max Skill</th>
+                                <th>Attack</th>
+                                <th>Col Value (Worth)</th>
+                                <th>Resale Amount</th>
+                                <th>How to Obtain</th>
+                            </tr>
+                        </thead>
+                        <tbody id="weapon-table">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Instructions section updated -->
+            <div class="instructions">
+                <h3>How to Use This Database:</h3>
+                <ul>
+                    <li><strong>Check the boxes</strong> next to weapons you own to track your collection</li>
+                    <li><strong>Click weapon names</strong> to visit their wiki pages at swordbloxonlinerebirth.fandom.com</li>
+                    <li><strong>Use the category filter</strong> to view specific weapon types</li>
+                    <li><strong>Look for "Worth"</strong> in the weapon's stats table to find Col values</li>
+                    <li><strong>Red "TBD"</strong> means the Col value still needs to be indexed</li>
+                    <li><strong>Green numbers</strong> show completed Col value entries</li>
+                    <li><strong>Use the search</strong> to quickly find specific weapons</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Existing weapons data object remains the same
+        const weapons = {
+            // ... (keep existing weapons data) ...
+        };
+
+        // Add these new functions for checkbox functionality
+        let ownedWeapons = new Set(JSON.parse(localStorage.getItem('ownedWeapons')) || []);
+
+        function updateOwnedWeaponsCount() {
+            const totalWeapons = Object.values(weapons).reduce((acc, category) => acc + category.length, 0);
+            document.getElementById('owned-weapons').textContent = `${ownedWeapons.size}/${totalWeapons}`;
+        }
+
+        function toggleWeaponOwnership(weaponName, checkbox) {
+            if (checkbox.checked) {
+                ownedWeapons.add(weaponName);
+            } else {
+                ownedWeapons.delete(weaponName);
+            }
+            localStorage.setItem('ownedWeapons', JSON.stringify([...ownedWeapons]));
+            updateOwnedWeaponsCount();
+        }
+
+        function renderWeaponRow(weapon) {
+            const row = document.createElement('tr');
+            
+            // Add checkbox cell
+            const checkboxCell = document.createElement('td');
+            checkboxCell.className = 'checkbox-cell';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'weapon-checkbox';
+            checkbox.checked = ownedWeapons.has(weapon.name);
+            checkbox.addEventListener('change', () => toggleWeaponOwnership(weapon.name, checkbox));
+            checkboxCell.appendChild(checkbox);
+            row.appendChild(checkboxCell);
+
+            // Add weapon name cell
+            const nameCell = document.createElement('td');
+            const nameLink = document.createElement('a');
+            nameLink.href = `https://swordbloxonlinerebirth.fandom.com/wiki/${weapon.name.replace(/ /g, '_')}`;
+            nameLink.className = 'sword-name';
+            nameLink.textContent = weapon.name;
+            nameLink.target = '_blank';
+            nameCell.appendChild(nameLink);
+            row.appendChild(nameCell);
+
+            // Add other cells
+            row.appendChild(createCell(weapon.maxSkill));
+            row.appendChild(createCell(weapon.attack));
+            row.appendChild(createCell(weapon.colValue || 'TBD', weapon.colValue ? 'completed' : 'missing'));
+            row.appendChild(createCell(weapon.resaleAmount || 'TBD'));
+            row.appendChild(createCell(weapon.howToObtain, 'how-to-obtain'));
+
+            return row;
+        }
+
+        function createCell(content, className = '') {
+            const cell = document.createElement('td');
+            cell.textContent = content;
+            if (className) cell.className = className;
+            return cell;
+        }
+
+        // Update the display function
+        function displayWeapons(category = 'all') {
+            const table = document.getElementById('weapon-table');
+            table.innerHTML = '';
+            
+            let displayedWeapons;
+            if (category === 'all') {
+                displayedWeapons = Object.values(weapons).flat();
+            } else {
+                displayedWeapons = weapons[category] || [];
+            }
+            
+            displayedWeapons.forEach(weapon => {
+                table.appendChild(renderWeaponRow(weapon));
+            });
+            
+            document.getElementById('table-title').textContent = 
+                `${category === 'all' ? 'All Weapons' : category} (${displayedWeapons.length} weapons)`;
+            
+            updateOwnedWeaponsCount();
+        }
+
+        // Initialize the display
+        document.addEventListener('DOMContentLoaded', () => {
+            displayWeapons();
+            
+            // Add event listener for category filter
+            document.getElementById('category-filter').addEventListener('change', (e) => {
+                displayWeapons(e.target.value);
+            });
+            
+            // Add event listener for search
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const category = document.getElementById('category-filter').value;
+                
+                const table = document.getElementById('weapon-table');
+                table.innerHTML = '';
+                
+                let displayedWeapons;
+                if (category === 'all') {
+                    displayedWeapons = Object.values(weapons).flat();
+                } else {
+                    displayedWeapons = weapons[category] || [];
+                }
+                
+                displayedWeapons
+                    .filter(weapon => weapon.name.toLowerCase().includes(searchTerm))
+                    .forEach(weapon => {
+                        table.appendChild(renderWeaponRow(weapon));
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
