@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,7 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
             background: linear-gradient(135deg, #f0f8ff 0%, #f3f0ff 100%);
             min-height: 100vh;
             padding: 24px;
@@ -27,7 +26,8 @@
         .main-card {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
             padding: 32px;
         }
 
@@ -59,6 +59,10 @@
 
         .stat-card.completion {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .stat-card.owned {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
         }
 
         .stat-title {
@@ -254,27 +258,15 @@
             font-weight: 600;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 12px;
-            }
+        .checkbox-cell {
+            width: 40px;
+            text-align: center;
+        }
 
-            .main-card {
-                padding: 20px;
-            }
-
-            .title {
-                font-size: 24px;
-            }
-
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-container {
-                min-width: auto;
-            }
+        .weapon-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -288,13 +280,18 @@
             <div class="stats-grid">
                 <div class="stat-card progress">
                     <h3 class="stat-title">Index Progress</h3>
-                    <p class="stat-value" id="progress-value">61/64</p>
+                    <p class="stat-value" id="progress-value">0/0</p>
                     <p class="stat-subtitle">Col values indexed</p>
                 </div>
                 <div class="stat-card completion">
                     <h3 class="stat-title">Database Complete</h3>
-                    <p class="stat-value" id="completion-percentage">95%</p>
+                    <p class="stat-value" id="completion-percentage">0%</p>
                     <p class="stat-subtitle">of entries filled out</p>
+                </div>
+                <div class="stat-card owned">
+                    <h3 class="stat-title">Weapons Owned</h3>
+                    <p class="stat-value" id="owned-weapons">0/0</p>
+                    <p class="stat-subtitle">weapons in collection</p>
                 </div>
             </div>
 
@@ -302,7 +299,7 @@
             <div class="controls">
                 <div class="search-container">
                     <span class="search-icon"></span>
-                    <input type="text" id="search-input" class="search-input" placeholder="Search weapons...">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search weapons..." />
                 </div>
 
                 <select id="category-filter" class="export-btn" style="padding: 8px 16px; margin-right: 8px;">
@@ -314,21 +311,20 @@
                     <option value="melee">Melee</option>
                 </select>
 
-                <button class="export-btn" id="export-button">
-                    📥 Export CSV
-                </button>
+                <button class="export-btn" id="export-button">📥 Export CSV</button>
             </div>
 
             <!-- Data Table -->
             <div class="table-container">
                 <div class="table-header">
-                    <h3 class="table-title" id="table-title">All Weapons (64 weapons)</h3>
+                    <h3 class="table-title" id="table-title">All Weapons</h3>
                 </div>
 
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
+                                <th class="checkbox-cell">Own</th>
                                 <th>Weapon Name</th>
                                 <th>Max Skill</th>
                                 <th>Attack</th>
@@ -337,8 +333,7 @@
                                 <th>How to Obtain</th>
                             </tr>
                         </thead>
-                        <tbody id="weapon-table">
-                        </tbody>
+                        <tbody id="weapon-table"></tbody>
                     </table>
                 </div>
             </div>
@@ -347,9 +342,9 @@
             <div class="instructions">
                 <h3>How to Use This Database:</h3>
                 <ul>
-                    <li><strong>Click weapon names</strong> to visit their wiki pages at swordbloxonlinerebirth.fandom.com</li>
+                    <li><strong>Check the boxes</strong> next to weapons you own to track your collection</li>
+                    <li><strong>Click weapon names</strong> to visit their wiki pages</li>
                     <li><strong>Use the category filter</strong> to view specific weapon types</li>
-                    <li><strong>Look for "Worth"</strong> in the weapon's stats table to find Col values</li>
                     <li><strong>Red "TBD"</strong> means the Col value still needs to be indexed</li>
                     <li><strong>Green numbers</strong> show completed Col value entries</li>
                     <li><strong>Use the search</strong> to quickly find specific weapons</li>
@@ -358,7 +353,7 @@
         </div>
     </div>
 
-    <script>
+      <script>
         const weapons = {
             'one-handed': [{
                     id: 1,
@@ -2511,114 +2506,162 @@
 
         };
 
-        // Flatten all weapons into a single array
+        // Flatten all weapons into single array
         const allWeapons = Object.values(weapons).flat();
         let filteredWeapons = [...allWeapons];
         let currentCategory = 'all';
+        
+        // Use in-memory storage instead of localStorage
+        let ownedWeapons = new Set();
 
-        function generateWikiUrl(weaponName) {
-            const formattedName = weaponName.replace(/ /g, '_');
-            return `https://swordbloxonlinerebirth.fandom.com/wiki/${formattedName}`;
+        // Helper functions
+        function updateOwnedWeaponsCount() {
+            document.getElementById('owned-weapons').textContent = `${ownedWeapons.size}/${allWeapons.length}`;
+        }
+
+        function toggleWeaponOwnership(name, checkbox) {
+            if (checkbox.checked) {
+                ownedWeapons.add(name);
+            } else {
+                ownedWeapons.delete(name);
+            }
+            updateOwnedWeaponsCount();
+        }
+
+        function wikiUrl(name) {
+            return "https://swordbloxonlinerebirth.fandom.com/wiki/" + name.replace(/ /g, "_");
+        }
+
+        function renderWeaponRow(weapon) {
+            const tr = document.createElement("tr");
+            
+            // Checkbox cell
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "weapon-checkbox";
+            checkbox.checked = ownedWeapons.has(weapon.name);
+            checkbox.onchange = () => toggleWeaponOwnership(weapon.name, checkbox);
+            
+            const checkboxCell = document.createElement("td");
+            checkboxCell.className = "checkbox-cell";
+            checkboxCell.appendChild(checkbox);
+            tr.appendChild(checkboxCell);
+            
+            // Name cell with wiki link
+            const nameCell = document.createElement("td");
+            const link = document.createElement("a");
+            link.href = wikiUrl(weapon.name);
+            link.textContent = weapon.name;
+            link.className = "sword-name";
+            link.target = "_blank";
+            nameCell.appendChild(link);
+            tr.appendChild(nameCell);
+            
+            // Other cells
+            const maxSkillCell = document.createElement("td");
+            maxSkillCell.textContent = weapon.maxSkill || "";
+            tr.appendChild(maxSkillCell);
+            
+            const attackCell = document.createElement("td");
+            attackCell.textContent = weapon.attack || "";
+            tr.appendChild(attackCell);
+            
+            const colValueCell = document.createElement("td");
+            const colValueSpan = document.createElement("span");
+            colValueSpan.className = "col-value " + (weapon.colValue === null ? "missing" : "completed");
+            colValueSpan.textContent = weapon.colValue === null ? "TBD" : weapon.colValue;
+            colValueCell.appendChild(colValueSpan);
+            tr.appendChild(colValueCell);
+            
+            const resaleCell = document.createElement("td");
+            resaleCell.className = "resale-amount";
+            resaleCell.textContent = weapon.resaleAmount || "-";
+            tr.appendChild(resaleCell);
+            
+            const obtainCell = document.createElement("td");
+            obtainCell.className = "how-to-obtain";
+            obtainCell.title = weapon.howToObtain || "";
+            obtainCell.textContent = weapon.howToObtain || "";
+            tr.appendChild(obtainCell);
+            
+            return tr;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById("weapon-table");
+            tbody.innerHTML = "";
+            filteredWeapons.forEach(weapon => {
+                tbody.appendChild(renderWeaponRow(weapon));
+            });
         }
 
         function updateStats() {
             const completedWeapons = allWeapons.filter(weapon => weapon.colValue !== null).length;
-            const percentage = Math.round((completedWeapons / allWeapons.length) * 100);
-
-            document.getElementById('progress-value').textContent = `${completedWeapons}/${allWeapons.length}`;
-            document.getElementById('completion-percentage').textContent = `${percentage}%`;
+            const completionPercentage = allWeapons.length > 0 ? Math.round((completedWeapons / allWeapons.length) * 100) : 0;
+            
+            document.getElementById("progress-value").textContent = `${completedWeapons}/${allWeapons.length}`;
+            document.getElementById("completion-percentage").textContent = `${completionPercentage}%`;
         }
 
-        function filterWeapons(searchTerm, category = 'all') {
-            let weaponsToFilter = category === 'all' ? allWeapons : weapons[category] || [];
-
-            filteredWeapons = weaponsToFilter.filter(weapon =>
+        function filterWeapons(searchTerm = "", category = "all") {
+            let weaponList = category === "all" ? allWeapons : (weapons[category] || []);
+            
+            filteredWeapons = weaponList.filter(weapon => 
                 weapon.name.toLowerCase().includes(searchTerm.toLowerCase())
             ).sort((a, b) => {
-                if (a.colValue === null && b.colValue === null) return 0;
-                if (a.colValue === null) return 1;
-                if (b.colValue === null) return -1;
-                return a.colValue - b.colValue;
+                const aValue = a.colValue ?? Number.MAX_SAFE_INTEGER;
+                const bValue = b.colValue ?? Number.MAX_SAFE_INTEGER;
+                return aValue - bValue;
             });
-
-            const categoryText = category === 'all' ? 'All Weapons' :
-                category === 'one-handed' ? 'One-Handed' :
-                category === 'two-handed' ? 'Two-Handed' :
-                category.charAt(0).toUpperCase() + category.slice(1);
-
-            document.getElementById('table-title').textContent = `${categoryText} (${filteredWeapons.length} weapons)`;
+            
+            const categoryName = category === "all" ? "All Weapons" : category;
+            document.getElementById("table-title").textContent = `${categoryName} (${filteredWeapons.length} weapons)`;
+            
             renderTable();
         }
 
-        function renderTable() {
-            const tbody = document.getElementById('weapon-table');
-            tbody.innerHTML = '';
-
-            filteredWeapons.forEach(weapon => {
-                const row = document.createElement('tr');
-                const wikiUrl = generateWikiUrl(weapon.name);
-
-                row.innerHTML = `
-                    <td>
-                        <a href="${wikiUrl}" target="_blank" rel="noopener noreferrer" class="sword-name">
-                            ${weapon.name}
-                        </a>
-                    </td>
-                    <td>${weapon.maxSkill}</td>
-                    <td>${weapon.attack}</td>
-                    <td>
-                        <span class="col-value ${weapon.colValue === null ? 'missing' : 'completed'}">
-                            ${weapon.colValue === null ? 'TBD' : weapon.colValue.toLocaleString()}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="resale-amount">${weapon.resaleAmount || '-'}</span>
-                    </td>
-                    <td class="how-to-obtain" title="${weapon.howToObtain}">
-                        ${weapon.howToObtain}
-                    </td>
-                `;
-
-                tbody.appendChild(row);
-            });
-        }
-
         function exportData() {
-            const csvContent = 'Weapon Name,Max Skill,Attack,Col Value (Worth),Resale Amount,How to Obtain,Wiki URL\n' +
-                allWeapons.map(weapon =>
-                    `"${weapon.name}",${weapon.maxSkill},${weapon.attack},${weapon.colValue || 'TBD'},"${weapon.resaleAmount}","${weapon.howToObtain}","${generateWikiUrl(weapon.name)}"`
-                ).join('\n');
-
-            const blob = new Blob([csvContent], {
-                type: 'text/csv'
-            });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'sbor_weapon_col_values.csv';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
+            const csvHeader = "Weapon Name,Max Skill,Attack,Col Value,Resale,How to Obtain,Wiki URL\n";
+            const csvRows = allWeapons.map(weapon => {
+                const name = `"${weapon.name}"`;
+                const maxSkill = weapon.maxSkill || "";
+                const attack = weapon.attack || "";
+                const colValue = weapon.colValue ?? "TBD";
+                const resale = `"${weapon.resaleAmount || ""}"`;
+                const howToObtain = `"${weapon.howToObtain || ""}"`;
+                const wikiLink = `"${wikiUrl(weapon.name)}"`;
+                
+                return `${name},${maxSkill},${attack},${colValue},${resale},${howToObtain},${wikiLink}`;
+            }).join("\n");
+            
+            const csvContent = csvHeader + csvRows;
+            const blob = new Blob([csvContent], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "sbor_weapon_col_values.csv";
+            link.click();
+            
+            URL.revokeObjectURL(url);
         }
 
         // Event listeners
-        document.getElementById('search-input').addEventListener('input', function(e) {
+        document.getElementById("search-input").addEventListener("input", (e) => {
             filterWeapons(e.target.value, currentCategory);
         });
 
-        document.getElementById('category-filter').addEventListener('change', function(e) {
+        document.getElementById("category-filter").addEventListener("change", (e) => {
             currentCategory = e.target.value;
-            const searchTerm = document.getElementById('search-input').value;
-            filterWeapons(searchTerm, currentCategory);
+            filterWeapons(document.getElementById("search-input").value, currentCategory);
         });
 
-        document.getElementById('export-button').addEventListener('click', exportData);
+        document.getElementById("export-button").addEventListener("click", exportData);
 
-        // Initialize the app
+        // Initialize the application
         updateStats();
-        filterWeapons('', 'all');
+        filterWeapons();
+        updateOwnedWeaponsCount();
     </script>
 </body>
-
 </html>
