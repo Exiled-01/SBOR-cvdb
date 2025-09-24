@@ -636,6 +636,287 @@
                     resaleAmount: '14660',
                     resaleAmountVM: '18270',
                     howToObtain: 'Lizard'
+                <script>
+        const weapons = {
+            'one-handed': [{
+                    id: 1,
+                    name: 'Beginner Sword',
+                    maxSkill: 1,
+                    attack: 3.4,
+                    colValue: 231,
+                    resaleAmount: '80',
+                    resaleAmountVM: '103',
+                    howToObtain: 'Starter Inventory, Floor 1 shop'
+                },
+                {
+                    id: 2,
+                    name: 'Iron Sword',
+                    maxSkill: 1,
+                    attack: 3.4,
+                    colValue: 231,
+                    resaleAmount: '80',
+                    resaleAmountVM: '103',
+                    howToObtain: 'Floor 1 Shop'
+                },
+                {
+                    id: 3,
+                    name: 'Steel Sword',
+                    maxSkill: 5,
+                    attack: 8.4,
+                    colValue: 1392,
+                    resaleAmount: '487',
+                    resaleAmountVM: '626',
+                    howToObtain: 'Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 4,
+                    name: 'Master Steel Sword',
+                    maxSkill: 10,
+                    attack: 17.4,
+                    colValue: 2900,
+                    resaleAmount: '1014',
+                    resaleAmountVM: '1305',
+                    howToObtain: 'Blacksmithing, Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 5,
+                    name: 'Master Steel Sword Mk II',
+                    maxSkill: 13,
+                    attack: 23,
+                    colValue: 3711,
+                    resaleAmount: '1298',
+                    resaleAmountVM: '1669',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 6,
+                    name: 'GrandMaster Steel Blade',
+                    maxSkill: 16,
+                    attack: 30,
+                    colValue: 4640,
+                    resaleAmount: '1624',
+                    resaleAmountVM: '2088',
+                    howToObtain: 'Kobold Sentinel'
+                },
+                {
+                    id: 7,
+                    name: 'GrandMaster Steel Blade Mk II',
+                    maxSkill: 18,
+                    attack: 35,
+                    colValue: 5220,
+                    resaleAmount: '1298',
+                    resaleAmountVM: '2349',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 8,
+                    name: 'Corruption Slicer',
+                    maxSkill: 20,
+                    attack: 41,
+                    colValue: 5800,
+                    resaleAmount: '2029',
+                    resaleAmountVM: '2610',
+                    howToObtain: 'Quest #8 Reward'
+                },
+                {
+                    id: 9,
+                    name: 'Basin Broadsword',
+                    maxSkill: 26,
+                    attack: 58,
+                    colValue: 7539,
+                    resaleAmount: '2638',
+                    resaleAmountVM: '3392',
+                    howToObtain: 'Floor 2 Shop, Floor 3 Shop'
+                },
+                {
+                    id: 10,
+                    name: 'Glade Blade',
+                    maxSkill: 30,
+                    attack: 70,
+                    colValue: 8700,
+                    resaleAmount: '3045',
+                    resaleAmountVM: '3915',
+                    howToObtain: 'Snail'
+                },
+                {
+                    id: 11,
+                    name: 'GrandMaster Steel Blade Mk III',
+                    maxSkill: 35,
+                    attack: 86,
+                    colValue: 10092,
+                    resaleAmount: '3532',
+                    resaleAmountVM: '4541',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 12,
+                    name: 'Scimitar',
+                    maxSkill: 45,
+                    attack: 121,
+                    colValue: 12992,
+                    resaleAmount: '4547',
+                    resaleAmountVM: '5846',
+                    howToObtain: 'Floor 4 Shop'
+                },
+                {
+                    id: 13,
+                    name: 'Neko Slayer',
+                    maxSkill: 50,
+                    attack: 140,
+                    colValue: 14499,
+                    resaleAmount: '5074',
+                    resaleAmountVM: '6524',
+                    howToObtain: 'Scorpion'
+                },
+                {
+                    id: 14,
+                    name: 'Malachite Blade',
+                    maxSkill: 55,
+                    attack: 159,
+                    colValue: 15891,
+                    resaleAmount: '5561',
+                    resaleAmountVM: '7150',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 15,
+                    name: 'Mirror Blade',
+                    maxSkill: 65,
+                    attack: 200,
+                    colValue: 18792,
+                    resaleAmount: '6577',
+                    resaleAmountVM: '8456',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 16,
+                    name: 'Blade of Ice',
+                    maxSkill: 70,
+                    attack: 221,
+                    colValue: 20300,
+                    resaleAmount: '7105',
+                    resaleAmountVM: '9135',
+                    howToObtain: 'White Baby Wyrm'
+                },
+                {
+                    id: 17,
+                    name: 'Sandstorm Blade',
+                    maxSkill: 75,
+                    attack: 243,
+                    colValue: 21692,
+                    resaleAmount: '7592',
+                    resaleAmountVM: '9761',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 18,
+                    name: 'Dark Steel Blade',
+                    maxSkill: 85,
+                    attack: 288,
+                    colValue: 24592,
+                    resaleAmount: '8607',
+                    resaleAmountVM: '11066',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 19,
+                    name: 'Dark Repulser',
+                    maxSkill: 90,
+                    attack: 312,
+                    colValue: 26100,
+                    resaleAmount: '9135',
+                    resaleAmountVM: '11745',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 20,
+                    name: 'Volcanic Blade',
+                    maxSkill: 90,
+                    attack: 312,
+                    colValue: 26100,
+                    resaleAmount: '9135',
+                    resaleAmountVM: '11745',
+                    howToObtain: 'Bloodsilk Spider'
+                },
+                {
+                    id: 21,
+                    name: 'Permafrost Sword',
+                    maxSkill: 95,
+                    attack: 336,
+                    colValue: 27491,
+                    resaleAmount: '9621',
+                    resaleAmountVM: '12370',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 22,
+                    name: 'Chimera',
+                    maxSkill: 105,
+                    attack: 385,
+                    colValue: 30391,
+                    resaleAmount: '10636',
+                    resaleAmountVM: '13675',
+                    howToObtain: 'Floor 7 Shop'
+                },
+                {
+                    id: 23,
+                    name: 'Gran',
+                    maxSkill: 110,
+                    attack: 410,
+                    colValue: 31899,
+                    resaleAmount: '11164',
+                    resaleAmountVM: '14354',
+                    howToObtain: 'Magic Shroom'
+                },
+                {
+                    id: 24,
+                    name: 'Demonic Blade',
+                    maxSkill: 115,
+                    attack: 436,
+                    colValue: 33292,
+                    resaleAmount: '11652',
+                    resaleAmountVM: '14981',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 25,
+                    name: 'Shadow Eater',
+                    maxSkill: 125,
+                    attack: 488,
+                    colValue: 36192,
+                    resaleAmount: '12667',
+                    resaleAmountVM: '16286',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 26,
+                    name: 'The Green Flame Sword',
+                    maxSkill: 132,
+                    attack: 526,
+                    colValue: 38280,
+                    resaleAmount: '13398',
+                    resaleAmountVM: '17226',
+                    howToObtain: '«Storm Atronach»'
+                },
+                {
+                    id: 27,
+                    name: 'Ancient Warrior',
+                    maxSkill: 135,
+                    attack: 542,
+                    colValue: 39092,
+                    resaleAmount: '13682',
+                    resaleAmountVM: '17591',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 28,
+                    name: 'Shadow Guardian',
+                    maxSkill: 140,
+                    attack: 570,
+                    colValue: 40600,
+                    resaleAmount: '14660',
+                    resaleAmountVM: '18270',
+                    howToObtain: 'Lizard'
                 },
                 {
                     id: 29,
@@ -904,8 +1185,8 @@
                     maxSkill: 270,
                     attack: 1400,
                     colValue: 78300,
-                    resaleAmount: '',
-                    resaleAmountVM: '',
+                    resaleAmount: '27405',
+                    resaleAmountVM: '35235',
                     howToObtain: '«Young Celestia»'
                 },
                 {
@@ -925,7 +1206,7 @@
                     maxSkill: 290,
                     attack: 1544,
                     colValue: 84100,
-                    resaleAmount: '',
+                    resaleAmount: '29434',
                     resaleAmountVM: '37845',
                     howToObtain: 'Orc'
                 },
@@ -935,7 +1216,7 @@
                     maxSkill: 305,
                     attack: 1655,
                     colValue: 88392,
-                    resaleAmount: '',
+                    resaleAmount: '30937',
                     resaleAmountVM: '39776',
                     howToObtain: 'Floor 17 Shop'
                 },
@@ -945,7 +1226,7 @@
                     maxSkill: 310,
                     attack: 1692,
                     colValue: 89900,
-                    resaleAmount: '',
+                    resaleAmount: '31464',
                     resaleAmountVM: '40455',
                     howToObtain: 'Candy Soldier'
                 },
@@ -955,7 +1236,7 @@
                     maxSkill: 311,
                     attack: 1699,
                     colValue: 90132,
-                    resaleAmount: '',
+                    resaleAmount: '31546',
                     resaleAmountVM: '40559',
                     howToObtain: 'Leader Goblin'
                 },
@@ -965,7 +1246,8 @@
                     maxSkill: 325,
                     attack: 1805,
                     colValue: null,
-                    resaleAmount: '42386',
+                    resaleAmount: '32967',
+		            resaleAmountVM: '42386',
                     howToObtain: 'Slugger Street Thug'
                 },
                 {
@@ -974,7 +1256,7 @@
                     maxSkill: 330,
                     attack: 1843,
                     colValue: 95700,
-                    resaleAmount: '',
+                    resaleAmount: '33495',
                     resaleAmountVM: '43065',
                     howToObtain: 'Floor 18 Squid Game Dungeon Merchant'
                 },
@@ -984,7 +1266,7 @@
                     maxSkill: 335,
                     attack: 1881,
                     colValue: 97062,
-                    resaleAmount: '',
+                    resaleAmount: '33982',
                     resaleAmountVM: '43691',
                     howToObtain: 'Blacksmithing'
                 },
@@ -1006,7 +1288,7 @@
                     attack: 2196,
                     colValue: null,
                     resaleAmount: 'TBD',
-                    resaleAmountVM: '',
+                    resaleAmountVM: 'TBD',
                     howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
                 },
                 {
@@ -1015,8 +1297,8 @@
                     maxSkill: 395,
                     attack: 2357,
                     colValue: null,
-                    resaleAmount: 'TBD',
-                    resaleAmountVM: '51520',
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
                     howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
                 },
             ],
