@@ -340,6 +340,7 @@
                 </div>
             </div>
 
+           
             <!-- Instructions -->
             <div class="instructions">
                 <h3>How to Use This Database:</h3>
@@ -351,9 +352,26 @@
                     <li><strong>Green numbers</strong> show completed Col value entries</li>
                     <li><strong>Use the search</strong> to quickly find specific weapons</li>
                 </ul>
+
+                <h3 style="margin-top: 24px;">Resale Value Formula:</h3>
+                <ul>
+                    <li><strong>Base Resale:</strong> Basically 35% of the Col Value (Col Value × 0.35)</li>
+                    <li><strong>With Veteran Merchant Gamepass:</strong> Basically 45% of the Col Value (Col Value × 0.45)</li>
+                    <li><strong>Two ways to understand the VM bonus:</strong>
+                        <ul style="margin-top: 8px; margin-left: 20px;">
+                            <li>You keep 10 percentage points more of the original Col Value (45% instead of 35%)</li>
+                            <li>Or, the gamepass increases your base resale by 28.57% (Base Resale × 1.2857)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Example with 10,000 Col Value:</strong> Base = 3,500 | VM = 4,500 | Bonus = 1,000</li>
+                </ul>
+
+                <h3 style="margin-top: 24px;">Visualize on Desmos:</h3>
+                <p style="margin-bottom: 8px;">Copy and paste this into <a href="https://www.desmos.com/calculator" target="_blank" style="color: #2563eb;">Desmos Graphing Calculator</a> to see the relationship between Col Value and Resale Amount:</p>
+                <pre style="background: #f3f4f6; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12px; font-family: 'Courier New', monospace;">y=0.35x
+y=0.45x</pre>
+                <p style="font-size: 14px; margin-top: 8px;">The blue line (y=0.35x) shows base resale at 35%. The red line (y=0.45x) shows VM resale at 45%. The vertical distance between the lines represents the gamepass bonus.</p>
             </div>
-        </div>
-    </div>
                 <script>
         const weapons = {
             'one-handed': [{
