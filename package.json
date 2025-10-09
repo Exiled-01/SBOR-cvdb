@@ -1,0 +1,19 @@
+{
+  "name": "sbor-cvdb",
+  "version": "1.1.0",
+  "description": "A comprehensive Col Value Database for Sword Blox Online: Rebirth, designed to help players easily check weapon and gear Col values, resale amounts, and VM resale values.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyowo/SBOR-cvdb.git"
+  },
+  "author": "Exiled",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hyowo/SBOR-cvdb/issues"
+  },
+  "homepage": "https://github.com/hyowo/SBOR-cvdb#readme"
+}
