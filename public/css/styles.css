@@ -572,3 +572,62 @@ tr:hover {
         padding: 20px;
     }
 }
+
+.comparison-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px; /* optional constraint */
+  margin-bottom: 16px;
+}
+
+.comparison-search {
+  width: 100%;
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+
+.comparison-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none; /* hidden until populated */
+  box-sizing: border-box;
+}
+
+.comparison-options div {
+  padding: 6px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.comparison-options div:hover {
+  background: #f0f0f0;
+}
+
+.comparison-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.clear-search {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #888;
+}
+
+.clear-search:hover {
+  color: #000;
+}

@@ -2,228 +2,298 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SBOR Weapon/Gear Database</title>
-    <link rel="stylesheet" href="/css/styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SBOR Weapon/Gear Database</title>
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
 <body>
-    <div class="container">
-        <div class="main-card">
-            <h1 class="title">SBOR Weapon/Gear Database<h1>
+  <div class="container">
+    <div class="main-card">
+      <h1 class="title">SBOR Weapon/Gear Database<h1>
 
-            <!-- Navigation Tabs -->
-            <div class="nav-tabs">
-                <button class="nav-tab active" data-section="weapons">Weapons</button>
-                <button class="nav-tab" data-section="gear">Gear</button>
-                <button class="nav-tab" data-section="calculator">Bulk Calculator</button>
+          <!-- Navigation Tabs -->
+          <div class="nav-tabs">
+            <button class="nav-tab active" data-section="weapons">Weapons</button>
+            <button class="nav-tab" data-section="gear">Gear</button>
+            <button class="nav-tab" data-section="calculator">Bulk Calculator</button>
+          </div>
+
+          <!-- Sub-category dropdown (only visible for Weapons and Gear) -->
+          <div id="subcategory-selector" style="margin-bottom: 24px;">
+            <label style="font-weight: 600; color: #374151; margin-right: 12px;">Category:</label>
+            <select id="main-subcategory-filter" class="filter-select" style="min-width: 200px;">
+              <option value="one-handed">One-Handed</option>
+              <option value="two-handed">Two-Handed</option>
+              <option value="rapier">Rapier</option>
+              <option value="dagger">Dagger</option>
+              <option value="melee">Melee</option>
+            </select>
+          </div>
+
+          <!-- Stats Cards -->
+          <div class="stats-grid">
+            <div class="stat-card progress">
+              <h3 class="stat-title">Index Progress</h3>
+              <p class="stat-value" id="progress-value">0/0</p>
+              <p class="stat-subtitle">Col values indexed</p>
+            </div>
+            <div class="stat-card completion">
+              <h3 class="stat-title">Database Complete</h3>
+              <p class="stat-value" id="completion-percentage">0%</p>
+              <p class="stat-subtitle">of entries filled out</p>
+            </div>
+            <div class="stat-card owned">
+              <h3 class="stat-title">Items Owned</h3>
+              <p class="stat-value" id="owned-items">0/0</p>
+              <p class="stat-subtitle">items in collection</p>
+            </div>
+            <div class="stat-card total-value">
+              <h3 class="stat-title">Total Value</h3>
+              <p class="stat-value" id="total-value">0</p>
+              <p class="stat-subtitle">col value of owned items</p>
+            </div>
+            <div class="stat-card most-valuable">
+              <h3 class="stat-title">Most Valuable</h3>
+              <p class="stat-value" id="most-valuable">None</p>
+              <p class="stat-subtitle">highest sellable item owned</p>
+            </div>
+          </div>
+
+          <!-- Category Progress Bars -->
+          <div id="category-progress-section" style="margin-bottom: 32px;">
+            <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1f2937;">Category
+              Progress</h3>
+            <div id="category-progress-bars"></div>
+          </div>
+
+          <!-- Controls -->
+          <div class="controls">
+            <div class="search-container">
+              <input type="text" id="search-input" class="search-input" placeholder="Search items..." style="padding-left: 16px;" />
             </div>
 
-            <!-- Sub-category dropdown (only visible for Weapons and Gear) -->
-            <div id="subcategory-selector" style="margin-bottom: 24px;">
-                <label style="font-weight: 600; color: #374151; margin-right: 12px;">Category:</label>
-                <select id="main-subcategory-filter" class="filter-select" style="min-width: 200px;">
-                    <option value="one-handed">One-Handed</option>
-                    <option value="two-handed">Two-Handed</option>
-                    <option value="rapier">Rapier</option>
-                    <option value="dagger">Dagger</option>
-                    <option value="melee">Melee</option>
-                </select>
+            <select id="category-filter" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="one-handed">One-Handed</option>
+              <option value="two-handed">Two-Handed</option>
+              <option value="rapier">Rapier</option>
+              <option value="dagger">Dagger</option>
+              <option value="melee">Melee</option>
+            </select>
+
+            <select id="ownership-filter" class="filter-select">
+              <option value="all">All Items</option>
+              <option value="owned">Owned Only</option>
+              <option value="missing">Missing Only</option>
+              <option value="wishlisted">Wishlisted Only</option>
+            </select>
+
+            <select id="sort-filter" class="filter-select">
+              <option value="col-asc">Col Value (Low to High)</option>
+              <option value="col-desc">Col Value (High to Low)</option>
+              <option value="skill-asc">Max Skill (Low to High)</option>
+              <option value="skill-desc">Max Skill (High to Low)</option>
+              <option value="name-asc">Name (A to Z)</option>
+            </select>
+
+            <select id="obtain-filter" class="filter-select">
+              <option value="all">All Sources</option>
+              <option value="shop">Shop</option>
+              <option value="mob">Mob Drop</option>
+              <option value="blacksmithing">Blacksmithing</option>
+              <option value="quest">Quest</option>
+            </select>
+
+            <div class="range-filter">
+              <span>Skill:</span>
+              <input type="number" id="skill-min" placeholder="Min" min="0">
+              <span>-</span>
+              <input type="number" id="skill-max" placeholder="Max" min="0">
             </div>
 
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stat-card progress">
-                    <h3 class="stat-title">Index Progress</h3>
-                    <p class="stat-value" id="progress-value">0/0</p>
-                    <p class="stat-subtitle">Col values indexed</p>
-                </div>
-                <div class="stat-card completion">
-                    <h3 class="stat-title">Database Complete</h3>
-                    <p class="stat-value" id="completion-percentage">0%</p>
-                    <p class="stat-subtitle">of entries filled out</p>
-                </div>
-                <div class="stat-card owned">
-                    <h3 class="stat-title">Items Owned</h3>
-                    <p class="stat-value" id="owned-items">0/0</p>
-                    <p class="stat-subtitle">items in collection</p>
-                </div>
-                <div class="stat-card total-value">
-                    <h3 class="stat-title">Total Value</h3>
-                    <p class="stat-value" id="total-value">0</p>
-                    <p class="stat-subtitle">col value of owned items</p>
-                </div>
-                <div class="stat-card most-valuable">
-                    <h3 class="stat-title">Most Valuable</h3>
-                    <p class="stat-value" id="most-valuable">None</p>
-                    <p class="stat-subtitle">highest sellable item owned</p>
-                </div>
+            <div class="range-filter">
+              <span>Col:</span>
+              <input type="number" id="col-min" placeholder="Min" min="0">
+              <span>-</span>
+              <input type="number" id="col-max" placeholder="Max" min="0">
             </div>
 
-            <!-- Category Progress Bars -->
-            <div id="category-progress-section" style="margin-bottom: 32px;">
-                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1f2937;">Category Progress</h3>
-                <div id="category-progress-bars"></div>
+            <button class="btn btn-primary" id="compare-button">Compare Items</button>
+            <button class="btn btn-success" id="export-button">Export CSV</button>
+          </div>
+
+          <!-- Data Table -->
+          <div class="table-container">
+            <div class="table-header">
+              <h3 class="table-title" id="table-title">All Items</h3>
+              <div>
+                <button class="btn btn-primary" id="export-owned-button" style="margin-right: 8px;">Export Owned</button>
+                <button class="btn btn-primary" id="export-missing-button">Export Missing</button>
+              </div>
             </div>
 
-            <!-- Controls -->
-            <div class="controls">
-                <div class="search-container">
-                    <input type="text" id="search-input" class="search-input" placeholder="Search items..." style="padding-left: 16px;" />
-                </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="checkbox-cell">Own</th>
+                    <th class="checkbox-cell">Wish</th>
+                    <th>Item Name</th>
+                    <th>Max Skill</th>
+                    <th id="stat-header">Attack/Defense</th>
+                    <th>Col Value</th>
+                    <th>Resale</th>
+                    <th>Resale (VM)</th>
+                    <th>How to Obtain</th>
+                  </tr>
+                </thead>
+                <tbody id="item-table">
+                  <% const allItems = []; %>
+                  <% for (let cat in items.weapons) { %>
+                  <% items.weapons[cat].forEach(item => { %>
+                  <% allItems.push({ ...item, category: cat, type: 'weapon' }); %>
+                  <% }) %>
+                  <% } %>
+                  <% for (let cat in items.protective) { %>
+                  <% items.protective[cat].forEach(item => { %>
+                  <% allItems.push({ ...item, category: cat, type: 'gear' }); %>
+                  <% }) %>
+                  <% } %>
 
-                <select id="category-filter" class="filter-select">
-                    <option value="all">All Categories</option>
-                    <option value="one-handed">One-Handed</option>
-                    <option value="two-handed">Two-Handed</option>
-                    <option value="rapier">Rapier</option>
-                    <option value="dagger">Dagger</option>
-                    <option value="melee">Melee</option>
-                </select>
+                  <% allItems.forEach(item => { %>
+                  <tr data-category="<%= item.category %>" data-type="<%= item.type %>">
+                    <td class="checkbox-cell">
+                      <input type="checkbox" class="own-checkbox" data-item="<%= item.name %>">
+                    </td>
+                    <td class="checkbox-cell">
+                      <input type="checkbox" class="wish-checkbox" data-item="<%= item.name %>">
+                    </td>
+                    <td>
+                      <a href="https://swordbloxonlinerebirth.fandom.com/wiki/<%= item.name.replace(/ /g, '_') %>" target="_blank">
+                        <%= item.name %>
+                      </a>
+                    </td>
+                    <td>
+                      <%= item.maxSkill !== undefined ? item.maxSkill : 'N/A' %>
+                    </td>
+                    <td>
+                      <%= item.attack !== undefined ? item.attack : (item.defense !== undefined ? item.defense : 'N/A') %>
+                    </td>
+                    <td class="col-value">
+                      <%= item.colValue !== undefined ? item.colValue.toLocaleString() : 'TBD' %>
+                    </td>
+                    <td>
+                      <%= item.resaleAmount !== undefined ? item.resaleAmount : 'N/A' %>
+                    </td>
+                    <td>
+                      <%= item.resaleAmountVM !== undefined ? item.resaleAmountVM : 'N/A' %>
+                    </td>
+                    <td>
+                      <%= item.howToObtain !== undefined ? item.howToObtain : 'Unknown' %>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
 
-                <select id="ownership-filter" class="filter-select">
-                    <option value="all">All Items</option>
-                    <option value="owned">Owned Only</option>
-                    <option value="missing">Missing Only</option>
-                    <option value="wishlisted">Wishlisted Only</option>
-                </select>
-
-                <select id="sort-filter" class="filter-select">
-                    <option value="col-asc">Col Value (Low to High)</option>
-                    <option value="col-desc">Col Value (High to Low)</option>
-                    <option value="skill-asc">Max Skill (Low to High)</option>
-                    <option value="skill-desc">Max Skill (High to Low)</option>
-                    <option value="name-asc">Name (A to Z)</option>
-                </select>
-
-                <select id="obtain-filter" class="filter-select">
-                    <option value="all">All Sources</option>
-                    <option value="shop">Shop</option>
-                    <option value="mob">Mob Drop</option>
-                    <option value="blacksmithing">Blacksmithing</option>
-                    <option value="quest">Quest</option>
-                </select>
-
-                <div class="range-filter">
-                    <span>Skill:</span>
-                    <input type="number" id="skill-min" placeholder="Min" min="0">
-                    <span>-</span>
-                    <input type="number" id="skill-max" placeholder="Max" min="0">
-                </div>
-
-                <div class="range-filter">
-                    <span>Col:</span>
-                    <input type="number" id="col-min" placeholder="Min" min="0">
-                    <span>-</span>
-                    <input type="number" id="col-max" placeholder="Max" min="0">
-                </div>
-
-                <button class="btn btn-primary" id="compare-button">Compare Items</button>
-                <button class="btn btn-success" id="export-button">Export CSV</button>
+              </table>
             </div>
-
-            <!-- Data Table -->
-            <div class="table-container">
-                <div class="table-header">
-                    <h3 class="table-title" id="table-title">All Items</h3>
-                    <div>
-                        <button class="btn btn-primary" id="export-owned-button" style="margin-right: 8px;">Export Owned</button>
-                        <button class="btn btn-primary" id="export-missing-button">Export Missing</button>
-                    </div>
-                </div>
-
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="checkbox-cell">Own</th>
-                                <th class="checkbox-cell">Wish</th>
-                                <th>Item Name</th>
-                                <th>Max Skill</th>
-                                <th id="stat-header">Attack/Defense</th>
-                                <th>Col Value</th>
-                                <th>Resale</th>
-                                <th>Resale (VM)</th>
-                                <th>How to Obtain</th>
-                            </tr>
-                        </thead>
-                        <tbody id="item-table"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Comparison Modal -->
-        <div id="comparison-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">Compare Items</h2>
-                    <span class="close" id="close-comparison">&times;</span>
-                </div>
-                <div class="comparison-grid">
-                    <div>
-                        <select id="compare-item-1" class="comparison-select">
-                            <option value="">Select Item 1</option>
-                        </select>
-                        <div id="comparison-stats-1" class="comparison-stats"></div>
-                    </div>
-                    <div>
-                        <select id="compare-item-2" class="comparison-select">
-                            <option value="">Select Item 2</option>
-                        </select>
-                        <div id="comparison-stats-2" class="comparison-stats"></div>
-                    </div>
-                </div>
-                <div id="comparison-result" style="margin-top: 24px; padding: 20px; background: #f0f9ff; border-radius: 8px; display: none;">
-                    <h3 style="font-weight: 600; color: #1e40af; margin-bottom: 12px;">Analysis</h3>
-                    <div id="comparison-analysis"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bulk Calculator Modal -->
-        <div id="calculator-section" style="display: none;">
-            <div class="main-card">
-                <h2 class="modal-title" style="margin-bottom: 24px;">Bulk Selling Calculator</h2>
-                <div>
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Item Col Value:</label>
-                    <input type="number" id="calc-col-value" class="calculator-input" placeholder="Enter col value" min="0">
-                    
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Quantity:</label>
-                    <input type="number" id="calc-quantity" class="calculator-input" placeholder="Enter quantity" min="1" value="1">
-                    
-                    <button class="btn btn-primary" id="calculate-button" style="width: 100%;">Calculate</button>
-                    
-                    <div id="calculator-results" style="display: none;">
-                        <div class="calculator-result">
-                            <div class="calculator-result-item">
-                                <span class="calculator-label">Base Resale (35%):</span>
-                                <span class="calculator-value" id="calc-base-resale">0</span>
-                            </div>
-                            <div class="calculator-result-item">
-                                <span class="calculator-label">VM Resale (45%):</span>
-                                <span class="calculator-value" id="calc-vm-resale">0</span>
-                            </div>
-                            <div class="calculator-result-item">
-                                <span class="calculator-label">VM Bonus:</span>
-                                <span class="calculator-value" id="calc-vm-bonus">0</span>
-                            </div>
-                            <div class="calculator-result-item">
-                                <span class="calculator-label">Total Col Value:</span>
-                                <span class="calculator-value" id="calc-total-col">0</span>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 24px;">
-                            <h3 style="font-weight: 600; color: #374151; margin-bottom: 12px;">Quantity Breakpoints</h3>
-                            <div id="calc-breakpoints" style="background: #f9fafb; padding: 16px; border-radius: 8px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+          </div>
     </div>
+
+    <!-- Comparison Modal -->
+    <div id="comparison-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Compare Items</h2>
+          <span class="close" id="close-comparison">&times;</span>
+        </div>
+        <div class="comparison-grid">
+          <div class="comparison-container">
+            <div class="comparison-search-wrapper">
+              <input type="text" id="compare-item-1" class="comparison-search" placeholder="Type to search Item 1" autocomplete="off">
+              <button type="button" class="clear-search" id="clear-compare-1">&times;</button>
+            </div>
+            <div id="compare-item-1-options" class="comparison-options"></div>
+            <div id="comparison-stats-1" class="comparison-stats"></div>
+          </div>
+          <div class="comparison-container">
+            <div class="comparison-search-wrapper">
+              <input type="text" id="compare-item-2" class="comparison-search" placeholder="Type to search Item 2" autocomplete="off">
+              <button type="button" class="clear-search" id="clear-compare-2">&times;</button>
+            </div>
+            <div id="compare-item-2-options" class="comparison-options"></div>
+            <div id="comparison-stats-2" class="comparison-stats"></div>
+          </div>
+        </div>
+        <div id="comparison-result" style="margin-top: 24px; padding: 20px; background: #f0f9ff; border-radius: 8px; display: none;">
+          <h3 style="font-weight: 600; color: #1e40af; margin-bottom: 12px;">Analysis</h3>
+          <div id="comparison-analysis"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Bulk Calculator Modal -->
+    <div id="calculator-section" style="display: none;">
+      <div class="main-card">
+        <h2 class="modal-title" style="margin-bottom: 24px;">Bulk Selling Calculator</h2>
+        <div>
+          <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Item:</label>
+          <input type="text" id="calc-item-name" class="calculator-input" placeholder="Type item name" autocomplete="off">
+
+          <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Item Col Value:</label>
+          <input type="number" id="calc-col-value" class="calculator-input" placeholder="Col value will appear here" min="0">
+
+          <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Quantity:</label>
+          <input type="number" id="calc-quantity" class="calculator-input" placeholder="Enter quantity" min="1" value="1">
+
+          <button class="btn btn-primary" id="calculate-button" style="width: 100%;">Calculate</button>
+
+          <div id="calculator-results" style="display: none;">
+            <div class="calculator-result">
+              <div class="calculator-result-item">
+                <span class="calculator-label">Base Resale (35%):</span>
+                <span class="calculator-value" id="calc-base-resale">0</span>
+              </div>
+              <div class="calculator-result-item">
+                <span class="calculator-label">VM Resale (45%):</span>
+                <span class="calculator-value" id="calc-vm-resale">0</span>
+              </div>
+              <div class="calculator-result-item">
+                <span class="calculator-label">VM Bonus:</span>
+                <span class="calculator-value" id="calc-vm-bonus">0</span>
+              </div>
+              <div class="calculator-result-item">
+                <span class="calculator-label">Total Col Value:</span>
+                <span class="calculator-value" id="calc-total-col">0</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 24px;">
+              <h3 style="font-weight: 600; color: #374151; margin-bottom: 12px;">Quantity Breakpoints</h3>
+              <div id="calc-breakpoints" style="background: #f9fafb; padding: 16px; border-radius: 8px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.allItems = <%- JSON.stringify(
+    Object.entries(items.weapons).flatMap(([cat, arr]) =>
+      arr.map(item => ({ ...item, category: cat, type: 'weapon' }))
+    ).concat(
+      Object.entries(items.protective).flatMap(([cat, arr]) =>
+        arr.map(item => ({ ...item, category: cat, type: 'gear' }))
+      )
+    )
+  ) %>;
+    </script>
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>
