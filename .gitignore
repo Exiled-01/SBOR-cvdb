@@ -1,0 +1,5 @@
+# Node modules
+node_modules/
+
+# IDE/editor folders
+.vscode/

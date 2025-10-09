@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Test Shield",
+        "maxSkill": 15,
+        "defense": 40,
+        "dexterity": 8,
+        "colValue": 7000,
+        "resaleAmount": "2450",
+        "resaleAmountVM": "3150",
+        "howToObtain": "Floor 3 Shop"
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Test Dagger",
+        "maxSkill": 8,
+        "attack": 20,
+        "colValue": 3000,
+        "resaleAmount": "1050",
+        "resaleAmountVM": "1350",
+        "howToObtain": "Mob Drop"
+    }
+]

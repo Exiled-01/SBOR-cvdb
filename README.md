@@ -41,7 +41,7 @@ node index.js
 ```
 Then open your browser and go to:
 ```bash
-http://localhost:PORT
+http://localhost:3000
 ```
 
 ## 💡 Notes

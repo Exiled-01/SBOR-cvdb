@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Test Fists",
+        "maxSkill": 5,
+        "attack": 15,
+        "colValue": 1000,
+        "resaleAmount": "350",
+        "resaleAmountVM": "450",
+        "howToObtain": "Starter"
+    }
+]

@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Test Helmet",
+        "maxSkill": 12,
+        "defense": 20,
+        "dexterity": 3,
+        "colValue": 4000,
+        "resaleAmount": "1400",
+        "resaleAmountVM": "1800",
+        "howToObtain": "Floor 2 Shop"
+    }
+]

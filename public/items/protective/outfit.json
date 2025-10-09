@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Test Armor",
+        "maxSkill": 10,
+        "defense": 30,
+        "dexterity": 5,
+        "colValue": 6000,
+        "resaleAmount": "2100",
+        "resaleAmountVM": "2700",
+        "howToObtain": "Floor 1 Shop"
+    },
+    {
+        "name": "Epic Chestplate",
+        "maxSkill": 40,
+        "defense": 80,
+        "dexterity": 15,
+        "colValue": 20000,
+        "resaleAmount": "7000",
+        "resaleAmountVM": "9000",
+        "howToObtain": "Quest Reward"
+    }
+]

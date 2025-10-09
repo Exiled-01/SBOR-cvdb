@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Test Rapier",
+        "maxSkill": 20,
+        "attack": 35,
+        "colValue": 10000,
+        "resaleAmount": "3500",
+        "resaleAmountVM": "4500",
+        "howToObtain": "Blacksmithing"
+    }
+]

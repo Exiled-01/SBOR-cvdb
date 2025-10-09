@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Test Mask",
+        "maxSkill": 8,
+        "defense": 15,
+        "dexterity": 2,
+        "colValue": 2500,
+        "resaleAmount": "875",
+        "resaleAmountVM": "1125",
+        "howToObtain": "Blacksmithing"
+    }
+]

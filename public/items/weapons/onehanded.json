@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Test Sword",
+        "maxSkill": 10,
+        "attack": 25,
+        "colValue": 5000,
+        "resaleAmount": "1750",
+        "resaleAmountVM": "2250",
+        "howToObtain": "Floor 1 Shop"
+    },
+    {
+        "name": "Epic Blade",
+        "maxSkill": 50,
+        "attack": 100,
+        "colValue": 25000,
+        "resaleAmount": "8750",
+        "resaleAmountVM": "11250",
+        "howToObtain": "Boss Drop"
+    }
+]
