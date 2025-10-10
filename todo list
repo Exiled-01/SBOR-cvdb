@@ -4,25 +4,10 @@ ZZZzz /,`.-'`'    -.  ;-;;,_
     '---''(_/--'  `-'\_)  
 
 add all gear (excluding anything I said I won't put in, aka anything event related)
-add bulk selling calculator (input item col value + quantity, output total col earned with/without VM gamepass, show breakpoints)
-add filter to show only owned weapons
-add filter to show only missing weapons
-add sort by max skill level option
-add "wishlist" feature separate from owned checkbox
-add statistics: total col value of owned weapons
-add statistics: most valuable weapon in collection (that is sellable)
-add statistics: completion percentage by weapon category
-add statistics: progress bars for each category
-add filter by skill level range (e.g., "Show weapons 100-200")
-add filter by col value range
-add filter by obtainability (shop vs mob drop vs blacksmithing)
-add comparison tool to compare two weapons side-by-side
-add comparison tool to show stat differences
-add comparison tool to calculate which is better value for col
 add export option for only owned weapons
 add export option for only missing weapons
 add export option by category
 add weapon type icons
 add color-coding by rarity/tier
 add tooltips with more detailed info
-improve mobile responsiveness
+improve mobile responsiveness (maybe)
