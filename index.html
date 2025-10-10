@@ -482,7 +482,7 @@
 <body>
     <div class="container">
         <div class="main-card">
-            <h1 class="title">SBOR weapon/gear Database</h1>
+            <h1 class="title">SBOR Enhanced Database</h1>
 
             <!-- Navigation Tabs -->
             <div class="nav-tabs">
@@ -646,7 +646,7 @@
                     <li><strong>Check the boxes</strong> next to items you own to track your collection</li>
                     <li><strong>Click item names</strong> to visit their wiki pages</li>
                     <li><strong>Use the category dropdown</strong> to view specific item types</li>
-                    <li><strong>Red "TBD"</strong> means the Col value still needs to be indexed</li>
+                    <li><strong>Green "TBD"</strong> means the Col value still needs to be indexed</li>
                     <li><strong>Green numbers</strong> show completed Col value entries</li>
                     <li><strong>Use Advanced Search</strong> for powerful filtering options</li>
                     <li><strong>Compare Items</strong> to see stat differences side-by-side</li>
@@ -654,7 +654,6 @@
 
                 <h3 style="margin-top: 24px; font-weight: 600; margin-bottom: 12px; color: #1e40af; font-size: 18px;">Resale Value Formula:</h3>
                 <ul style="color: #1e40af; font-size: 14px; list-style-position: inside; line-height: 1.8;">
-					<li><strong>THIS MAY OR MAY NOT BE ACCURATE I HAVE TRIED MY BEST TO MAKE IT AS ACCURATE AS POSSIBLE</strong></li>
                     <li><strong>Base Resale:</strong> 35% of the Col Value (Col Value × 0.35)</li>
                     <li><strong>With Veteran Merchant Gamepass:</strong> 45% of the Col Value (Col Value × 0.45)</li>
                     <li><strong>Two ways to understand the VM bonus:</strong>
@@ -1355,7 +1354,7 @@ y=0.45x</pre>
                             "name": "Crowbar Edge",
                             "maxskill": 325,
                             "attack": 1805,
-                            "colValue": null,
+                            "colValue": "TDB",
                             "resaleAmount": "32967",
                             "resaleAmountVM": "42386",
                             "howToObtain": "Slugger Street Thug"
@@ -1396,7 +1395,7 @@ y=0.45x</pre>
                             "name": "Black Verdict",
                             "maxskill": 375,
                             "attack": 2196,
-                            "colValue": null,
+                            "colValue": "TDB",
                             "resaleAmount": "TBD",
                             "resaleAmountVM": "TBD",
                             "howToObtain": "Blacksmithing: Q111 Reward unlocks in Blacksmithing"
@@ -1406,7 +1405,7 @@ y=0.45x</pre>
                             "name": "Decree",
                             "maxskill": 395,
                             "attack": 2357,
-                            "colValue": null,
+                            "colValue": "TDB",
                             "resaleAmount": "Cannot be sold",
                             "resaleAmountVM": "Cannot be sold",
                             "howToObtain": "Blacksmithing: Q111 Reward unlocks in Blacksmithing"
@@ -1947,7 +1946,7 @@ y=0.45x</pre>
                             "name": "Rebar Crusher",
                             "maxskill": 325,
                             "attack": 2256,
-                            "colValue": null,
+                            "colValue": "TDB",
                             "resaleAmount": "",
                             "resaleAmountVM": "42386",
                             "howToObtain": "Wrecker Street Thug"
@@ -1987,7 +1986,7 @@ y=0.45x</pre>
                             "name": "Obsidian Breaker",
                             "maxskill": 375,
                             "attack": 2745,
-                            "colValue": null,
+                            "colValue": "TDB",
                             "resaleAmount": "",
                             "resaleAmountVM": "",
                             "howToObtain": "Blacksmithing: Q111 Reward unlocks in Blacksmithing"
@@ -1997,7 +1996,7 @@ y=0.45x</pre>
                             "name": "Finale",
                             "maxskill": 395,
                             "attack": 2947,
-                            "colValue": null,
+                            "colValue": "TDB",
                             "resaleAmount": "",
                             "resaleAmountVM": "51520",
                             "howToObtain": "Blacksmithing: Q111 Reward unlocks in Blacksmithing"
@@ -2521,7 +2520,7 @@ y=0.45x</pre>
                             "name": "Pipe Stinger",
                             "maxskill": 325,
                             "attack": 1579,
-                            "colValue": null,
+                            "colValue": "TDB",
                             "resaleAmount": "",
                             "resaleAmountVM": "42386",
                             "howToObtain": "Prowler Street Thug, Street Enforcer"
@@ -2571,7 +2570,7 @@ y=0.45x</pre>
                             "name": "Spire of Judgement",
                             "maxskill": 375,
                             "attack": 1921,
-                            "colValue": null,
+                            "colValue": "TDB",
                             "resaleAmount": "",
                             "resaleAmountVM": "",
                             "howToObtain": "Blacksmithing: Q111 Reward unlocks in Blacksmithing"
@@ -3094,7 +3093,7 @@ y=0.45x</pre>
                             "name": "Pipe Stinger",
                             "maxskill": 325,
                             "attack": 1579,
-                            "colValue": null,
+                            "colValue": "TDB",
                             "resaleAmount": "",
                             "resaleAmountVM": "42386",
                             "howToObtain": "Prowler Street Thug, Street Enforcer"
@@ -3144,7 +3143,7 @@ y=0.45x</pre>
                             "name": "Spire of Judgement",
                             "maxskill": 375,
                             "attack": 1921,
-                            "colValue": null,
+                            "colValue": "TBD",
                             "resaleAmount": "",
                             "resaleAmountVM": "",
                             "howToObtain": "Blacksmithing: Q111 Reward unlocks in Blacksmithing"
@@ -3229,7 +3228,7 @@ y=0.45x</pre>
 
                 function updateStats() {
                     const allItems = getAllItems();
-                    const completedItems = allItems.filter(item => item.colValue !== null && item.colValue !== 'N/A').length;
+                    const completedItems = allItems.filter(item => item.colValue !== "TDB" && item.colValue !== 'N/A').length;
                     const completionPercentage = allItems.length > 0 ? Math.round((completedItems / allItems.length) * 100) : 0;
 
                     const ownedCount = Array.from(ownedItems).filter(id => {
@@ -3241,7 +3240,7 @@ y=0.45x</pre>
                     document.getElementById('owned-items').textContent = `${ownedCount}/${allItems.length}`;
 
                     let totalValue = 0;
-                    let mostValuableItem = null;
+                    let mostValuableItem = "TDB";
                     let highestValue = 0;
 
                     allItems.forEach(item => {
@@ -3272,7 +3271,7 @@ y=0.45x</pre>
                     if (currentSection === 'weapons') {
                         Object.keys(items.weapons).forEach(category => {
                             const categoryItems = items.weapons[category];
-                            const completed = categoryItems.filter(item => item.colValue !== null && item.colValue !== 'N/A').length;
+                            const completed = categoryItems.filter(item => item.colValue !== "TDB" && item.colValue !== 'N/A').length;
                             const percentage = categoryItems.length > 0 ? Math.round((completed / categoryItems.length) * 100) : 0;
 
                             const progressDiv = document.createElement('div');
@@ -3298,7 +3297,7 @@ y=0.45x</pre>
 
                         Object.keys(gearCategories).forEach(category => {
                             const categoryItems = gearCategories[category];
-                            const completed = categoryItems.filter(item => item.colValue !== null && item.colValue !== 'N/A').length;
+                            const completed = categoryItems.filter(item => item.colValue !== "TDB" && item.colValue !== 'N/A').length;
                             const percentage = categoryItems.length > 0 ? Math.round((completed / categoryItems.length) * 100) : 0;
 
                             const progressDiv = document.createElement('div');
@@ -3369,8 +3368,8 @@ y=0.45x</pre>
 
                     const colValueCell = document.createElement('td');
                     const colValueSpan = document.createElement('span');
-                    colValueSpan.className = 'col-value ' + (item.colValue === null || item.colValue === 'N/A' ? 'missing' : 'completed');
-                    colValueSpan.textContent = item.colValue === null || item.colValue === 'N/A' ? 'TBD' : item.colValue.toLocaleString();
+                    colValueSpan.className = 'col-value ' + (item.colValue === "TDB" || item.colValue === 'N/A' ? 'missing' : 'completed');
+                    colValueSpan.textContent = item.colValue === "TDB" || item.colValue === 'N/A' ? 'TBD' : item.colValue.toLocaleString();
                     colValueCell.appendChild(colValueSpan);
                     tr.appendChild(colValueCell);
 
@@ -3496,7 +3495,7 @@ y=0.45x</pre>
                         const attack = item.attack || "";
                         const defense = item.defense || "";
                         const dexterity = item.dexterity || "";
-                        const colValue = item.colValue !== null && item.colValue !== 'N/A' ? item.colValue : "TBD";
+                        const colValue = item.colValue !== "TDB" && item.colValue !== 'N/A' ? item.colValue : "TBD";
                         const resale = `"${item.resaleAmount || ""}"`;
                         const resaleVM = `"${item.resaleAmountVM || ""}"`;
                         const howToObtain = `"${item.howToObtain || ""}"`;
@@ -3569,7 +3568,7 @@ y=0.45x</pre>
                 </div>` : ''}
                 <div class="comparison-stat">
                     <span class="comparison-label">Col Value:</span>
-                    <span class="comparison-value">${item.colValue !== null && item.colValue !== 'N/A' ? item.colValue.toLocaleString() : 'TBD'}</span>
+                    <span class="comparison-value">${item.colValue !== "TDB" && item.colValue !== 'N/A' ? item.colValue.toLocaleString() : 'TBD'}</span>
                 </div>
                 <div class="comparison-stat">
                     <span class="comparison-label">Resale (Base):</span>
