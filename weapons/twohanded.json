@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Test Greatsword",
+        "maxSkill": 15,
+        "attack": 45,
+        "colValue": 8000,
+        "resaleAmount": "2800",
+        "resaleAmountVM": "3600",
+        "howToObtain": "Floor 2 Shop"
+    }
+]
