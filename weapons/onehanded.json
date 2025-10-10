@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Beginner Sword",
+        "maxSkill": 1,
+        "attack": 3.4,
+        "colValue": 231,
+        "resaleAmount": "80",
+        "resaleAmountVM": "103",
+        "howToObtain": "Starter Inventory, Floor 1 shop"
+    }
+]
