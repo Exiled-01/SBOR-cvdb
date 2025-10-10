@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SBOR Enhanced Database</title>
+    <title>SBOR Weapon Col Value Database</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -30,7 +30,6 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
                 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             padding: 32px;
-            margin-bottom: 24px;
         }
 
         .title {
@@ -41,44 +40,15 @@
             margin-bottom: 32px;
         }
 
-        .nav-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 32px;
-            border-bottom: 2px solid #e5e7eb;
-            flex-wrap: wrap;
-        }
-
-        .nav-tab {
-            padding: 12px 24px;
-            background: transparent;
-            border: none;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            color: #6b7280;
-            transition: all 0.2s;
-        }
-
-        .nav-tab:hover {
-            color: #3b82f6;
-        }
-
-        .nav-tab.active {
-            color: #3b82f6;
-            border-bottom-color: #3b82f6;
-        }
-
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
             margin-bottom: 32px;
         }
 
         .stat-card {
-            padding: 20px;
+            padding: 24px;
             border-radius: 8px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             color: white;
@@ -96,34 +66,26 @@
             background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
         }
 
-        .stat-card.total-value {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-        }
-
-        .stat-card.most-valuable {
-            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
-        }
-
         .stat-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 8px;
         }
 
         .stat-value {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
             margin-bottom: 4px;
         }
 
         .stat-subtitle {
-            font-size: 13px;
+            font-size: 14px;
             opacity: 0.9;
         }
 
         .controls {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             align-items: center;
             flex-wrap: wrap;
             margin-bottom: 24px;
@@ -132,12 +94,27 @@
         .search-container {
             position: relative;
             flex: 1;
-            min-width: 200px;
+            min-width: 256px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            width: 20px;
+            height: 20px;
+        }
+
+        .search-icon::before {
+            content: "🔍";
+            font-size: 16px;
         }
 
         .search-input {
             width: 100%;
-            padding: 10px 16px;
+            padding: 8px 16px 8px 40px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
             font-size: 14px;
@@ -150,43 +127,21 @@
             box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
         }
 
-        .filter-select, .btn {
-            padding: 10px 16px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .filter-select:hover, .btn:hover {
-            border-color: #3b82f6;
-        }
-
-        .filter-select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-        }
-
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background: #2563eb;
-        }
-
-        .btn-success {
+        .export-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
             background: #059669;
             color: white;
             border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
 
-        .btn-success:hover {
+        .export-btn:hover {
             background: #047857;
         }
 
@@ -202,9 +157,6 @@
             padding: 16px 24px;
             background: #f9fafb;
             border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .table-title {
@@ -230,9 +182,6 @@
             color: #374151;
             background: #f9fafb;
             border-bottom: 1px solid #e5e7eb;
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         td {
@@ -246,13 +195,13 @@
             background: #f9fafb;
         }
 
-        .item-name {
+        .sword-name {
             font-weight: 500;
             color: #2563eb;
             text-decoration: none;
         }
 
-        .item-name:hover {
+        .sword-name:hover {
             color: #1d4ed8;
             text-decoration: underline;
         }
@@ -282,197 +231,43 @@
             color: #6b7280;
         }
 
+        .instructions {
+            margin-top: 32px;
+            padding: 16px;
+            background: #fef3c7;
+            border-radius: 8px;
+            border: 1px solid #f59e0b;
+        }
+
+        .instructions h3 {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #92400e;
+        }
+
+        .instructions ul {
+            color: #92400e;
+            font-size: 14px;
+            list-style-position: inside;
+        }
+
+        .instructions li {
+            margin-bottom: 4px;
+        }
+
+        .instructions strong {
+            font-weight: 600;
+        }
+
         .checkbox-cell {
             width: 40px;
             text-align: center;
         }
 
-        .item-checkbox {
+        .weapon-checkbox {
             width: 18px;
             height: 18px;
             cursor: pointer;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 32px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1f2937;
-        }
-
-        .close {
-            font-size: 32px;
-            font-weight: bold;
-            color: #9ca3af;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .close:hover {
-            color: #1f2937;
-        }
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        .comparison-select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-
-        .comparison-stats {
-            background: #f9fafb;
-            padding: 16px;
-            border-radius: 8px;
-        }
-
-        .comparison-stat {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .comparison-stat:last-child {
-            border-bottom: none;
-        }
-
-        .comparison-label {
-            font-weight: 600;
-            color: #6b7280;
-        }
-
-        .comparison-value {
-            color: #1f2937;
-        }
-
-        .calculator-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-
-        .calculator-result {
-            background: #f0f9ff;
-            border: 2px solid #3b82f6;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 16px;
-        }
-
-        .calculator-result-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #bfdbfe;
-        }
-
-        .calculator-result-item:last-child {
-            border-bottom: none;
-        }
-
-        .calculator-label {
-            font-weight: 600;
-            color: #1e40af;
-        }
-
-        .calculator-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1e40af;
-            font-family: 'Courier New', monospace;
-        }
-
-        .category-progress {
-            margin-bottom: 16px;
-        }
-
-        .category-progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #374151;
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 24px;
-            background: #e5e7eb;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
-            transition: width 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .comparison-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-                padding: 20px;
-            }
         }
     </style>
 </head>
@@ -480,26 +275,7 @@
 <body>
     <div class="container">
         <div class="main-card">
-            <h1 class="title">SBOR Enhanced Database</h1>
-
-            <!-- Navigation Tabs -->
-            <div class="nav-tabs">
-                <button class="nav-tab active" data-section="weapons">Weapons</button>
-                <button class="nav-tab" data-section="gear">Gear</button>
-                <button class="nav-tab" data-section="calculator">Bulk Calculator</button>
-            </div>
-
-            <!-- Sub-category dropdown -->
-            <div id="subcategory-selector" style="margin-bottom: 24px;">
-                <label style="font-weight: 600; color: #374151; margin-right: 12px;">Category:</label>
-                <select id="main-subcategory-filter" class="filter-select" style="min-width: 200px;">
-                    <option value="one-handed">One-Handed</option>
-                    <option value="two-handed">Two-Handed</option>
-                    <option value="rapier">Rapier</option>
-                    <option value="dagger">Dagger</option>
-                    <option value="melee">Melee</option>
-                </select>
-            </div>
+            <h1 class="title">SBOR Weapon Col Value Database</h1>
 
             <!-- Stats Cards -->
             <div class="stats-grid">
@@ -514,108 +290,35 @@
                     <p class="stat-subtitle">of entries filled out</p>
                 </div>
                 <div class="stat-card owned">
-                    <h3 class="stat-title">Items Owned</h3>
-                    <p class="stat-value" id="owned-items">0/0</p>
-                    <p class="stat-subtitle">items in collection</p>
-                </div>
-                <div class="stat-card total-value">
-                    <h3 class="stat-title">Total Value</h3>
-                    <p class="stat-value" id="total-value">0</p>
-                    <p class="stat-subtitle">col value of owned items</p>
-                </div>
-                <div class="stat-card most-valuable">
-                    <h3 class="stat-title">Most Valuable</h3>
-                    <p class="stat-value" id="most-valuable">None</p>
-                    <p class="stat-subtitle">highest sellable item owned</p>
+                    <h3 class="stat-title">Weapons Owned</h3>
+                    <p class="stat-value" id="owned-weapons">0/0</p>
+                    <p class="stat-subtitle">weapons in collection</p>
                 </div>
             </div>
 
-            <!-- Category Progress Bars -->
-            <div id="category-progress-section" style="margin-bottom: 32px;">
-                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #1f2937;">Category Progress</h3>
-                <div id="category-progress-bars"></div>
-            </div>
-
-            <!-- Controls -->
+            <!-- Search and Export -->
             <div class="controls">
                 <div class="search-container">
-                    <input type="text" id="search-input" class="search-input" placeholder="Search items..." />
+                    <span class="search-icon"></span>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search weapons..." />
                 </div>
-                <button class="btn btn-primary" id="toggle-advanced-search">Advanced Search</button>
-                <button class="btn btn-primary" id="compare-button">Compare Items</button>
-                <button class="btn btn-success" id="export-button">Export CSV</button>
-            </div>
 
-            <!-- Advanced Search Panel -->
-            <div id="advanced-search-panel" style="display: none; padding: 20px; background: #f9fafb; border-radius: 8px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
-                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #1f2937;">Advanced Search Options</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
-                    <div>
-                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Category Filter:</label>
-                        <select id="category-filter" class="filter-select" style="width: 100%;">
-                            <option value="all">All Categories</option>
-                        </select>
-                    </div>
+                <select id="category-filter" class="export-btn" style="padding: 8px 16px; margin-right: 8px;">
+                    <option value="all">All Weapons</option>
+                    <option value="one-handed">One-Handed</option>
+                    <option value="two-handed">Two-Handed</option>
+                    <option value="rapier">Rapier</option>
+                    <option value="dagger">Dagger</option>
+                    <option value="melee">Melee</option>
+                </select>
 
-                    <div>
-                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Ownership:</label>
-                        <select id="ownership-filter" class="filter-select" style="width: 100%;">
-                            <option value="all">All Items</option>
-                            <option value="owned">Owned Only</option>
-                            <option value="missing">Missing Only</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Sort By:</label>
-                        <select id="sort-filter" class="filter-select" style="width: 100%;">
-                            <option value="col-asc">Col Value (Low to High)</option>
-                            <option value="col-desc">Col Value (High to Low)</option>
-                            <option value="skill-asc">Max Skill (Low to High)</option>
-                            <option value="skill-desc">Max Skill (High to Low)</option>
-                            <option value="name-asc">Name (A to Z)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Obtain Method:</label>
-                        <select id="obtain-filter" class="filter-select" style="width: 100%;">
-                            <option value="all">All Sources</option>
-                            <option value="shop">Shop</option>
-                            <option value="mob">Mob Drop</option>
-                            <option value="blacksmithing">Blacksmithing</option>
-                            <option value="quest">Quest</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Skill Range:</label>
-                        <div style="display: flex; gap: 8px;">
-                            <input type="number" id="skill-min" placeholder="Min" min="0" style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px;">
-                            <span style="align-self: center; color: #6b7280;">-</span>
-                            <input type="number" id="skill-max" placeholder="Max" min="0" style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px;">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Col Value Range:</label>
-                        <div style="display: flex; gap: 8px;">
-                            <input type="number" id="col-min" placeholder="Min" min="0" style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px;">
-                            <span style="align-self: center; color: #6b7280;">-</span>
-                            <input type="number" id="col-max" placeholder="Max" min="0" style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px;">
-                        </div>
-                    </div>
-                </div>
+                <button class="export-btn" id="export-button">📥 Export CSV</button>
             </div>
 
             <!-- Data Table -->
             <div class="table-container">
                 <div class="table-header">
-                    <h3 class="table-title" id="table-title">All Items</h3>
-                    <div>
-                        <button class="btn btn-primary" id="export-owned-button" style="margin-right: 8px;">Export Owned</button>
-                        <button class="btn btn-primary" id="export-missing-button">Export Missing</button>
-                    </div>
+                    <h3 class="table-title" id="table-title">All Weapons</h3>
                 </div>
 
                 <div class="table-wrapper">
@@ -623,39 +326,39 @@
                         <thead>
                             <tr>
                                 <th class="checkbox-cell">Own</th>
-                                <th>Item Name</th>
+                                <th>Weapon Name</th>
                                 <th>Max Skill</th>
-                                <th id="stat-header">Attack</th>
-                                <th>Col Value</th>
-                                <th>Resale</th>
-                                <th>Resale (VM)</th>
+                                <th>Attack</th>
+                                <th>Col Value (Worth)</th>
+                                <th>Resale Amount</th>
+                                <th>Resale Amount (w/ VM gamepass)</th>
                                 <th>How to Obtain</th>
                             </tr>
                         </thead>
-                        <tbody id="item-table"></tbody>
+                        <tbody id="weapon-table"></tbody>
                     </table>
                 </div>
             </div>
 
+           
             <!-- Instructions -->
-            <div style="margin-top: 32px; padding: 24px; background: #f0f9ff; border-radius: 8px; border: 1px solid #3b82f6;">
-                <h3 style="font-weight: 600; margin-bottom: 12px; color: #1e40af; font-size: 18px;">How to Use This Database:</h3>
-                <ul style="color: #1e40af; font-size: 14px; list-style-position: inside; line-height: 1.8;">
-                    <li><strong>Check the boxes</strong> next to items you own to track your collection</li>
-                    <li><strong>Click item names</strong> to visit their wiki pages</li>
-                    <li><strong>Use the category dropdown</strong> to view specific item types</li>
+            <div class="instructions">
+                <h3>How to Use This Database:</h3>
+                <ul>
+                    <li><strong>Check the boxes</strong> next to weapons you own to track your collection</li>
+                    <li><strong>Click weapon names</strong> to visit their wiki pages</li>
+                    <li><strong>Use the category filter</strong> to view specific weapon types</li>
                     <li><strong>Red "TBD"</strong> means the Col value still needs to be indexed</li>
                     <li><strong>Green numbers</strong> show completed Col value entries</li>
-                    <li><strong>Use Advanced Search</strong> for powerful filtering options</li>
-                    <li><strong>Compare Items</strong> to see stat differences side-by-side</li>
+                    <li><strong>Use the search</strong> to quickly find specific weapons</li>
                 </ul>
 
-                <h3 style="margin-top: 24px; font-weight: 600; margin-bottom: 12px; color: #1e40af; font-size: 18px;">Resale Value Formula:</h3>
-                <ul style="color: #1e40af; font-size: 14px; list-style-position: inside; line-height: 1.8;">
-                    <li><strong>Base Resale:</strong> 35% of the Col Value (Col Value × 0.35)</li>
-                    <li><strong>With Veteran Merchant Gamepass:</strong> 45% of the Col Value (Col Value × 0.45)</li>
+                <h3 style="margin-top: 24px;">Resale Value Formula:</h3>
+                <ul>
+                    <li><strong>Base Resale:</strong> Basically 35% of the Col Value (Col Value × 0.35)</li>
+                    <li><strong>With Veteran Merchant Gamepass:</strong> Basically 45% of the Col Value (Col Value × 0.45)</li>
                     <li><strong>Two ways to understand the VM bonus:</strong>
-                        <ul style="margin-top: 8px; margin-left: 20px; list-style-type: circle;">
+                        <ul style="margin-top: 8px; margin-left: 20px;">
                             <li>You keep 10 percentage points more of the original Col Value (45% instead of 35%)</li>
                             <li>Or, the gamepass increases your base resale by 28.57% (Base Resale × 1.2857)</li>
                         </ul>
@@ -663,754 +366,2617 @@
                     <li><strong>Example with 10,000 Col Value:</strong> Base = 3,500 | VM = 4,500 | Bonus = 1,000</li>
                 </ul>
 
-                <h3 style="margin-top: 24px; font-weight: 600; margin-bottom: 12px; color: #1e40af; font-size: 18px;">Visualize on Desmos:</h3>
-                <p style="margin-bottom: 8px; color: #1e40af; font-size: 14px;">Copy and paste this into <a href="https://www.desmos.com/calculator" target="_blank" style="color: #2563eb; text-decoration: underline;">Desmos Graphing Calculator</a> to see the relationship between Col Value and Resale Amount:</p>
-                <pre style="background: #dbeafe; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12px; font-family: 'Courier New', monospace; color: #1e40af; border: 1px solid #93c5fd;">y=0.35x
+                <h3 style="margin-top: 24px;">Visualize on Desmos:</h3>
+                <p style="margin-bottom: 8px;">Copy and paste this into <a href="https://www.desmos.com/calculator" target="_blank" style="color: #2563eb;">Desmos Graphing Calculator</a> to see the relationship between Col Value and Resale Amount:</p>
+                <pre style="background: #f3f4f6; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12px; font-family: 'Courier New', monospace;">y=0.35x
 y=0.45x</pre>
-                <p style="font-size: 14px; margin-top: 8px; color: #1e40af;">The first line (y=0.35x) shows base resale at 35%. The second line (y=0.45x) shows VM resale at 45%. The vertical distance between the lines represents the gamepass bonus.</p>
+                <p style="font-size: 14px; margin-top: 8px;">The blue line (y=0.35x) shows base resale at 35%. The red line (y=0.45x) shows VM resale at 45%. The vertical distance between the lines represents the gamepass bonus.</p>
             </div>
-        </div>
+                <script>
+        const weapons = {
+            'one-handed': [{
+                    id: 1,
+                    name: 'Beginner Sword',
+                    maxSkill: 1,
+                    attack: 3.4,
+                    colValue: 231,
+                    resaleAmount: '80',
+                    resaleAmountVM: '103',
+                    howToObtain: 'Starter Inventory, Floor 1 shop'
+                },
+                {
+                    id: 2,
+                    name: 'Iron Sword',
+                    maxSkill: 1,
+                    attack: 3.4,
+                    colValue: 231,
+                    resaleAmount: '80',
+                    resaleAmountVM: '103',
+                    howToObtain: 'Floor 1 Shop'
+                },
+                {
+                    id: 3,
+                    name: 'Steel Sword',
+                    maxSkill: 5,
+                    attack: 8.4,
+                    colValue: 1392,
+                    resaleAmount: '487',
+                    resaleAmountVM: '626',
+                    howToObtain: 'Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 4,
+                    name: 'Master Steel Sword',
+                    maxSkill: 10,
+                    attack: 17.4,
+                    colValue: 2900,
+                    resaleAmount: '1014',
+                    resaleAmountVM: '1305',
+                    howToObtain: 'Blacksmithing, Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 5,
+                    name: 'Master Steel Sword Mk II',
+                    maxSkill: 13,
+                    attack: 23,
+                    colValue: 3711,
+                    resaleAmount: '1298',
+                    resaleAmountVM: '1669',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 6,
+                    name: 'GrandMaster Steel Blade',
+                    maxSkill: 16,
+                    attack: 30,
+                    colValue: 4640,
+                    resaleAmount: '1624',
+                    resaleAmountVM: '2088',
+                    howToObtain: 'Kobold Sentinel'
+                },
+                {
+                    id: 7,
+                    name: 'GrandMaster Steel Blade Mk II',
+                    maxSkill: 18,
+                    attack: 35,
+                    colValue: 5220,
+                    resaleAmount: '1298',
+                    resaleAmountVM: '2349',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 8,
+                    name: 'Corruption Slicer',
+                    maxSkill: 20,
+                    attack: 41,
+                    colValue: 5800,
+                    resaleAmount: '2029',
+                    resaleAmountVM: '2610',
+                    howToObtain: 'Quest #8 Reward'
+                },
+                {
+                    id: 9,
+                    name: 'Basin Broadsword',
+                    maxSkill: 26,
+                    attack: 58,
+                    colValue: 7539,
+                    resaleAmount: '2638',
+                    resaleAmountVM: '3392',
+                    howToObtain: 'Floor 2 Shop, Floor 3 Shop'
+                },
+                {
+                    id: 10,
+                    name: 'Glade Blade',
+                    maxSkill: 30,
+                    attack: 70,
+                    colValue: 8700,
+                    resaleAmount: '3045',
+                    resaleAmountVM: '3915',
+                    howToObtain: 'Snail'
+                },
+                {
+                    id: 11,
+                    name: 'GrandMaster Steel Blade Mk III',
+                    maxSkill: 35,
+                    attack: 86,
+                    colValue: 10092,
+                    resaleAmount: '3532',
+                    resaleAmountVM: '4541',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 12,
+                    name: 'Scimitar',
+                    maxSkill: 45,
+                    attack: 121,
+                    colValue: 12992,
+                    resaleAmount: '4547',
+                    resaleAmountVM: '5846',
+                    howToObtain: 'Floor 4 Shop'
+                },
+                {
+                    id: 13,
+                    name: 'Neko Slayer',
+                    maxSkill: 50,
+                    attack: 140,
+                    colValue: 14499,
+                    resaleAmount: '5074',
+                    resaleAmountVM: '6524',
+                    howToObtain: 'Scorpion'
+                },
+                {
+                    id: 14,
+                    name: 'Malachite Blade',
+                    maxSkill: 55,
+                    attack: 159,
+                    colValue: 15891,
+                    resaleAmount: '5561',
+                    resaleAmountVM: '7150',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 15,
+                    name: 'Mirror Blade',
+                    maxSkill: 65,
+                    attack: 200,
+                    colValue: 18792,
+                    resaleAmount: '6577',
+                    resaleAmountVM: '8456',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 16,
+                    name: 'Blade of Ice',
+                    maxSkill: 70,
+                    attack: 221,
+                    colValue: 20300,
+                    resaleAmount: '7105',
+                    resaleAmountVM: '9135',
+                    howToObtain: 'White Baby Wyrm'
+                },
+                {
+                    id: 17,
+                    name: 'Sandstorm Blade',
+                    maxSkill: 75,
+                    attack: 243,
+                    colValue: 21692,
+                    resaleAmount: '7592',
+                    resaleAmountVM: '9761',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 18,
+                    name: 'Dark Steel Blade',
+                    maxSkill: 85,
+                    attack: 288,
+                    colValue: 24592,
+                    resaleAmount: '8607',
+                    resaleAmountVM: '11066',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 19,
+                    name: 'Dark Repulser',
+                    maxSkill: 90,
+                    attack: 312,
+                    colValue: 26100,
+                    resaleAmount: '9135',
+                    resaleAmountVM: '11745',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 20,
+                    name: 'Volcanic Blade',
+                    maxSkill: 90,
+                    attack: 312,
+                    colValue: 26100,
+                    resaleAmount: '9135',
+                    resaleAmountVM: '11745',
+                    howToObtain: 'Bloodsilk Spider'
+                },
+                {
+                    id: 21,
+                    name: 'Permafrost Sword',
+                    maxSkill: 95,
+                    attack: 336,
+                    colValue: 27491,
+                    resaleAmount: '9621',
+                    resaleAmountVM: '12370',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 22,
+                    name: 'Chimera',
+                    maxSkill: 105,
+                    attack: 385,
+                    colValue: 30391,
+                    resaleAmount: '10636',
+                    resaleAmountVM: '13675',
+                    howToObtain: 'Floor 7 Shop'
+                },
+                {
+                    id: 23,
+                    name: 'Gran',
+                    maxSkill: 110,
+                    attack: 410,
+                    colValue: 31899,
+                    resaleAmount: '11164',
+                    resaleAmountVM: '14354',
+                    howToObtain: 'Magic Shroom'
+                },
+                {
+                    id: 24,
+                    name: 'Demonic Blade',
+                    maxSkill: 115,
+                    attack: 436,
+                    colValue: 33292,
+                    resaleAmount: '11652',
+                    resaleAmountVM: '14981',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 25,
+                    name: 'Shadow Eater',
+                    maxSkill: 125,
+                    attack: 488,
+                    colValue: 36192,
+                    resaleAmount: '12667',
+                    resaleAmountVM: '16286',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 26,
+                    name: 'The Green Flame Sword',
+                    maxSkill: 132,
+                    attack: 526,
+                    colValue: 38280,
+                    resaleAmount: '13398',
+                    resaleAmountVM: '17226',
+                    howToObtain: '«Storm Atronach»'
+                },
+                {
+                    id: 27,
+                    name: 'Ancient Warrior',
+                    maxSkill: 135,
+                    attack: 542,
+                    colValue: 39092,
+                    resaleAmount: '13682',
+                    resaleAmountVM: '17591',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 28,
+                    name: 'Shadow Guardian',
+                    maxSkill: 140,
+                    attack: 570,
+                    colValue: 40600,
+                    resaleAmount: '14660',
+                    resaleAmountVM: '18270',
+                    howToObtain: 'Lizard'
+                },
+                {
+                    id: 29,
+                    name: 'Dark Repulser Mk II',
+                    maxSkill: 140,
+                    attack: 570,
+                    colValue: 40600,
+                    resaleAmount: '14210',
+                    resaleAmountVM: '18270',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 30,
+                    name: 'Deepsea SwiftBlade',
+                    maxSkill: 145,
+                    attack: 598,
+                    colValue: 41992,
+                    resaleAmount: '14697',
+                    resaleAmountVM: '18896',
+                    howToObtain: 'Floor 9 Shop'
+                },
+                {
+                    id: 31,
+                    name: 'Aqua Blade',
+                    maxSkill: 150,
+                    attack: 627,
+                    colValue: 41992,
+                    resaleAmount: '15224',
+                    resaleAmountVM: '19575',
+                    howToObtain: 'Jellyfish'
+                },
+                {
+                    id: 32,
+                    name: 'Corroded Crusader',
+                    maxSkill: 155,
+                    attack: 655,
+                    colValue: 44892,
+                    resaleAmount: '15712',
+                    resaleAmountVM: '20201',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 33,
+                    name: 'Butterfly Blade',
+                    maxSkill: 165,
+                    attack: 714,
+                    colValue: 47792,
+                    resaleAmount: '16727',
+                    resaleAmountVM: '21506',
+                    howToObtain: 'Floor 10 Shop'
+                },
+                {
+                    id: 34,
+                    name: 'Butterfly Katana',
+                    maxSkill: 170,
+                    attack: 743,
+                    colValue: 49300,
+                    resaleAmount: '17255',
+                    resaleAmountVM: '22185',
+                    howToObtain: 'Samurai'
+                },
+                {
+                    id: 35,
+                    name: 'Poseidons Repulser',
+                    maxSkill: 175,
+                    attack: 774,
+                    colValue: 50692,
+                    resaleAmount: '17742',
+                    resaleAmountVM: '22811',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 36,
+                    name: 'Crimson Shadow',
+                    maxSkill: 185,
+                    attack: 835,
+                    colValue: 53591,
+                    resaleAmount: '18756',
+                    resaleAmountVM: '24115',
+                    howToObtain: 'Floor 10 Shop'
+                },
+                {
+                    id: 37,
+                    name: 'Dark Repulser Mk III',
+                    maxSkill: 190,
+                    attack: 866,
+                    colValue: 55099,
+                    resaleAmount: '19284',
+                    resaleAmountVM: '24794',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 38,
+                    name: 'Vindictus Blade',
+                    maxSkill: 190,
+                    attack: 866,
+                    colValue: 55099,
+                    resaleAmount: '19284',
+                    resaleAmountVM: '24794',
+                    howToObtain: 'Knight'
+                },
+                {
+                    id: 39,
+                    name: 'Yang Katana',
+                    maxSkill: 192,
+                    attack: 878,
+                    colValue: 55679,
+                    resaleAmount: '19487',
+                    resaleAmountVM: '25055',
+                    howToObtain: '«Hotoke The Enlightened»'
+                },
+                {
+                    id: 40,
+                    name: 'Forest Warrior',
+                    maxSkill: 200,
+                    attack: 929,
+                    colValue: 57999,
+                    resaleAmount: '20299',
+                    resaleAmountVM: '26099',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 41,
+                    name: 'Stalhrim Blade',
+                    maxSkill: 205,
+                    attack: 961,
+                    colValue: 59391,
+                    resaleAmount: '20786',
+                    resaleAmountVM: '26725',
+                    howToObtain: 'Floor 12 Shop'
+                },
+                {
+                    id: 42,
+                    name: 'Purification',
+                    maxSkill: 210,
+                    attack: 993,
+                    colValue: 60899,
+                    resaleAmount: '21314',
+                    resaleAmountVM: '27404',
+                    howToObtain: 'Land Anemone'
+                },
+                {
+                    id: 43,
+                    name: 'Queens Resolve',
+                    maxSkill: 211,
+                    attack: 999,
+                    colValue: 61131,
+                    resaleAmount: '21395',
+                    resaleAmountVM: '27508',
+                    howToObtain: '«Buffed Knight»'
+                },
+                {
+                    id: 44,
+                    name: 'Impartial Edge',
+                    maxSkill: 215,
+                    attack: 1025,
+                    colValue: 62291,
+                    resaleAmount: '21801',
+                    resaleAmountVM: '28030',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 45,
+                    name: 'Poseidons Scale',
+                    maxSkill: 220,
+                    attack: 1270,
+                    colValue: 62291,
+                    resaleAmount: '22329',
+                    resaleAmountVM: '28709',
+                    howToObtain: 'Blacksmithing'
+                },
 
-        <!-- Comparison Modal -->
-        <div id="comparison-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">Compare Items</h2>
-                    <span class="close" id="close-comparison">&times;</span>
-                </div>
-                <div class="comparison-grid">
-                    <div>
-                        <select id="compare-item-1" class="comparison-select">
-                            <option value="">Select Item 1</option>
-                        </select>
-                        <div id="comparison-stats-1" class="comparison-stats"></div>
-                    </div>
-                    <div>
-                        <select id="compare-item-2" class="comparison-select">
-                            <option value="">Select Item 2</option>
-                        </select>
-                        <div id="comparison-stats-2" class="comparison-stats"></div>
-                    </div>
-                </div>
-                <div id="comparison-result" style="margin-top: 24px; padding: 20px; background: #f0f9ff; border-radius: 8px; display: none;">
-                    <h3 style="font-weight: 600; color: #1e40af; margin-bottom: 12px;">Analysis</h3>
-                    <div id="comparison-analysis"></div>
-                </div>
-            </div>
-        </div>
+                {
+                    id: 46,
+                    name: 'Dark Viel',
+                    maxSkill: 225,
+                    attack: 1091,
+                    colValue: 65191,
+                    resaleAmount: '22816',
+                    resaleAmountVM: '29335',
+                    howToObtain: 'Floor 12 Shop'
+                },
+                {
+                    id: 47,
+                    name: 'Cursed Blade',
+                    maxSkill: 230,
+                    attack: 1124,
+                    colValue: 67700,
+                    resaleAmount: '23345',
+                    resaleAmountVM: '30015',
+                    howToObtain: 'Kaimen'
+                },
+                {
+                    id: 48,
+                    name: 'Harmony Renaissance',
+                    maxSkill: 231,
+                    attack: 1131,
+                    colValue: 66932,
+                    resaleAmount: '23426',
+                    resaleAmountVM: '30119',
+                    howToObtain: '«Laurellis Convict»'
+                },
+                {
+                    id: 49,
+                    name: 'Floral Blade',
+                    maxSkill: 235,
+                    attack: 1158,
+                    colValue: 68092,
+                    resaleAmount: '23832',
+                    resaleAmountVM: '30641',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 50,
+                    name: 'Dark Repulser Mk IV',
+                    maxSkill: 240,
+                    attack: 1192,
+                    colValue: 69600,
+                    resaleAmount: '24360',
+                    resaleAmountVM: '31320',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 51,
+                    name: 'Holy Blade',
+                    maxSkill: 250,
+                    attack: 1260,
+                    colValue: 72500,
+                    resaleAmount: '25375',
+                    resaleAmountVM: '32625',
+                    howToObtain: '«Grimm»'
+                },
+                {
+                    id: 52,
+                    name: 'Hope Blade',
+                    maxSkill: 252,
+                    attack: 1274,
+                    colValue: 73080,
+                    resaleAmount: '25578',
+                    resaleAmountVM: '32886',
+                    howToObtain: '«The Tormented Soul»'
+                },
+                {
+                    id: 53,
+                    name: 'Akikos Will',
+                    maxSkill: 255,
+                    attack: 1295,
+                    colValue: 73892,
+                    resaleAmount: '25862',
+                    resaleAmountVM: '33251',
+                    howToObtain: 'Quest #60 Reward'
+                },
+                {
+                    id: 54,
+                    name: 'Blessed Blade',
+                    maxSkill: 260,
+                    attack: 1330,
+                    colValue: 75400,
+                    resaleAmount: '26390',
+                    resaleAmountVM: '33930',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 55,
+                    name: 'Das Chaos',
+                    maxSkill: 270,
+                    attack: 1400,
+                    colValue: 78300,
+                    resaleAmount: '27405',
+                    resaleAmountVM: '35235',
+                    howToObtain: '«Young Celestia»'
+                },
+                {
+                    id: 56,
+                    name: 'Gigas Spirit',
+                    maxSkill: 280,
+                    attack: 1700,
+                    colValue: 81200,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: '«Young Celestia»'
+                },
 
-        <!-- Bulk Calculator -->
-        <div id="calculator-section" style="display: none;">
-            <div class="main-card">
-                <h2 class="modal-title" style="margin-bottom: 24px;">Bulk Selling Calculator</h2>
-                <div>
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Item Col Value:</label>
-                    <input type="number" id="calc-col-value" class="calculator-input" placeholder="Enter col value" min="0">
-                    
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Quantity:</label>
-                    <input type="number" id="calc-quantity" class="calculator-input" placeholder="Enter quantity" min="1" value="1">
-                    
-                    <button class="btn btn-primary" id="calculate-button" style="width: 100%;">Calculate</button>
-                    
-                    <div id="calculator-results" style="display: none;">
-                        <div class="calculator-result">
-                            <div class="calculator-result-item">
-                                <span class="calculator-label">Base Resale (35%):</span>
-                                <span class="calculator-value" id="calc-base-resale">0</span>
-                            </div>
-                            <div class="calculator-result-item">
-                                <span class="calculator-label">VM Resale (45%):</span>
-                                <span class="calculator-value" id="calc-vm-resale">0</span>
-                            </div>
-                            <div class="calculator-result-item">
-                                <span class="calculator-label">VM Bonus:</span>
-                                <span class="calculator-value" id="calc-vm-bonus">0</span>
-                            </div>
-                            <div class="calculator-result-item">
-                                <span class="calculator-label">Total Col Value:</span>
-                                <span class="calculator-value" id="calc-total-col">0</span>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 24px;">
-                            <h3 style="font-weight: 600; color: #374151; margin-bottom: 12px;">Quantity Breakpoints</h3>
-                            <div id="calc-breakpoints" style="background: #f9fafb; padding: 16px; border-radius: 8px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                {
+                    id: 57,
+                    name: 'Gilded Blade',
+                    maxSkill: 290,
+                    attack: 1544,
+                    colValue: 84100,
+                    resaleAmount: '29434',
+                    resaleAmountVM: '37845',
+                    howToObtain: 'Orc'
+                },
+                {
+                    id: 58,
+                    name: 'Sweet Blade',
+                    maxSkill: 305,
+                    attack: 1655,
+                    colValue: 88392,
+                    resaleAmount: '30937',
+                    resaleAmountVM: '39776',
+                    howToObtain: 'Floor 17 Shop'
+                },
+                {
+                    id: 59,
+                    name: 'Candy Katana',
+                    maxSkill: 310,
+                    attack: 1692,
+                    colValue: 89900,
+                    resaleAmount: '31464',
+                    resaleAmountVM: '40455',
+                    howToObtain: 'Candy Soldier'
+                },
+                {
+                    id: 60,
+                    name: 'Poisonous Cleaver',
+                    maxSkill: 311,
+                    attack: 1699,
+                    colValue: 90132,
+                    resaleAmount: '31546',
+                    resaleAmountVM: '40559',
+                    howToObtain: 'Leader Goblin'
+                },
+                {
+                    id: 61,
+                    name: 'Crowbar Edge',
+                    maxSkill: 325,
+                    attack: 1805,
+                    colValue: null,
+                    resaleAmount: '32967',
+		            resaleAmountVM: '42386',
+                    howToObtain: 'Slugger Street Thug'
+                },
+                {
+                    id: 62,
+                    name: 'Enforcer Blade',
+                    maxSkill: 330,
+                    attack: 1843,
+                    colValue: 95700,
+                    resaleAmount: '33495',
+                    resaleAmountVM: '43065',
+                    howToObtain: 'Floor 18 Squid Game Dungeon Merchant'
+                },
+                {
+                    id: 63,
+                    name: 'Butterscotch Blade',
+                    maxSkill: 335,
+                    attack: 1881,
+                    colValue: 97062,
+                    resaleAmount: '33982',
+                    resaleAmountVM: '43691',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 64,
+                    name: 'Divinity',
+                    maxSkill: 340,
+                    attack: 2304,
+                    colValue: 98600,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
 
-    <script>
-        let items = {
-            weapons: {
-                'one-handed': [],
-                'two-handed': [],
-                'rapier': [],
-                'dagger': [],
-                'melee': []
-            },
-            armor: [],
-            'upper-headwear': [],
-            'lower-headwear': [],
-            shields: []
+                {
+                    id: 65,
+                    name: 'Black Verdict',
+                    maxSkill: 375,
+                    attack: 2196,
+                    colValue: null,
+                    resaleAmount: 'TBD',
+                    resaleAmountVM: 'TBD',
+                    howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
+                },
+                {
+                    id: 66,
+                    name: 'Decree',
+                    maxSkill: 395,
+                    attack: 2357,
+                    colValue: null,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
+                },
+            ],
+            'two-handed': [{
+                    id: 1,
+                    name: 'Iron Greatsword',
+                    maxSkill: 1,
+                    attack: 3,
+                    colValue: 231,
+                    resaleAmount: '80',
+                    resaleAmountVM: '103',
+                    howToObtain: 'Starter, Floor 1 shop'
+                }, {
+                    id: 2,
+                    name: 'Steel Greatsword',
+                    maxSkill: 5,
+                    attack: 10,
+                    colValue: 1392,
+                    resaleAmount: '',
+                    resaleAmountVM: '626',
+                    howToObtain: 'Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 3,
+                    name: 'Master Steel Greatsword',
+                    maxSkill: 10,
+                    attack: 21,
+                    colValue: 2900,
+                    resaleAmount: '',
+                    resaleAmountVM: '1305',
+                    howToObtain: 'Blacksmithing, Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 4,
+                    name: 'Master Steel Greatsword Mk II',
+                    maxSkill: 13,
+                    attack: 29,
+                    colValue: 3711,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 5,
+                    name: 'GrandMaster Steel Greatsword',
+                    maxSkill: 16,
+                    attack: 38,
+                    colValue: 4640,
+                    resaleAmount: '',
+                    resaleAmountVM: '2088',
+                    howToObtain: 'Corrupted Sentinel'
+                },
+                {
+                    id: 6,
+                    name: 'Corruption Buster',
+                    maxSkill: 20,
+                    attack: 51,
+                    colValue: 5800,
+                    resaleAmount: '',
+                    resaleAmountVM: '2610',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 7,
+                    name: 'GrandMaster Steel Greatsword Mk II',
+                    maxSkill: 24,
+                    attack: 65,
+                    colValue: 6959,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 8,
+                    name: 'Basin Buster',
+                    maxSkill: 26,
+                    attack: 72,
+                    colValue: 7539,
+                    resaleAmount: '',
+                    resaleAmountVM: '3392',
+                    howToObtain: 'Floor 2 Shop, Floor 3 Shop'
+                },
+                {
+                    id: 9,
+                    name: 'Glade Striker',
+                    maxSkill: 30,
+                    attack: 88,
+                    colValue: 8700,
+                    resaleAmount: '',
+                    resaleAmountVM: '3915',
+                    howToObtain: 'Marshland Crocodile'
+                },
+                {
+                    id: 10,
+                    name: 'GrandMaster Steel Greatsword Mk III',
+                    maxSkill: 35,
+                    attack: 108,
+                    colValue: 10092,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 11,
+                    name: 'Great Scimitar',
+                    maxSkill: 45,
+                    attack: 152,
+                    colValue: 12992,
+                    resaleAmount: '',
+                    resaleAmountVM: '5846',
+                    howToObtain: 'Floor 4 Shop'
+                },
+                {
+                    id: 12,
+                    name: 'Lightning Edge',
+                    maxSkill: 50,
+                    attack: 175,
+                    colValue: 14499,
+                    resaleAmount: '',
+                    resaleAmountVM: '6542',
+                    howToObtain: 'Albino Scorpion'
+                },
+                {
+                    id: 13,
+                    name: 'Legendary Malachite Blade',
+                    maxSkill: 52,
+                    attack: 185,
+                    colValue: 15079,
+                    resaleAmount: '',
+                    resaleAmountVM: '6785',
+                    howToObtain: '«Lord Slug»'
+                },
+                {
+                    id: 14,
+                    name: 'Malachite Greatsword',
+                    maxSkill: 55,
+                    attack: 199,
+                    colValue: 15891,
+                    resaleAmount: '',
+                    resaleAmountVM: '7150',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 15,
+                    name: 'Mirror Shatterer',
+                    maxSkill: 65,
+                    attack: 300,
+                    colValue: 18792,
+                    resaleAmount: '',
+                    resaleAmountVM: '8456',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 16,
+                    name: 'Legendary Stalhrim Blade',
+                    maxSkill: 70,
+                    attack: 277,
+                    colValue: 20300,
+                    resaleAmount: '',
+                    resaleAmountVM: '9135',
+                    howToObtain: 'Frost Chaurus'
+                },
+                {
+                    id: 17,
+                    name: 'Sandstorm Buster',
+                    maxSkill: 75,
+                    attack: 304,
+                    colValue: 20300,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 18,
+                    name: 'Dark Steel Greatsword',
+                    maxSkill: 85,
+                    attack: 361,
+                    colValue: 24592,
+                    resaleAmount: '',
+                    resaleAmountVM: '11066',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 19,
+                    name: 'Infernal Cleaver',
+                    maxSkill: 90,
+                    attack: 390,
+                    colValue: 26100,
+                    resaleAmount: '',
+                    resaleAmountVM: '11745',
+                    howToObtain: 'Ember Spider'
+                },
+                {
+                    id: 20,
+                    name: 'Permafrost Greatsword',
+                    maxSkill: 95,
+                    attack: 420,
+                    colValue: 27491,
+                    resaleAmount: '',
+                    resaleAmountVM: '12370',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 21,
+                    name: 'Inyo Buster',
+                    maxSkill: 105,
+                    attack: 481,
+                    colValue: 30391,
+                    resaleAmount: '',
+                    resaleAmountVM: '13675',
+                    howToObtain: 'Floor 7 Shop'
+                },
+                {
+                    id: 22,
+                    name: 'Shiek Greatsword',
+                    maxSkill: 110,
+                    attack: 513,
+                    colValue: 31899,
+                    resaleAmount: '',
+                    resaleAmountVM: '14354',
+                    howToObtain: 'Stone Golem'
+                },
+                {
+                    id: 23,
+                    name: 'Yukkis Mourne',
+                    maxSkill: 112,
+                    attack: 525,
+                    colValue: 32479,
+                    resaleAmount: '',
+                    resaleAmountVM: '14615',
+                    howToObtain: '«Uakmaroth, the Demon Lord»'
+                },
+                {
+                    id: 24,
+                    name: 'Demonic Greatsword',
+                    maxSkill: 115,
+                    attack: 545,
+                    colValue: 33292,
+                    resaleAmount: '',
+                    resaleAmountVM: '14981',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 25,
+                    name: 'Shadow Destroyer',
+                    maxSkill: 125,
+                    attack: 610,
+                    colValue: 36192,
+                    resaleAmount: '',
+                    resaleAmountVM: '16286',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 26,
+                    name: 'Wretched Greatsword',
+                    maxSkill: 130,
+                    attack: 644,
+                    colValue: 37700,
+                    resaleAmount: '',
+                    resaleAmountVM: '16965',
+                    howToObtain: 'Shadow Walker'
+                },
+                {
+                    id: 27,
+                    name: 'Ancient Berserker',
+                    maxSkill: 135,
+                    attack: 678,
+                    colValue: 39092,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 28,
+                    name: 'Charus Claymore',
+                    maxSkill: 145,
+                    attack: 748,
+                    colValue: 41992,
+                    resaleAmount: '',
+                    resaleAmountVM: '18896',
+                    howToObtain: 'Floor 9 Shop'
+                },
+                {
+                    id: 29,
+                    name: 'Aqua Buster',
+                    maxSkill: 150,
+                    attack: 783,
+                    colValue: 43500,
+                    resaleAmount: '',
+                    resaleAmountVM: '19575',
+                    howToObtain: 'Sea Turtle'
+                },
+                {
+                    id: 30,
+                    name: 'Corroded Berserker',
+                    maxSkill: 155,
+                    attack: 819,
+                    colValue: 44892,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 31,
+                    name: 'Butterfly Buster',
+                    maxSkill: 165,
+                    attack: 892,
+                    colValue: 47792,
+                    resaleAmount: '',
+                    resaleAmountVM: '21506',
+                    howToObtain: 'Floor 10 Shop'
+                },
+                {
+                    id: 32,
+                    name: 'Kamikaze Katana',
+                    maxSkill: 170,
+                    attack: 929,
+                    colValue: 49300,
+                    resaleAmount: '',
+                    resaleAmountVM: '22185',
+                    howToObtain: 'Oni'
+                },
+                {
+                    id: 33,
+                    name: 'Atlantic Destroyer',
+                    maxSkill: 175,
+                    attack: 967,
+                    colValue: 50692,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 34,
+                    name: 'Shadow Edge',
+                    maxSkill: 185,
+                    attack: 1043,
+                    colValue: 53591,
+                    resaleAmount: '',
+                    resaleAmountVM: '24115',
+                    howToObtain: 'Floor 10 Shop'
+                },
+                {
+                    id: 35,
+                    name: 'Doomed Treasure',
+                    maxSkill: 190,
+                    attack: 1082,
+                    colValue: 55099,
+                    resaleAmount: '',
+                    resaleAmountVM: '24794',
+                    howToObtain: 'Fallen Noble'
+                },
+                {
+                    id: 36,
+                    name: 'Forest Buster',
+                    maxSkill: 200,
+                    attack: 1161,
+                    colValue: 57999,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 37,
+                    name: 'Stalhrim Greatsword',
+                    maxSkill: 205,
+                    attack: 1201,
+                    colValue: 59391,
+                    resaleAmount: '',
+                    resaleAmountVM: '26725',
+                    howToObtain: 'Floor 12 Shop'
+                },
+                {
+                    id: 38,
+                    name: 'Trunk Destroyer',
+                    maxSkill: 210,
+                    attack: 1241,
+                    colValue: 60899,
+                    resaleAmount: '',
+                    resaleAmountVM: '27404',
+                    howToObtain: 'Land Anemone , «Laurellis Convict»'
+                },
+                {
+                    id: 39,
+                    name: 'Whale',
+                    maxSkill: 212,
+                    attack: 1257,
+                    colValue: 61479,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: '«Grimlock the Fallen King»'
+                },
+                {
+                    id: 40,
+                    name: 'Zweihander',
+                    maxSkill: 215,
+                    attack: 1282,
+                    colValue: 62291,
+                    resaleAmount: '',
+                    resaleAmountVM: '28030',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 41,
+                    name: 'Twilight Buster',
+                    maxSkill: 220,
+                    attack: 1587,
+                    colValue: 63799,
+                    resaleAmount: '',
+                    resaleAmountVM: '28709',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+                {
+                    id: 42,
+                    name: 'Shadow Buster',
+                    maxSkill: 225,
+                    attack: 1364,
+                    colValue: 65191,
+                    resaleAmount: '',
+                    resaleAmountVM: '29335',
+                    howToObtain: 'Floor 12 Shop'
+                },
+                {
+                    id: 43,
+                    name: 'Cursed Buster',
+                    maxSkill: 230,
+                    attack: 1406,
+                    colValue: 66700,
+                    resaleAmount: '',
+                    resaleAmountVM: '30015',
+                    howToObtain: '«Tormented Spectrum»'
+                },
+                {
+                    id: 44,
+                    name: 'Floral Buster',
+                    maxSkill: 235,
+                    attack: 1448,
+                    colValue: 68092,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 45,
+                    name: 'Holy Buster',
+                    maxSkill: 250,
+                    attack: 1575,
+                    colValue: 72500,
+                    resaleAmount: '',
+                    resaleAmountVM: '32625',
+                    howToObtain: 'Luo'
+                },
+                {
+                    id: 46,
+                    name: 'Hope Buster',
+                    maxSkill: 252,
+                    attack: 1593,
+                    colValue: 73080,
+                    resaleAmount: '',
+                    resaleAmountVM: '32886',
+                    howToObtain: '«The Tormented Soul»'
+                },
+                {
+                    id: 47,
+                    name: 'Blessed Greatsword',
+                    maxSkill: 260,
+                    attack: 1662,
+                    colValue: 75400,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 48,
+                    name: 'Der Zerstorer',
+                    maxSkill: 270,
+                    attack: 1751,
+                    colValue: 78300,
+                    resaleAmount: '',
+                    resaleAmountVM: '35235',
+                    howToObtain: '«Young Celestia»'
+                },
+                {
+                    id: 49,
+                    name: 'Gigas Soul',
+                    maxSkill: 280,
+                    attack: 2208,
+                    colValue: 81200,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+                {
+                    id: 50,
+                    name: 'Rugged Greatsword',
+                    maxSkill: 290,
+                    attack: 1930,
+                    colValue: 84100,
+                    resaleAmount: '',
+                    resaleAmountVM: '37845',
+                    howToObtain: 'Werewolf'
+                },
+                {
+                    id: 51,
+                    name: 'Sweet Buster',
+                    maxSkill: 305,
+                    attack: 2068,
+                    colValue: 88392,
+                    resaleAmount: '',
+                    resaleAmountVM: '39776',
+                    howToObtain: 'Floor 17 Shop'
+                },
+                {
+                    id: 52,
+                    name: 'Candy Halberd',
+                    maxSkill: 310,
+                    attack: 2115,
+                    colValue: 89900,
+                    resaleAmount: '',
+                    resaleAmountVM: '40455',
+                    howToObtain: 'Chubby Dragon'
+                },
+                {
+                    id: 53,
+                    name: 'Giant Hammer',
+                    maxSkill: 312,
+                    attack: 2134,
+                    colValue: 90480,
+                    resaleAmount: '',
+                    resaleAmountVM: '40716',
+                    howToObtain: '«Two-Headed Giant»'
+                },
+                {
+                    id: 54,
+                    name: 'Rebar Crusher',
+                    maxSkill: 325,
+                    attack: 2256,
+                    colValue: null,
+                    resaleAmount: '',
+                    resaleAmountVM: '42386',
+                    howToObtain: 'Wrecker Street Thug'
+                },
+                {
+                    id: 55,
+                    name: 'Executioner Buster',
+                    maxSkill: 330,
+                    attack: 2304,
+                    colValue: 95700,
+                    resaleAmount: '',
+                    resaleAmountVM: '43065',
+                    howToObtain: 'Floor 18 Squid Game Dungeon Merchant'
+                },
+                {
+                    id: 56,
+                    name: 'Cinnamon Sword',
+                    maxSkill: 335,
+                    attack: 2532,
+                    colValue: 97062,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 57,
+                    name: 'Zurandal',
+                    maxSkill: 340,
+                    attack: 2880,
+                    colValue: 98600,
+                    resaleAmount: 'cannot be sold',
+                    resaleAmountVM: 'cannot be sold',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+                {
+                    id: 58,
+                    name: 'Obsidian Breaker',
+                    maxSkill: 375,
+                    attack: 2745,
+                    colValue: null,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
+                },
+                {
+                    id: 59,
+                    name: 'Finale',
+                    maxSkill: 395,
+                    attack: 2947,
+                    colValue: null,
+                    resaleAmount: '',
+                    resaleAmountVM: '51520',
+                    howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
+                },
+
+
+            ],
+            'rapier': [{
+                    id: 1,
+                    name: 'Iron Rapier ',
+                    maxSkill: 1,
+                    attack: 2.6,
+                    colValue: 231,
+                    resaleAmount: '80',
+                    resaleAmountVM: '103',
+                    howToObtain: 'Starter, Floor 1 shop'
+                },
+                {
+                    id: 2,
+                    name: 'Steel Rapier',
+                    maxSkill: 5,
+                    attack: 7.6,
+                    colValue: 1392,
+                    resaleAmount: '',
+                    resaleAmountVM: '626',
+                    howToObtain: 'Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 3,
+                    name: 'Noble Rapier',
+                    maxSkill: 10,
+                    attack: 15.6,
+                    colValue: 2900,
+                    resaleAmount: '',
+                    resaleAmountVM: '1035',
+                    howToObtain: 'Blacksmithing, Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 4,
+                    name: 'Noble Rapier Mk II',
+                    maxSkill: 13,
+                    attack: 20,
+                    colValue: 3711,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 5,
+                    name: 'GrandMaster Steel Rapier',
+                    maxSkill: 16,
+                    attack: 26,
+                    colValue: 4292,
+                    resaleAmount: '',
+                    resaleAmountVM: '2088',
+                    howToObtain: 'Corrupted Sentinel'
+                },
+                {
+                    id: 6,
+                    name: 'GrandMaster Steel Rapier Mk II',
+                    maxSkill: 18,
+                    attack: 31,
+                    colValue: 5220,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 7,
+                    name: 'Corruption Stinger',
+                    maxSkill: 20,
+                    attack: 36,
+                    colValue: 5800,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 8,
+                    name: 'Tree Branch Rapier',
+                    maxSkill: 26,
+                    attack: 51,
+                    colValue: 7539,
+                    resaleAmount: '',
+                    resaleAmountVM: '3392',
+                    howToObtain: 'Floor 2 Shop'
+                },
+                {
+                    id: 9,
+                    name: 'Swamp Striker',
+                    maxSkill: 30,
+                    attack: 61,
+                    colValue: 8700,
+                    resaleAmount: '',
+                    resaleAmountVM: '3915',
+                    howToObtain: 'Swamp Snake'
+                },
+                {
+                    id: 10,
+                    name: 'GrandMaster Steel Rapier Mk III',
+                    maxSkill: 35,
+                    attack: 75,
+                    colValue: 10092,
+                    resaleAmount: '',
+                    resaleAmountVM: '4541',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 11,
+                    name: 'Timeless Rapier',
+                    maxSkill: 45,
+                    attack: 106,
+                    colValue: 12992,
+                    resaleAmount: '',
+                    resaleAmountVM: '5846',
+                    howToObtain: 'Floor 4 Shop'
+                },
+                {
+                    id: 12,
+                    name: 'Desert Striker',
+                    maxSkill: 50,
+                    attack: 122,
+                    colValue: 14499,
+                    resaleAmount: '',
+                    resaleAmountVM: '6542',
+                    howToObtain: 'Albino Scorpion'
+                },
+                {
+                    id: 13,
+                    name: 'Malachite Rapier',
+                    maxSkill: 55,
+                    attack: 139,
+                    colValue: 15891,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 14,
+                    name: 'Mirror Rapier',
+                    maxSkill: 65,
+                    attack: 175,
+                    colValue: 18792,
+                    resaleAmount: '',
+                    resaleAmountVM: '8456',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 15,
+                    name: 'Frostberge Skewer',
+                    maxSkill: 70,
+                    attack: 194,
+                    colValue: 20300,
+                    resaleAmount: '',
+                    resaleAmountVM: '9135',
+                    howToObtain: 'White Baby Wyrm'
+                },
+                {
+                    id: 16,
+                    name: 'Sandstorm Rapier',
+                    maxSkill: 75,
+                    attack: 213,
+                    colValue: 21692,
+                    resaleAmount: '',
+                    resaleAmountVM: '9761',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 17,
+                    name: 'Dark Steel Rapier',
+                    maxSkill: 85,
+                    attack: 252,
+                    colValue: 24592,
+                    resaleAmount: '',
+                    resaleAmountVM: '11066',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 18,
+                    name: 'Molten Lance',
+                    maxSkill: 90,
+                    attack: 273,
+                    colValue: 26100,
+                    resaleAmount: '',
+                    resaleAmountVM: '11745',
+                    howToObtain: 'Bloodsilk Spider'
+                },
+                {
+                    id: 19,
+                    name: 'Permafrost Rapier',
+                    maxSkill: 95,
+                    attack: 294,
+                    colValue: 27491,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 20,
+                    name: 'Inyo Striker',
+                    maxSkill: 105,
+                    attack: 337,
+                    colValue: 30391,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Floor 7 Shop'
+                },
+                {
+                    id: 21,
+                    name: 'Timberland Striker',
+                    maxSkill: 110,
+                    attack: 359,
+                    colValue: 31899,
+                    resaleAmount: '',
+                    resaleAmountVM: '14354',
+                    howToObtain: 'Spriggan'
+                },
+                {
+                    id: 22,
+                    name: 'Demonic Rapier',
+                    maxSkill: 115,
+                    attack: 381,
+                    colValue: 33292,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 23,
+                    name: 'Shadow Striker',
+                    maxSkill: 125,
+                    attack: 427,
+                    colValue: 36192,
+                    resaleAmount: '',
+                    resaleAmountVM: '16286',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 24,
+                    name: 'Deaths Kiss',
+                    maxSkill: 130,
+                    attack: 451,
+                    colValue: 37700,
+                    resaleAmount: '',
+                    resaleAmountVM: '16965',
+                    howToObtain: 'Skeleton'
+                },
+                {
+                    id: 25,
+                    name: 'Ancient Maiden',
+                    maxSkill: 135,
+                    attack: 475,
+                    colValue: 39092,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 26,
+                    name: 'Deepsea Challenger',
+                    maxSkill: 145,
+                    attack: 523,
+                    colValue: 41992,
+                    resaleAmount: '',
+                    resaleAmountVM: '18896',
+                    howToObtain: 'Floor 9 Shop'
+                },
+                {
+                    id: 27,
+                    name: 'Aquatic Striker',
+                    maxSkill: 150,
+                    attack: 548,
+                    colValue: 43500,
+                    resaleAmount: '',
+                    resaleAmountVM: '19575',
+                    howToObtain: 'Giant Crab'
+                },
+                {
+                    id: 28,
+                    name: 'Corroded Piercer',
+                    maxSkill: 155,
+                    attack: 573,
+                    colValue: 44892,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 29,
+                    name: 'Butterfly Rapier',
+                    maxSkill: 165,
+                    attack: 624,
+                    colValue: 47792,
+                    resaleAmount: '',
+                    resaleAmountVM: '21506',
+                    howToObtain: 'Dead Samurai, Floor 10 Shop'
+                },
+                {
+                    id: 30,
+                    name: 'Cyber Rapier',
+                    maxSkill: 170,
+                    attack: 650,
+                    colValue: 49300,
+                    resaleAmount: '',
+                    resaleAmountVM: '22185',
+                    howToObtain: 'Mantis'
+                },
+                {
+                    id: 31,
+                    name: 'Poseidons Trident',
+                    maxSkill: 172,
+                    attack: 661,
+                    colValue: 49880,
+                    resaleAmount: '',
+                    resaleAmountVM: '22446',
+                    howToObtain: '«Guardian of the Gate»'
+                },
+                {
+                    id: 32,
+                    name: 'Atlantic Enguarde',
+                    maxSkill: 175,
+                    attack: 677,
+                    colValue: 50692,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 33,
+                    name: 'Ember Challenger',
+                    maxSkill: 185,
+                    attack: 730,
+                    colValue: 53591,
+                    resaleAmount: '',
+                    resaleAmountVM: '24115',
+                    howToObtain: 'Floor 10 Shop'
+                },
+                {
+                    id: 34,
+                    name: 'Coladas Black Blade',
+                    maxSkill: 190,
+                    attack: 757,
+                    colValue: 55099,
+                    resaleAmount: '',
+                    resaleAmountVM: '24794',
+                    howToObtain: 'Noble'
+                },
+                {
+                    id: 35,
+                    name: 'Forest Maiden',
+                    maxSkill: 200,
+                    attack: 812,
+                    colValue: 57999,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 36,
+                    name: 'Stalhrim Lance',
+                    maxSkill: 205,
+                    attack: 840,
+                    colValue: 59391,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Floor 12 Shop'
+                },
+                {
+                    id: 37,
+                    name: 'Rose Rapier',
+                    maxSkill: 210,
+                    attack: 869,
+                    colValue: 60899,
+                    resaleAmount: '',
+                    resaleAmountVM: '27404',
+                    howToObtain: 'Giant Venus Flytrap'
+                },
+                {
+                    id: 38,
+                    name: 'Royal Guard Rapier',
+                    maxSkill: 215,
+                    attack: 897,
+                    colValue: 62291,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 39,
+                    name: 'Hells Slayer',
+                    maxSkill: 220,
+                    attack: 1111,
+                    colValue: 63799,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+                {
+                    id: 40,
+                    name: 'Blackened Riposte',
+                    maxSkill: 225,
+                    attack: 955,
+                    colValue: 65191,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Floor 12 Shop'
+                },
+                {
+                    id: 41,
+                    name: 'Cursed Rapier',
+                    maxSkill: 230,
+                    attack: 984,
+                    colValue: 66700,
+                    resaleAmount: '',
+                    resaleAmountVM: '30015',
+                    howToObtain: 'Undead Reprobate'
+                },
+                {
+                    id: 42,
+                    name: 'Eternity Branches',
+                    maxSkill: 232,
+                    attack: 996,
+                    colValue: 67280,
+                    resaleAmount: '',
+                    resaleAmountVM: '30276',
+                    howToObtain: '«Slime Lord Pengonis»'
+                },
+                {
+                    id: 43,
+                    name: 'Floral Rapier',
+                    maxSkill: 235,
+                    attack: 1013,
+                    colValue: 68092,
+                    resaleAmount: '',
+                    resaleAmountVM: '30641',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 44,
+                    name: 'Holy Rapier',
+                    maxSkill: 250,
+                    attack: 1103,
+                    colValue: 72500,
+                    resaleAmount: '',
+                    resaleAmountVM: '32625',
+                    howToObtain: 'Celatid'
+                },
+                {
+                    id: 45,
+                    name: 'Hope Rapier',
+                    maxSkill: 252,
+                    attack: 1115,
+                    colValue: 73080,
+                    resaleAmount: '',
+                    resaleAmountVM: '32886',
+                    howToObtain: '«The Tormented Soul»'
+                },
+                {
+                    id: 46,
+                    name: 'Blessed Rapier',
+                    maxSkill: 260,
+                    attack: 1164,
+                    colValue: 75400,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 47,
+                    name: 'Die Klarheit',
+                    maxSkill: 270,
+                    attack: 1225,
+                    colValue: 78300,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: '«Young Celestia»'
+                },
+                {
+                    id: 48,
+                    name: 'Gigas Lacerator',
+                    maxSkill: 280,
+                    attack: 1545,
+                    colValue: 81200,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+                {
+                    id: 49,
+                    name: 'Gilded Rapier',
+                    maxSkill: 290,
+                    attack: 1351,
+                    colValue: 84100,
+                    resaleAmount: '',
+                    resaleAmountVM: '37845',
+                    howToObtain: 'Goblin'
+                },
+                {
+                    id: 50,
+                    name: 'Sweet Rapier',
+                    maxSkill: 305,
+                    attack: 1448,
+                    colValue: 88392,
+                    resaleAmount: '',
+                    resaleAmountVM: '39776',
+                    howToObtain: 'Floor 17 Shop'
+                },
+                {
+                    id: 51,
+                    name: 'Candy Striker',
+                    maxSkill: 310,
+                    attack: 1480,
+                    colValue: 89900,
+                    resaleAmount: '',
+                    resaleAmountVM: '40455',
+                    howToObtain: 'Slim Dragon'
+                },
+                {
+                    id: 52,
+                    name: 'Pipe Stinger',
+                    maxSkill: 325,
+                    attack: 1579,
+                    colValue: null,
+                    resaleAmount: '',
+                    resaleAmountVM: '42386',
+                    howToObtain: 'Prowler Street Thug, Street Enforcer'
+                },
+                {
+                    id: 53,
+                    name: 'Sentry Sting',
+                    maxSkill: 330,
+                    attack: 1613,
+                    colValue: 95700,
+                    resaleAmount: '',
+                    resaleAmountVM: '43065',
+                    howToObtain: 'Floor 18 Squid Game Dungeon Merchant'
+                },
+                {
+                    id: 54,
+                    name: 'Licorice Lancer',
+                    maxSkill: 335,
+                    attack: 1646,
+                    colValue: 97062,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 55,
+                    name: 'Redline Lace',
+                    maxSkill: 337,
+                    attack: 1660,
+                    colValue: 34185,
+                    resaleAmount: '',
+                    resaleAmountVM: '43952',
+                    howToObtain: 'The Custodian'
+                },
+                {
+                    id: 56,
+                    name: 'Queens Maiden',
+                    maxSkill: 340,
+                    attack: 2016,
+                    colValue: 98600,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+                {
+                    id: 57,
+                    name: 'Spire of Judgement',
+                    maxSkill: 375,
+                    attack: 1921,
+                    colValue: null,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
+                },
+
+            ],
+            'dagger': [{
+                    id: 1,
+                    name: 'Iron Dagger',
+                    maxSkill: 1,
+                    attack: 2.5,
+                    colValue: 231,
+                    resaleAmount: '80',
+                    resaleAmountVM: '103',
+                    howToObtain: 'Starter Inventory, Floor 1 Shop'
+                },
+                {
+                    id: 2,
+                    name: 'Steel Dagger',
+                    maxSkill: 5,
+                    attack: 7.5,
+                    colValue: 1392,
+                    resaleAmount: '',
+                    resaleAmountVM: '626',
+                    howToObtain: 'Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 3,
+                    name: 'Master Steel Dagger',
+                    maxSkill: 10,
+                    attack: 14.5,
+                    colValue: 2900,
+                    resaleAmount: '',
+                    resaleAmountVM: '1305',
+                    howToObtain: 'Blacksmithing, Floor 1 Shop, Floor 2 Shop'
+                },
+                {
+                    id: 4,
+                    name: 'Obsidibite',
+                    maxSkill: 10,
+                    attack: 14.5,
+                    colValue: 2900,
+                    resaleAmount: '',
+                    resaleAmountVM: '1305',
+                    howToObtain: 'Shadesworn the Corrupted'
+                },
+                {
+                    id: 5,
+                    name: 'Master Steel Dagger Mk II',
+                    maxSkill: 13,
+                    attack: 19,
+                    colValue: 3711,
+                    resaleAmount: '',
+                    resaleAmountVM: '1669',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 6,
+                    name: 'GrandMaster Steel Dagger',
+                    maxSkill: 16,
+                    attack: 25,
+                    colValue: 4640,
+                    resaleAmount: '',
+                    resaleAmountVM: '2088',
+                    howToObtain: 'Kobold Sentinel'
+                },
+                {
+                    id: 7,
+                    name: 'GrandMaster Steel Dagger Mk II',
+                    maxSkill: 18,
+                    attack: 29,
+                    colValue: 5220,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 8,
+                    name: 'Corruption Carver',
+                    maxSkill: 20,
+                    attack: 33,
+                    colValue: 5800,
+                    resaleAmount: '',
+                    resaleAmountVM: '2610',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 9,
+                    name: 'Swamp Edge',
+                    maxSkill: 26,
+                    attack: 47,
+                    colValue: 7539,
+                    resaleAmount: '',
+                    resaleAmountVM: '3392',
+                    howToObtain: 'Floor 2 Shop, Floor 3 Shop'
+                },
+                {
+                    id: 10,
+                    name: 'Moras Edge',
+                    maxSkill: 30,
+                    attack: 57,
+                    colValue: 8700,
+                    resaleAmount: '',
+                    resaleAmountVM: '3915',
+                    howToObtain: 'Swamp Cobra'
+                },
+                {
+                    id: 11,
+                    name: 'GrandMaster Steel Dagger Mk III',
+                    maxSkill: 35,
+                    attack: 70,
+                    colValue: 10092,
+                    resaleAmount: '',
+                    resaleAmountVM: '4541',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 12,
+                    name: 'Timeless Dagger',
+                    maxSkill: 45,
+                    attack: 99,
+                    colValue: 12992,
+                    resaleAmount: '',
+                    resaleAmountVM: '5846',
+                    howToObtain: 'Floor 4 Shop'
+                },
+                {
+                    id: 13,
+                    name: 'Deserts Fury',
+                    maxSkill: 50,
+                    attack: 114,
+                    colValue: 14499,
+                    resaleAmount: '',
+                    resaleAmountVM: '6524',
+                    howToObtain: 'Sand Scorpion, Egyptian Cobra'
+                },
+                {
+                    id: 14,
+                    name: 'Malachite Dagger',
+                    maxSkill: 55,
+                    attack: 129,
+                    colValue: 15891,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 15,
+                    name: 'Mirror Dagger',
+                    maxSkill: 65,
+                    attack: 162,
+                    colValue: 18792,
+                    resaleAmount: '',
+                    resaleAmountVM: '8456',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 16,
+                    name: 'Crystalized Edge',
+                    maxSkill: 70,
+                    attack: 180,
+                    colValue: 20300,
+                    resaleAmount: '',
+                    resaleAmountVM: '9135',
+                    howToObtain: 'Frost Chaurus'
+                },
+                {
+                    id: 17,
+                    name: 'Pharaohs Edge',
+                    maxSkill: 72,
+                    attack: 187,
+                    colValue: 19372,
+                    resaleAmount: '',
+                    resaleAmountVM: '9396',
+                    howToObtain: '«Stallord»'
+                },
+                {
+                    id: 18,
+                    name: 'Sandstorm Dagger',
+                    maxSkill: 75,
+                    attack: 197,
+                    colValue: 21692,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 19,
+                    name: 'Dark Steel Dagger',
+                    maxSkill: 85,
+                    attack: 234,
+                    colValue: 24592,
+                    resaleAmount: '',
+                    resaleAmountVM: '11066',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 20,
+                    name: 'Molten Thief',
+                    maxSkill: 90,
+                    attack: 253,
+                    colValue: 26100,
+                    resaleAmount: '',
+                    resaleAmountVM: '11745',
+                    howToObtain: 'Twin-Tailed Blood Wolf'
+                },
+                {
+                    id: 21,
+                    name: 'Permafrost Dagger',
+                    maxSkill: 95,
+                    attack: 273,
+                    colValue: 27491,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 22,
+                    name: 'Beta Slasher',
+                    maxSkill: 105,
+                    attack: 313,
+                    colValue: 30391,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Floor 7 Shop'
+                },
+                {
+                    id: 23,
+                    name: 'Eternal Shard',
+                    maxSkill: 110,
+                    attack: 333,
+                    colValue: 31899,
+                    resaleAmount: '',
+                    resaleAmountVM: '14354',
+                    howToObtain: 'Chomper'
+                },
+                {
+                    id: 24,
+                    name: 'Demonic Dagger',
+                    maxSkill: 115,
+                    attack: 354,
+                    colValue: 33292,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 25,
+                    name: 'Shadow Void',
+                    maxSkill: 125,
+                    attack: 397,
+                    colValue: 36192,
+                    resaleAmount: '',
+                    resaleAmountVM: '16286',
+                    howToObtain: 'Floor 5 Shop'
+                },
+                {
+                    id: 26,
+                    name: 'Tourmaline Edge',
+                    maxSkill: 130,
+                    attack: 419,
+                    colValue: 37700,
+                    resaleAmount: '',
+                    resaleAmountVM: '16965',
+                    howToObtain: 'Worm'
+                },
+                {
+                    id: 27,
+                    name: 'Ancient Assassin',
+                    maxSkill: 135,
+                    attack: 441,
+                    colValue: 39092,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 28,
+                    name: 'Deepsea Crescent',
+                    maxSkill: 145,
+                    attack: 486,
+                    colValue: 41992,
+                    resaleAmount: '',
+                    resaleAmountVM: '18896',
+                    howToObtain: 'Floor 9 Shop'
+                },
+                {
+                    id: 29,
+                    name: 'Aquatic Dagger',
+                    maxSkill: 150,
+                    attack: 509,
+                    colValue: 43500,
+                    resaleAmount: '',
+                    resaleAmountVM: '19575',
+                    howToObtain: 'Atlantian Guard'
+                },
+                {
+                    id: 30,
+                    name: 'Corroded Shank',
+                    maxSkill: 155,
+                    attack: 532,
+                    colValue: 44892,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 31,
+                    name: 'Butterfly Dagger',
+                    maxSkill: 165,
+                    attack: 580,
+                    colValue: 47792,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Floor 10 Shop'
+                },
+                {
+                    id: 32,
+                    name: 'Sai',
+                    maxSkill: 170,
+                    attack: 604,
+                    colValue: 49300,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Dragon'
+                },
+                {
+                    id: 33,
+                    name: 'Apocalyptic Bringer',
+                    maxSkill: 175,
+                    attack: 628,
+                    colValue: 50692,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 34,
+                    name: 'Ember Strike',
+                    maxSkill: 185,
+                    attack: 678,
+                    colValue: 53591,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Floor 10 Shop'
+                },
+                {
+                    id: 35,
+                    name: 'Vindictus Edge',
+                    maxSkill: 190,
+                    attack: 703,
+                    colValue: 55099,
+                    resaleAmount: '',
+                    resaleAmountVM: '24794',
+                    howToObtain: 'Commoner'
+                },
+                {
+                    id: 36,
+                    name: 'Forest Assassin',
+                    maxSkill: 200,
+                    attack: 754,
+                    colValue: 57999,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 37,
+                    name: 'Stalhrim Dagger',
+                    maxSkill: 205,
+                    attack: 780,
+                    colValue: 59391,
+                    resaleAmount: '',
+                    resaleAmountVM: '26725',
+                    howToObtain: 'Floor 12 Shop'
+                },
+                {
+                    id: 38,
+                    name: 'Vine Striker',
+                    maxSkill: 210,
+                    attack: 807,
+                    colValue: 60899,
+                    resaleAmount: '',
+                    resaleAmountVM: '27404',
+                    howToObtain: 'Garish Garbera'
+                },
+                {
+                    id: 39,
+                    name: 'Thiefs Blade',
+                    maxSkill: 215,
+                    attack: 833,
+                    colValue: 62291,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 40,
+                    name: 'Anguish Carver',
+                    maxSkill: 220,
+                    attack: 1032,
+                    colValue: 63799,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+                {
+                    id: 41,
+                    name: 'Echoe',
+                    maxSkill: 225,
+                    attack: 886,
+                    colValue: 65191,
+                    resaleAmount: '',
+                    resaleAmountVM: '29335',
+                    howToObtain: 'Floor 12 Shop'
+                },
+                {
+                    id: 42,
+                    name: 'Xantheril',
+                    maxSkill: 230,
+                    attack: 913,
+                    colValue: 66700,
+                    resaleAmount: '',
+                    resaleAmountVM: '30015',
+                    howToObtain: 'Ghost Panther'
+                },
+                {
+                    id: 43,
+                    name: 'Floral Dagger',
+                    maxSkill: 235,
+                    attack: 941,
+                    colValue: 68092,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 44,
+                    name: 'Holy Light Dagger',
+                    maxSkill: 250,
+                    attack: 1024,
+                    colValue: 72500,
+                    resaleAmount: '',
+                    resaleAmountVM: '32625',
+                    howToObtain: 'Super Luo'
+                },
+                {
+                    id: 45,
+                    name: 'Hope Dagger',
+                    maxSkill: 252,
+                    attack: 1035,
+                    colValue: 73080,
+                    resaleAmount: '',
+                    resaleAmountVM: '32886',
+                    howToObtain: '«The Tormented Soul»'
+                },
+                {
+                    id: 46,
+                    name: 'Blessed Dagger',
+                    maxSkill: 260,
+                    attack: 1080,
+                    colValue: 75400,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 47,
+                    name: 'Die Vergangenheit',
+                    maxSkill: 270,
+                    attack: 1138,
+                    colValue: 78300,
+                    resaleAmount: '',
+                    resaleAmountVM: '35235',
+                    howToObtain: '«Young Celestia»'
+                },
+                {
+                    id: 48,
+                    name: 'Gigas Grinder',
+                    maxSkill: 280,
+                    attack: 1435,
+                    colValue: 81200,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+                {
+                    id: 49,
+                    name: 'Gilded Dagger',
+                    maxSkill: 290,
+                    attack: 1255,
+                    colValue: 84100,
+                    resaleAmount: '',
+                    resaleAmountVM: '37845',
+                    howToObtain: 'Goblin'
+                },
+                {
+                    id: 50,
+                    name: 'Sweet Dagger',
+                    maxSkill: 305,
+                    attack: 1344,
+                    colValue: 88392,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Floor 17 Shop'
+                },
+                {
+                    id: 51,
+                    name: 'Candy Kunai',
+                    maxSkill: 310,
+                    attack: 1375,
+                    colValue: 89900,
+                    resaleAmount: '',
+                    resaleAmountVM: '40455',
+                    howToObtain: 'Candy Crab'
+                },
+                {
+                    id: 52,
+                    name: 'Box Cutter',
+                    maxSkill: 325,
+                    attack: 1466,
+                    colValue: null,
+                    resaleAmount: '',
+                    resaleAmountVM: '42386',
+                    howToObtain: 'Cutter Street Thug'
+                },
+                {
+                    id: 53,
+                    name: 'Catchblade',
+                    maxSkill: 330,
+                    attack: 1497,
+                    colValue: 95700,
+                    resaleAmount: '',
+                    resaleAmountVM: '43065',
+                    howToObtain: 'Floor 18 Squid Game Dungeon Merchant'
+                },
+                {
+                    id: 54,
+                    name: 'Sour Lemon Stabber',
+                    maxSkill: 335,
+                    attack: 1529,
+                    colValue: 97062,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing'
+                },
+                {
+                    id: 55,
+                    name: 'Failshard',
+                    maxSkill: 337,
+                    attack: 1541,
+                    colValue: 34185,
+                    resaleAmount: '',
+                    resaleAmountVM: '43952',
+                    howToObtain: '«The Custodian»'
+                },
+                {
+                    id: 56,
+                    name: 'Katherines Dagger',
+                    maxSkill: 340,
+                    attack: 1872,
+                    colValue: 98600,
+                    resaleAmount: 'Cannot be sold',
+                    resaleAmountVM: 'Cannot be sold',
+                    howToObtain: 'Blacksmithing: Legendary Tier'
+                },
+                {
+                    id: 57,
+                    name: 'Null Fang',
+                    maxSkill: 375,
+                    attack: 1784,
+                    colValue: null,
+                    resaleAmount: '',
+                    resaleAmountVM: '',
+                    howToObtain: 'Blacksmithing: Q111 Reward unlocks in Blacksmithing'
+                },
+            ],
+            'melee': [{
+                id: 1,
+                name: 'Fists',
+                maxSkill: '1-30',
+                attack: '2.5-40',
+                colValue: 'N/A',
+                resaleAmount: 'N/A',
+                resaleAmountVM: 'N/A',
+                howToObtain: 'Starter Inventory'
+            }, ]
+
         };
-
-        async function loadData() {
-            try {
-                const [oneHanded, twoHanded, rapier, dagger, melee, armor, upperHeadwear, lowerHeadwear, shields] = await Promise.all([
-                    fetch('weapons/onehanded.json').then(r => r.json()).catch(() => []),
-                    fetch('weapons/twohanded.json').then(r => r.json()).catch(() => []),
-                    fetch('weapons/rapier.json').then(r => r.json()).catch(() => []),
-                    fetch('weapons/dagger.json').then(r => r.json()).catch(() => []),
-                    fetch('weapons/melee.json').then(r => r.json()).catch(() => []),
-                    fetch('protective/outfit.json').then(r => r.json()).catch(() => []),
-                    fetch('protective/upperheadwear.json').then(r => r.json()).catch(() => []),
-                    fetch('protective/lowerheadwear.json').then(r => r.json()).catch(() => []),
-                    fetch('protective/shield.json').then(r => r.json()).catch(() => [])
-                ]);
-
-                items.weapons['one-handed'] = oneHanded;
-                items.weapons['two-handed'] = twoHanded;
-                items.weapons['rapier'] = rapier;
-                items.weapons['dagger'] = dagger;
-                items.weapons['melee'] = melee;
-                items.armor = armor;
-                items['upper-headwear'] = upperHeadwear;
-                items['lower-headwear'] = lowerHeadwear;
-                items.shields = shields;
-
-                loadOwnedItems();
-                updateStats();
-                filterItems();
-            } catch (error) {
-                console.error('Error loading data:', error);
-                loadOwnedItems();
-                updateStats();
-                filterItems();
-            }
-        }
-
-        let ownedItems = new Set();
-        let currentSection = 'weapons';
-        let currentSubcategory = 'one-handed';
+        // Flatten all weapons into single array
+        const allWeapons = Object.values(weapons).flat();
+        let filteredWeapons = [...allWeapons];
         let currentCategory = 'all';
-        let filteredItems = [];
 
-        // Load from localStorage
-        function loadOwnedItems() {
+        // Use localStorage for persistent storage
+        let ownedWeapons = new Set();
+
+        // Load owned weapons from localStorage on page load
+        function loadOwnedWeapons() {
             try {
-                const stored = window.localStorage.getItem('sbor-owned-items');
+                const stored = localStorage.getItem('sbor-owned-weapons');
                 if (stored) {
-                    ownedItems = new Set(JSON.parse(stored));
+                    const weaponArray = JSON.parse(stored);
+                    ownedWeapons = new Set(weaponArray);
                 }
             } catch (error) {
-                console.warn('Could not load owned items:', error);
+                console.warn('Could not load owned weapons from localStorage:', error);
+                ownedWeapons = new Set();
             }
         }
 
-        // Save to localStorage
-        function saveOwnedItems() {
+        // Save owned weapons to localStorage
+        function saveOwnedWeapons() {
             try {
-                window.localStorage.setItem('sbor-owned-items', JSON.stringify(Array.from(ownedItems)));
+                const weaponArray = Array.from(ownedWeapons);
+                localStorage.setItem('sbor-owned-weapons', JSON.stringify(weaponArray));
             } catch (error) {
-                console.warn('Could not save owned items:', error);
+                console.warn('Could not save owned weapons to localStorage:', error);
             }
         }
 
-        function getAllItems() {
-            if (currentSection === 'weapons') {
-                return Object.values(items.weapons).flat();
-            } else if (currentSection === 'gear') {
-                return [...items.armor, ...items['upper-headwear'], ...items['lower-headwear'], ...items.shields];
-            }
-            return [];
+        // Helper functions
+        function updateOwnedWeaponsCount() {
+            document.getElementById('owned-weapons').textContent = `${ownedWeapons.size}/${allWeapons.length}`;
         }
 
-        function getCurrentSubcategoryItems() {
-            if (currentSection === 'weapons') {
-                return items.weapons[currentSubcategory] || [];
-            } else if (currentSection === 'gear') {
-                if (currentSubcategory === 'armor') return items.armor;
-                if (currentSubcategory === 'upper-headwear') return items['upper-headwear'];
-                if (currentSubcategory === 'lower-headwear') return items['lower-headwear'];
-                if (currentSubcategory === 'shields') return items.shields;
+        function toggleWeaponOwnership(name, checkbox) {
+            if (checkbox.checked) {
+                ownedWeapons.add(name);
+            } else {
+                ownedWeapons.delete(name);
             }
-            return [];
-        }
-
-        function getItemId(item) {
-            return `${currentSection}-${currentSubcategory}-${item.name}`;
+            saveOwnedWeapons();
+            updateOwnedWeaponsCount();
         }
 
         function wikiUrl(name) {
             return "https://swordbloxonlinerebirth.fandom.com/wiki/" + name.replace(/ /g, "_");
         }
 
-        function updateStats() {
-            const allItems = getAllItems();
-            const completedItems = allItems.filter(item => item.colValue !== null && item.colValue !== 'N/A').length;
-            const completionPercentage = allItems.length > 0 ? Math.round((completedItems / allItems.length) * 100) : 0;
-            
-            const ownedCount = Array.from(ownedItems).filter(id => {
-                return allItems.some(item => getItemId(item) === id);
-            }).length;
+        function renderWeaponRow(weapon) {
+            const tr = document.createElement("tr");
 
-            document.getElementById('progress-value').textContent = `${completedItems}/${allItems.length}`;
-            document.getElementById('completion-percentage').textContent = `${completionPercentage}%`;
-            document.getElementById('owned-items').textContent = `${ownedCount}/${allItems.length}`;
+            // Checkbox cell
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "weapon-checkbox";
+            checkbox.checked = ownedWeapons.has(weapon.name);
+            checkbox.addEventListener('change', () => toggleWeaponOwnership(weapon.name, checkbox));
 
-            let totalValue = 0;
-            let mostValuableItem = null;
-            let highestValue = 0;
+            const checkboxCell = document.createElement("td");
+            checkboxCell.className = "checkbox-cell";
+            checkboxCell.appendChild(checkbox);
+            tr.appendChild(checkboxCell);
 
-            allItems.forEach(item => {
-                const itemId = getItemId(item);
-                if (ownedItems.has(itemId) && item.colValue && item.colValue !== 'N/A') {
-                    totalValue += item.colValue;
-                    
-                    if (item.resaleAmount !== 'Cannot be sold' && 
-                        item.resaleAmount !== 'cannot be sold' &&
-                        item.resaleAmount !== 'N/A' &&
-                        item.colValue > highestValue) {
-                        highestValue = item.colValue;
-                        mostValuableItem = item.name;
-                    }
-                }
-            });
-
-            document.getElementById('total-value').textContent = totalValue.toLocaleString();
-            document.getElementById('most-valuable').textContent = mostValuableItem || 'None';
-
-            updateCategoryProgress();
-        }
-
-        function updateCategoryProgress() {
-            const progressContainer = document.getElementById('category-progress-bars');
-            progressContainer.innerHTML = '';
-
-            if (currentSection === 'weapons') {
-                Object.keys(items.weapons).forEach(category => {
-                    const categoryItems = items.weapons[category];
-                    const completed = categoryItems.filter(item => item.colValue !== null && item.colValue !== 'N/A').length;
-                    const percentage = categoryItems.length > 0 ? Math.round((completed / categoryItems.length) * 100) : 0;
-
-                    const progressDiv = document.createElement('div');
-                    progressDiv.className = 'category-progress';
-                    progressDiv.innerHTML = `
-                        <div class="category-progress-label">
-                            <span>${category.charAt(0).toUpperCase() + category.slice(1)}</span>
-                            <span>${completed}/${categoryItems.length}</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: ${percentage}%">${percentage}%</div>
-                        </div>
-                    `;
-                    progressContainer.appendChild(progressDiv);
-                });
-            } else if (currentSection === 'gear') {
-                const gearCategories = {
-                    'armor': items.armor,
-                    'upper-headwear': items['upper-headwear'],
-                    'lower-headwear': items['lower-headwear'],
-                    'shields': items.shields
-                };
-                
-                Object.keys(gearCategories).forEach(category => {
-                    const categoryItems = gearCategories[category];
-                    const completed = categoryItems.filter(item => item.colValue !== null && item.colValue !== 'N/A').length;
-                    const percentage = categoryItems.length > 0 ? Math.round((completed / categoryItems.length) * 100) : 0;
-
-                    const progressDiv = document.createElement('div');
-                    progressDiv.className = 'category-progress';
-                    const displayName = category === 'upper-headwear' ? 'Upper Headwear' : 
-                                       category === 'lower-headwear' ? 'Lower Headwear' : 
-                                       category.charAt(0).toUpperCase() + category.slice(1);
-                    progressDiv.innerHTML = `
-                        <div class="category-progress-label">
-                            <span>${displayName}</span>
-                            <span>${completed}/${categoryItems.length}</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: ${percentage}%">${percentage}%</div>
-                        </div>
-                    `;
-                    progressContainer.appendChild(progressDiv);
-                });
-            }
-        }
-
-        function toggleOwnership(item, checkbox) {
-            const itemId = getItemId(item);
-            if (checkbox.checked) {
-                ownedItems.add(itemId);
-            } else {
-                ownedItems.delete(itemId);
-            }
-            saveOwnedItems();
-            updateStats();
-        }
-
-        function renderItemRow(item) {
-            const tr = document.createElement('tr');
-            const itemId = getItemId(item);
-
-            const ownCheckbox = document.createElement('input');
-            ownCheckbox.type = 'checkbox';
-            ownCheckbox.className = 'item-checkbox';
-            ownCheckbox.checked = ownedItems.has(itemId);
-            ownCheckbox.addEventListener('change', () => toggleOwnership(item, ownCheckbox));
-
-            const ownCell = document.createElement('td');
-            ownCell.className = 'checkbox-cell';
-            ownCell.appendChild(ownCheckbox);
-            tr.appendChild(ownCell);
-
-            const nameCell = document.createElement('td');
-            const nameLink = document.createElement('a');
-            nameLink.href = wikiUrl(item.name);
-            nameLink.target = '_blank';
-            nameLink.className = 'item-name';
-            nameLink.textContent = item.name;
-            nameCell.appendChild(nameLink);
+            // Name cell with wiki link
+            const nameCell = document.createElement("td");
+            const link = document.createElement("a");
+            link.href = wikiUrl(weapon.name);
+            link.textContent = weapon.name;
+            link.className = "sword-name";
+            link.target = "_blank";
+            nameCell.appendChild(link);
             tr.appendChild(nameCell);
 
-            const skillCell = document.createElement('td');
-            skillCell.textContent = item.maxSkill || '';
-            tr.appendChild(skillCell);
+            // Other cells
+            const maxSkillCell = document.createElement("td");
+            maxSkillCell.textContent = weapon.maxSkill || "";
+            tr.appendChild(maxSkillCell);
 
-            const attackCell = document.createElement('td');
-            if (currentSection === 'gear') {
-                attackCell.textContent = `${item.defense || ''} / ${item.dexterity || ''}`;
-            } else {
-                attackCell.textContent = item.attack || '';
-            }
+            const attackCell = document.createElement("td");
+            attackCell.textContent = weapon.attack || "";
             tr.appendChild(attackCell);
 
-            const colValueCell = document.createElement('td');
-            const colValueSpan = document.createElement('span');
-            colValueSpan.className = 'col-value ' + (item.colValue === null || item.colValue === 'N/A' ? 'missing' : 'completed');
-            colValueSpan.textContent = item.colValue === null || item.colValue === 'N/A' ? 'TBD' : item.colValue.toLocaleString();
+            const colValueCell = document.createElement("td");
+            const colValueSpan = document.createElement("span");
+            colValueSpan.className = "col-value " + (weapon.colValue === null ? "missing" : "completed");
+            colValueSpan.textContent = weapon.colValue === null ? "TBD" : weapon.colValue;
             colValueCell.appendChild(colValueSpan);
             tr.appendChild(colValueCell);
 
-            const resaleCell = document.createElement('td');
-            resaleCell.className = 'resale-amount';
-            resaleCell.textContent = item.resaleAmount || '-';
+            const resaleCell = document.createElement("td");
+            resaleCell.className = "resale-amount";
+            resaleCell.textContent = weapon.resaleAmount || "-";
             tr.appendChild(resaleCell);
 
-            const resaleVMCell = document.createElement('td');
-            resaleVMCell.className = 'resale-amount';
-            resaleVMCell.textContent = item.resaleAmountVM || '-';
+            const resaleVMCell = document.createElement("td");
+            resaleVMCell.className = "resale-amount";
+            resaleVMCell.textContent = weapon.resaleAmountVM || "-";
             tr.appendChild(resaleVMCell);
 
-            const obtainCell = document.createElement('td');
-            obtainCell.className = 'how-to-obtain';
-            obtainCell.title = item.howToObtain || '';
-            obtainCell.textContent = item.howToObtain || '';
+            const obtainCell = document.createElement("td");
+            obtainCell.className = "how-to-obtain";
+            obtainCell.title = weapon.howToObtain || "";
+            obtainCell.textContent = weapon.howToObtain || "";
             tr.appendChild(obtainCell);
 
             return tr;
         }
 
         function renderTable() {
-            const tbody = document.getElementById('item-table');
-            tbody.innerHTML = '';
+            const tbody = document.getElementById("weapon-table");
+            tbody.innerHTML = "";
 
-            filteredItems.forEach(item => {
-                tbody.appendChild(renderItemRow(item));
+            filteredWeapons.forEach(weapon => {
+                tbody.appendChild(renderWeaponRow(weapon));
             });
         }
 
-        function filterItems() {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const ownershipFilter = document.getElementById('ownership-filter').value;
-            const sortFilter = document.getElementById('sort-filter').value;
-            const obtainFilter = document.getElementById('obtain-filter').value;
-            const skillMin = parseInt(document.getElementById('skill-min').value) || 0;
-            const skillMax = parseInt(document.getElementById('skill-max').value) || Infinity;
-            const colMin = parseInt(document.getElementById('col-min').value) || 0;
-            const colMax = parseInt(document.getElementById('col-max').value) || Infinity;
+        function updateStats() {
+            const completedWeapons = allWeapons.filter(weapon => weapon.colValue !== null).length;
+            const completionPercentage = allWeapons.length > 0 ? Math.round((completedWeapons / allWeapons.length) * 100) : 0;
 
-            let itemList;
-            if (currentCategory === 'all') {
-                itemList = getAllItems();
-            } else {
-                itemList = getCurrentSubcategoryItems();
-            }
+            document.getElementById("progress-value").textContent = `${completedWeapons}/${allWeapons.length}`;
+            document.getElementById("completion-percentage").textContent = `${completionPercentage}%`;
+        }
 
-            filteredItems = itemList.filter(item => {
-                const itemId = getItemId(item);
-                
-                if (searchTerm && !item.name.toLowerCase().includes(searchTerm)) return false;
+        function filterWeapons(searchTerm = "", category = "all") {
+            let weaponList = category === "all" ? allWeapons : (weapons[category] || []);
 
-                if (ownershipFilter === 'owned' && !ownedItems.has(itemId)) return false;
-                if (ownershipFilter === 'missing' && ownedItems.has(itemId)) return false;
-
-                if (obtainFilter !== 'all') {
-                    const obtain = (item.howToObtain || '').toLowerCase();
-                    if (obtainFilter === 'shop' && !obtain.includes('shop')) return false;
-                    if (obtainFilter === 'mob' && (obtain.includes('shop') || obtain.includes('blacksmithing') || obtain.includes('quest'))) return false;
-                    if (obtainFilter === 'blacksmithing' && !obtain.includes('blacksmithing')) return false;
-                    if (obtainFilter === 'quest' && !obtain.includes('quest')) return false;
-                }
-
-                const maxSkill = parseInt(item.maxSkill) || 0;
-                if (maxSkill < skillMin || maxSkill > skillMax) return false;
-
-                const colValue = item.colValue || 0;
-                if (colValue !== 'N/A' && (colValue < colMin || colValue > colMax)) return false;
-
-                return true;
+            filteredWeapons = weaponList.filter(weapon =>
+                weapon.name.toLowerCase().includes(searchTerm.toLowerCase())
+            ).sort((a, b) => {
+                const aValue = a.colValue ?? Number.MAX_SAFE_INTEGER;
+                const bValue = b.colValue ?? Number.MAX_SAFE_INTEGER;
+                return aValue - bValue;
             });
 
-            filteredItems.sort((a, b) => {
-                switch(sortFilter) {
-                    case 'col-asc':
-                        return (a.colValue === 'N/A' ? Infinity : (a.colValue || 0)) - (b.colValue === 'N/A' ? Infinity : (b.colValue || 0));
-                    case 'col-desc':
-                        return (b.colValue === 'N/A' ? -Infinity : (b.colValue || 0)) - (a.colValue === 'N/A' ? -Infinity : (a.colValue || 0));
-                    case 'skill-asc':
-                        return (parseInt(a.maxSkill) || 0) - (parseInt(b.maxSkill) || 0);
-                    case 'skill-desc':
-                        return (parseInt(b.maxSkill) || 0) - (parseInt(a.maxSkill) || 0);
-                    case 'name-asc':
-                        return a.name.localeCompare(b.name);
-                    default:
-                        return 0;
-                }
-            });
-
-            const categoryName = currentCategory === 'all' ? currentSection : currentSubcategory;
-            const displayName = categoryName === 'upper-headwear' ? 'Upper Headwear' : 
-                               categoryName === 'lower-headwear' ? 'Lower Headwear' :
-                               categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
-            document.getElementById('table-title').textContent = `${displayName} (${filteredItems.length} items)`;
+            const categoryName = category === "all" ? "All Weapons" : category;
+            document.getElementById("table-title").textContent = `${categoryName} (${filteredWeapons.length} weapons)`;
 
             renderTable();
         }
 
-        function exportCSV(filterType = 'all') {
-            let exportItems;
-            const allItems = getAllItems();
+        function exportData() {
+            const csvHeader = "Weapon Name,Max Skill,Attack,Col Value,Resale,Resale (w/ VM),How to Obtain,Wiki URL\n";
+            const csvRows = allWeapons.map(weapon => {
+                const name = `"${weapon.name}"`;
+                const maxSkill = weapon.maxSkill || "";
+                const attack = weapon.attack || "";
+                const colValue = weapon.colValue ?? "TBD";
+                const resale = `"${weapon.resaleAmount || ""}"`;
+                const resaleVM = `"${weapon.resaleAmountVM || ""}"`;
+                const howToObtain = `"${weapon.howToObtain || ""}"`;
+                const wikiLink = `"${wikiUrl(weapon.name)}"`;
 
-            switch(filterType) {
-                case 'owned':
-                    exportItems = allItems.filter(item => ownedItems.has(getItemId(item)));
-                    break;
-                case 'missing':
-                    exportItems = allItems.filter(item => !ownedItems.has(getItemId(item)));
-                    break;
-                case 'category':
-                    exportItems = filteredItems;
-                    break;
-                default:
-                    exportItems = allItems;
-            }
-
-            const csvHeader = "Item Name,Type,Max Skill,Attack,Defense,Dexterity,Col Value,Resale,Resale (VM),How to Obtain,Wiki URL\n";
-            const csvRows = exportItems.map(item => {
-                const name = `"${item.name}"`;
-                const type = currentSection;
-                const maxSkill = item.maxSkill || "";
-                const attack = item.attack || "";
-                const defense = item.defense || "";
-                const dexterity = item.dexterity || "";
-                const colValue = item.colValue !== null && item.colValue !== 'N/A' ? item.colValue : "TBD";
-                const resale = `"${item.resaleAmount || ""}"`;
-                const resaleVM = `"${item.resaleAmountVM || ""}"`;
-                const howToObtain = `"${item.howToObtain || ""}"`;
-                const wikiLink = `"${wikiUrl(item.name)}"`;
-
-                return `${name},${type},${maxSkill},${attack},${defense},${dexterity},${colValue},${resale},${resaleVM},${howToObtain},${wikiLink}`;
+                return `${name},${maxSkill},${attack},${colValue},${resale},${resaleVM},${howToObtain},${wikiLink}`;
             }).join("\n");
 
             const csvContent = csvHeader + csvRows;
-            const blob = new Blob([csvContent], { type: "text/csv" });
+            const blob = new Blob([csvContent], {
+                type: "text/csv"
+            });
             const url = URL.createObjectURL(blob);
 
             const link = document.createElement("a");
             link.href = url;
-            link.download = `sbor_${filterType}_${currentSection}.csv`;
+            link.download = "sbor_weapon_col_values.csv";
             link.click();
 
             URL.revokeObjectURL(url);
         }
 
-        function openComparison() {
-            const modal = document.getElementById('comparison-modal');
-            modal.style.display = 'block';
-
-            const allItems = getAllItems();
-            const select1 = document.getElementById('compare-item-1');
-            const select2 = document.getElementById('compare-item-2');
-
-            select1.innerHTML = '<option value="">Select Item 1</option>';
-            select2.innerHTML = '<option value="">Select Item 2</option>';
-
-            allItems.forEach((item, index) => {
-                const option1 = document.createElement('option');
-                option1.value = index;
-                option1.textContent = item.name;
-                select1.appendChild(option1);
-
-                const option2 = document.createElement('option');
-                option2.value = index;
-                option2.textContent = item.name;
-                select2.appendChild(option2);
-            });
-        }
-
-        function displayComparisonStats(item, containerId) {
-            const container = document.getElementById(containerId);
-            if (!item) {
-                container.innerHTML = '<p style="color: #6b7280;">Select an item to compare</p>';
-                return;
-            }
-
-            container.innerHTML = `
-                <div class="comparison-stat">
-                    <span class="comparison-label">Name:</span>
-                    <span class="comparison-value">${item.name}</span>
-                </div>
-                <div class="comparison-stat">
-                    <span class="comparison-label">Max Skill:</span>
-                    <span class="comparison-value">${item.maxSkill || 'N/A'}</span>
-                </div>
-                <div class="comparison-stat">
-                    <span class="comparison-label">${currentSection === 'gear' ? 'Defense:' : 'Attack:'}</span>
-                    <span class="comparison-value">${currentSection === 'gear' ? (item.defense || 'N/A') : (item.attack || 'N/A')}</span>
-                </div>
-                ${currentSection === 'gear' ? `<div class="comparison-stat">
-                    <span class="comparison-label">Dexterity:</span>
-                    <span class="comparison-value">${item.dexterity || 'N/A'}</span>
-                </div>` : ''}
-                <div class="comparison-stat">
-                    <span class="comparison-label">Col Value:</span>
-                    <span class="comparison-value">${item.colValue !== null && item.colValue !== 'N/A' ? item.colValue.toLocaleString() : 'TBD'}</span>
-                </div>
-                <div class="comparison-stat">
-                    <span class="comparison-label">Resale (Base):</span>
-                    <span class="comparison-value">${item.resaleAmount || '-'}</span>
-                </div>
-                <div class="comparison-stat">
-                    <span class="comparison-label">Resale (VM):</span>
-                    <span class="comparison-value">${item.resaleAmountVM || '-'}</span>
-                </div>
-                <div class="comparison-stat">
-                    <span class="comparison-label">How to Obtain:</span>
-                    <span class="comparison-value" style="font-size: 12px;">${item.howToObtain || 'Unknown'}</span>
-                </div>
-            `;
-        }
-
-        function compareItems(item1, item2) {
-            if (!item1 || !item2) return;
-
-            const resultDiv = document.getElementById('comparison-result');
-            const analysisDiv = document.getElementById('comparison-analysis');
-            resultDiv.style.display = 'block';
-
-            let analysis = [];
-
-            const stat1 = currentSection === 'gear' ? (parseFloat(item1.defense) || 0) : (parseFloat(item1.attack) || 0);
-            const stat2 = currentSection === 'gear' ? (parseFloat(item2.defense) || 0) : (parseFloat(item2.attack) || 0);
-            const statName = currentSection === 'gear' ? 'defense' : 'attack';
-            
-            if (stat1 > stat2) {
-                analysis.push(`✓ ${item1.name} has higher ${statName} (${stat1} vs ${stat2})`);
-            } else if (stat2 > stat1) {
-                analysis.push(`✓ ${item2.name} has higher ${statName} (${stat2} vs ${stat1})`);
-            }
-
-            const col1 = item1.colValue === 'N/A' ? 0 : (item1.colValue || 0);
-            const col2 = item2.colValue === 'N/A' ? 0 : (item2.colValue || 0);
-            if (col1 > col2) {
-                analysis.push(`✓ ${item1.name} has higher col value (${col1.toLocaleString()} vs ${col2.toLocaleString()})`);
-            } else if (col2 > col1) {
-                analysis.push(`✓ ${item2.name} has higher col value (${col2.toLocaleString()} vs ${col1.toLocaleString()})`);
-            }
-
-            if (stat1 > 0 && stat2 > 0 && col1 > 0 && col2 > 0) {
-                const value1 = col1 / stat1;
-                const value2 = col2 / stat2;
-                if (value1 < value2) {
-                    analysis.push(`✓ ${item1.name} is better value (${Math.round(value1)} col per ${statName} point vs ${Math.round(value2)})`);
-                } else if (value2 < value1) {
-                    analysis.push(`✓ ${item2.name} is better value (${Math.round(value2)} col per ${statName} point vs ${Math.round(value1)})`);
-                }
-            }
-
-            analysisDiv.innerHTML = analysis.join('<br>');
-        }
-
-        function calculateBulkSelling() {
-            const colValue = parseInt(document.getElementById('calc-col-value').value) || 0;
-            const quantity = parseInt(document.getElementById('calc-quantity').value) || 1;
-
-            if (colValue === 0) {
-                alert('Please enter a col value');
-                return;
-            }
-
-            const baseResale = Math.floor(colValue * 0.35 * quantity);
-            const vmResale = Math.floor(colValue * 0.45 * quantity);
-            const vmBonus = vmResale - baseResale;
-            const totalCol = colValue * quantity;
-
-            document.getElementById('calc-base-resale').textContent = baseResale.toLocaleString();
-            document.getElementById('calc-vm-resale').textContent = vmResale.toLocaleString();
-            document.getElementById('calc-vm-bonus').textContent = vmBonus.toLocaleString();
-            document.getElementById('calc-total-col').textContent = totalCol.toLocaleString();
-
-            const breakpoints = [1, 5, 10, 25, 50, 100];
-            const breakpointsHTML = breakpoints.map(qty => {
-                const base = Math.floor(colValue * 0.35 * qty);
-                const vm = Math.floor(colValue * 0.45 * qty);
-                return `
-                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
-                        <span style="font-weight: 600;">×${qty}:</span>
-                        <span>Base: ${base.toLocaleString()} | VM: ${vm.toLocaleString()}</span>
-                    </div>
-                `;
-            }).join('');
-
-            document.getElementById('calc-breakpoints').innerHTML = breakpointsHTML;
-            document.getElementById('calculator-results').style.display = 'block';
-        }
-
-        // Event Listeners
-        document.querySelectorAll('.nav-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                const section = tab.dataset.section;
-                
-                document.getElementById('calculator-section').style.display = 'none';
-                document.getElementById('subcategory-selector').style.display = 'none';
-                document.querySelector('.stats-grid').style.display = section === 'calculator' ? 'none' : 'grid';
-                document.getElementById('category-progress-section').style.display = section === 'calculator' ? 'none' : 'block';
-                document.querySelector('.controls').style.display = section === 'calculator' ? 'none' : 'flex';
-                document.querySelector('.table-container').style.display = section === 'calculator' ? 'none' : 'block';
-                
-                if (section === 'calculator') {
-                    document.getElementById('calculator-section').style.display = 'block';
-                } else {
-                    currentSection = section;
-                    document.getElementById('subcategory-selector').style.display = 'block';
-                    
-                    const statHeader = document.getElementById('stat-header');
-                    if (section === 'gear') {
-                        statHeader.textContent = 'Defense / Dexterity';
-                    } else {
-                        statHeader.textContent = 'Attack';
-                    }
-                    
-                    const subcategoryFilter = document.getElementById('main-subcategory-filter');
-                    if (section === 'weapons') {
-                        subcategoryFilter.innerHTML = `
-                            <option value="one-handed">One-Handed</option>
-                            <option value="two-handed">Two-Handed</option>
-                            <option value="rapier">Rapier</option>
-                            <option value="dagger">Dagger</option>
-                            <option value="melee">Melee</option>
-                        `;
-                        currentSubcategory = 'one-handed';
-                    } else if (section === 'gear') {
-                        subcategoryFilter.innerHTML = `
-                            <option value="armor">Armor</option>
-                            <option value="upper-headwear">Upper Headwear</option>
-                            <option value="lower-headwear">Lower Headwear</option>
-                            <option value="shields">Shields</option>
-                        `;
-                        currentSubcategory = 'armor';
-                    }
-                    
-                    currentCategory = 'all';
-                    
-                    updateStats();
-                    filterItems();
-                }
-            });
+        // Event listeners
+        document.getElementById("search-input").addEventListener("input", (e) => {
+            filterWeapons(e.target.value, currentCategory);
         });
 
-        document.getElementById('main-subcategory-filter').addEventListener('change', (e) => {
-            currentSubcategory = e.target.value;
-            currentCategory = 'specific';
-            filterItems();
-        });
-
-        document.getElementById('toggle-advanced-search').addEventListener('click', () => {
-            const panel = document.getElementById('advanced-search-panel');
-            const btn = document.getElementById('toggle-advanced-search');
-            if (panel.style.display === 'none') {
-                panel.style.display = 'block';
-                btn.textContent = 'Hide Advanced Search';
-            } else {
-                panel.style.display = 'none';
-                btn.textContent = 'Advanced Search';
-            }
-        });
-
-        document.getElementById('search-input').addEventListener('input', filterItems);
-        document.getElementById('category-filter').addEventListener('change', (e) => {
+        document.getElementById("category-filter").addEventListener("change", (e) => {
             currentCategory = e.target.value;
-            filterItems();
-        });
-        document.getElementById('ownership-filter').addEventListener('change', filterItems);
-        document.getElementById('sort-filter').addEventListener('change', filterItems);
-        document.getElementById('obtain-filter').addEventListener('change', filterItems);
-        document.getElementById('skill-min').addEventListener('input', filterItems);
-        document.getElementById('skill-max').addEventListener('input', filterItems);
-        document.getElementById('col-min').addEventListener('input', filterItems);
-        document.getElementById('col-max').addEventListener('input', filterItems);
-
-        document.getElementById('export-button').addEventListener('click', () => exportCSV('category'));
-        document.getElementById('export-owned-button').addEventListener('click', () => exportCSV('owned'));
-        document.getElementById('export-missing-button').addEventListener('click', () => exportCSV('missing'));
-
-        document.getElementById('compare-button').addEventListener('click', openComparison);
-        document.getElementById('close-comparison').addEventListener('click', () => {
-            document.getElementById('comparison-modal').style.display = 'none';
+            filterWeapons(document.getElementById("search-input").value, currentCategory);
         });
 
-        document.getElementById('compare-item-1').addEventListener('change', (e) => {
-            const allItems = getAllItems();
-            const item = allItems[e.target.value];
-            displayComparisonStats(item, 'comparison-stats-1');
-            
-            const item2Index = document.getElementById('compare-item-2').value;
-            if (item2Index) {
-                compareItems(item, allItems[item2Index]);
-            }
-        });
+        document.getElementById("export-button").addEventListener("click", exportData);
 
-        document.getElementById('compare-item-2').addEventListener('change', (e) => {
-            const allItems = getAllItems();
-            const item = allItems[e.target.value];
-            displayComparisonStats(item, 'comparison-stats-2');
-            
-            const item1Index = document.getElementById('compare-item-1').value;
-            if (item1Index) {
-                compareItems(allItems[item1Index], item);
-            }
-        });
-
-        document.getElementById('calculate-button').addEventListener('click', calculateBulkSelling);
-
-        window.addEventListener('click', (e) => {
-            const modal = document.getElementById('comparison-modal');
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Initialize
-        loadOwnedItems();
+        // Initialize the application
+        loadOwnedWeapons();
         updateStats();
-        filterItems();
+        filterWeapons();
+        updateOwnedWeaponsCount();
     </script>
 </body>
 
