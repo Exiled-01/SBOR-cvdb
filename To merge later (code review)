@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SBOR Weapon/Gear Database</title>
+    <title>SBOR Enhanced Database</title>
     <style>
         * {
             margin: 0;
@@ -135,24 +135,9 @@
             min-width: 200px;
         }
 
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ca3af;
-            width: 20px;
-            height: 20px;
-            pointer-events: none;
-        }
-
-        .search-icon::before {
-            content: "";
-        }
-
         .search-input {
             width: 100%;
-            padding: 10px 16px 10px 40px;
+            padding: 10px 16px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
             font-size: 14px;
@@ -165,7 +150,8 @@
             box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
         }
 
-        .filter-select, .btn {
+        .filter-select,
+        .btn {
             padding: 10px 16px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
@@ -175,7 +161,8 @@
             transition: all 0.2s;
         }
 
-        .filter-select:hover, .btn:hover {
+        .filter-select:hover,
+        .btn:hover {
             border-color: #3b82f6;
         }
 
@@ -203,39 +190,6 @@
 
         .btn-success:hover {
             background: #047857;
-        }
-
-        .btn-danger {
-            background: #dc2626;
-            color: white;
-            border: none;
-        }
-
-        .btn-danger:hover {
-            background: #b91c1c;
-        }
-
-        .range-filter {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background: white;
-        }
-
-        .range-filter input {
-            width: 80px;
-            padding: 4px 8px;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .range-filter span {
-            font-size: 14px;
-            color: #6b7280;
         }
 
         .table-container {
@@ -298,18 +252,11 @@
             font-weight: 500;
             color: #2563eb;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .item-name:hover {
             color: #1d4ed8;
             text-decoration: underline;
-        }
-
-        .item-icon {
-            font-size: 18px;
         }
 
         .col-value {
@@ -324,12 +271,6 @@
         .col-value.completed {
             color: #059669;
         }
-
-        .rarity-common { color: #6b7280; }
-        .rarity-uncommon { color: #3b82f6; }
-        .rarity-rare { color: #8b5cf6; }
-        .rarity-epic { color: #a855f7; }
-        .rarity-legendary { color: #f59e0b; }
 
         .resale-amount {
             font-family: 'Courier New', monospace;
@@ -352,35 +293,6 @@
             width: 18px;
             height: 18px;
             cursor: pointer;
-        }
-
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 300px;
-            background-color: #1f2937;
-            color: #fff;
-            text-align: left;
-            border-radius: 6px;
-            padding: 12px;
-            position: absolute;
-            z-index: 1000;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -150px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
         }
 
         .modal {
@@ -570,7 +482,7 @@
 <body>
     <div class="container">
         <div class="main-card">
-            <h1 class="title">SBOR Weapon/Gear Database<h1>
+            <h1 class="title">SBOR Enhanced Database</h1>
 
             <!-- Navigation Tabs -->
             <div class="nav-tabs">
@@ -579,7 +491,7 @@
                 <button class="nav-tab" data-section="calculator">Bulk Calculator</button>
             </div>
 
-            <!-- Sub-category dropdown (only visible for Weapons and Gear) -->
+            <!-- Sub-category dropdown -->
             <div id="subcategory-selector" style="margin-bottom: 24px;">
                 <label style="font-weight: 600; color: #374151; margin-right: 12px;">Category:</label>
                 <select id="main-subcategory-filter" class="filter-select" style="min-width: 200px;">
@@ -629,57 +541,73 @@
             <!-- Controls -->
             <div class="controls">
                 <div class="search-container">
-                    <input type="text" id="search-input" class="search-input" placeholder="Search items..." style="padding-left: 16px;" />
+                    <input type="text" id="search-input" class="search-input" placeholder="Search items..." />
                 </div>
-
-                <select id="category-filter" class="filter-select">
-                    <option value="all">All Categories</option>
-                    <option value="one-handed">One-Handed</option>
-                    <option value="two-handed">Two-Handed</option>
-                    <option value="rapier">Rapier</option>
-                    <option value="dagger">Dagger</option>
-                    <option value="melee">Melee</option>
-                </select>
-
-                <select id="ownership-filter" class="filter-select">
-                    <option value="all">All Items</option>
-                    <option value="owned">Owned Only</option>
-                    <option value="missing">Missing Only</option>
-                    <option value="wishlisted">Wishlisted Only</option>
-                </select>
-
-                <select id="sort-filter" class="filter-select">
-                    <option value="col-asc">Col Value (Low to High)</option>
-                    <option value="col-desc">Col Value (High to Low)</option>
-                    <option value="skill-asc">Max Skill (Low to High)</option>
-                    <option value="skill-desc">Max Skill (High to Low)</option>
-                    <option value="name-asc">Name (A to Z)</option>
-                </select>
-
-                <select id="obtain-filter" class="filter-select">
-                    <option value="all">All Sources</option>
-                    <option value="shop">Shop</option>
-                    <option value="mob">Mob Drop</option>
-                    <option value="blacksmithing">Blacksmithing</option>
-                    <option value="quest">Quest</option>
-                </select>
-
-                <div class="range-filter">
-                    <span>Skill:</span>
-                    <input type="number" id="skill-min" placeholder="Min" min="0">
-                    <span>-</span>
-                    <input type="number" id="skill-max" placeholder="Max" min="0">
-                </div>
-
-                <div class="range-filter">
-                    <span>Col:</span>
-                    <input type="number" id="col-min" placeholder="Min" min="0">
-                    <span>-</span>
-                    <input type="number" id="col-max" placeholder="Max" min="0">
-                </div>
-
+                <button class="btn btn-primary" id="toggle-advanced-search">Advanced Search</button>
                 <button class="btn btn-primary" id="compare-button">Compare Items</button>
                 <button class="btn btn-success" id="export-button">Export CSV</button>
+            </div>
+
+            <!-- Advanced Search Panel -->
+            <div id="advanced-search-panel" style="display: none; padding: 20px; background: #f9fafb; border-radius: 8px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #1f2937;">Advanced Search Options</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Category Filter:</label>
+                        <select id="category-filter" class="filter-select" style="width: 100%;">
+                            <option value="all">All Categories</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Ownership:</label>
+                        <select id="ownership-filter" class="filter-select" style="width: 100%;">
+                            <option value="all">All Items</option>
+                            <option value="owned">Owned Only</option>
+                            <option value="missing">Missing Only</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Sort By:</label>
+                        <select id="sort-filter" class="filter-select" style="width: 100%;">
+                            <option value="col-asc">Col Value (Low to High)</option>
+                            <option value="col-desc">Col Value (High to Low)</option>
+                            <option value="skill-asc">Max Skill (Low to High)</option>
+                            <option value="skill-desc">Max Skill (High to Low)</option>
+                            <option value="name-asc">Name (A to Z)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Obtain Method:</label>
+                        <select id="obtain-filter" class="filter-select" style="width: 100%;">
+                            <option value="all">All Sources</option>
+                            <option value="shop">Shop</option>
+                            <option value="mob">Mob Drop</option>
+                            <option value="blacksmithing">Blacksmithing</option>
+                            <option value="quest">Quest</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Skill Range:</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="number" id="skill-min" placeholder="Min" min="0" style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px;">
+                            <span style="align-self: center; color: #6b7280;">-</span>
+                            <input type="number" id="skill-max" placeholder="Max" min="0" style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px;">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #374151;">Col Value Range:</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="number" id="col-min" placeholder="Min" min="0" style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px;">
+                            <span style="align-self: center; color: #6b7280;">-</span>
+                            <input type="number" id="col-max" placeholder="Max" min="0" style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px;">
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Data Table -->
@@ -697,10 +625,9 @@
                         <thead>
                             <tr>
                                 <th class="checkbox-cell">Own</th>
-                                <th class="checkbox-cell">Wish</th>
                                 <th>Item Name</th>
                                 <th>Max Skill</th>
-                                <th id="stat-header">Attack/Defense</th>
+                                <th id="stat-header">Attack</th>
                                 <th>Col Value</th>
                                 <th>Resale</th>
                                 <th>Resale (VM)</th>
@@ -710,6 +637,39 @@
                         <tbody id="item-table"></tbody>
                     </table>
                 </div>
+            </div>
+
+            <!-- Instructions -->
+            <div style="margin-top: 32px; padding: 24px; background: #f0f9ff; border-radius: 8px; border: 1px solid #3b82f6;">
+                <h3 style="font-weight: 600; margin-bottom: 12px; color: #1e40af; font-size: 18px;">How to Use This Database:</h3>
+                <ul style="color: #1e40af; font-size: 14px; list-style-position: inside; line-height: 1.8;">
+                    <li><strong>Check the boxes</strong> next to items you own to track your collection</li>
+                    <li><strong>Click item names</strong> to visit their wiki pages</li>
+                    <li><strong>Use the category dropdown</strong> to view specific item types</li>
+                    <li><strong>Red "TBD"</strong> means the Col value still needs to be indexed</li>
+                    <li><strong>Green numbers</strong> show completed Col value entries</li>
+                    <li><strong>Use Advanced Search</strong> for powerful filtering options</li>
+                    <li><strong>Compare Items</strong> to see stat differences side-by-side</li>
+                </ul>
+
+                <h3 style="margin-top: 24px; font-weight: 600; margin-bottom: 12px; color: #1e40af; font-size: 18px;">Resale Value Formula:</h3>
+                <ul style="color: #1e40af; font-size: 14px; list-style-position: inside; line-height: 1.8;">
+                    <li><strong>Base Resale:</strong> 35% of the Col Value (Col Value × 0.35)</li>
+                    <li><strong>With Veteran Merchant Gamepass:</strong> 45% of the Col Value (Col Value × 0.45)</li>
+                    <li><strong>Two ways to understand the VM bonus:</strong>
+                        <ul style="margin-top: 8px; margin-left: 20px; list-style-type: circle;">
+                            <li>You keep 10 percentage points more of the original Col Value (45% instead of 35%)</li>
+                            <li>Or, the gamepass increases your base resale by 28.57% (Base Resale × 1.2857)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Example with 10,000 Col Value:</strong> Base = 3,500 | VM = 4,500 | Bonus = 1,000</li>
+                </ul>
+
+                <h3 style="margin-top: 24px; font-weight: 600; margin-bottom: 12px; color: #1e40af; font-size: 18px;">Visualize on Desmos:</h3>
+                <p style="margin-bottom: 8px; color: #1e40af; font-size: 14px;">Copy and paste this into <a href="https://www.desmos.com/calculator" target="_blank" style="color: #2563eb; text-decoration: underline;">Desmos Graphing Calculator</a> to see the relationship between Col Value and Resale Amount:</p>
+                <pre style="background: #dbeafe; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 12px; font-family: 'Courier New', monospace; color: #1e40af; border: 1px solid #93c5fd;">y=0.35x
+y=0.45x</pre>
+                <p style="font-size: 14px; margin-top: 8px; color: #1e40af;">The first line (y=0.35x) shows base resale at 35%. The second line (y=0.45x) shows VM resale at 45%. The vertical distance between the lines represents the gamepass bonus.</p>
             </div>
         </div>
 
@@ -741,19 +701,19 @@
             </div>
         </div>
 
-        <!-- Bulk Calculator Modal -->
+        <!-- Bulk Calculator -->
         <div id="calculator-section" style="display: none;">
             <div class="main-card">
                 <h2 class="modal-title" style="margin-bottom: 24px;">Bulk Selling Calculator</h2>
                 <div>
                     <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Item Col Value:</label>
                     <input type="number" id="calc-col-value" class="calculator-input" placeholder="Enter col value" min="0">
-                    
+
                     <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #374151;">Quantity:</label>
                     <input type="number" id="calc-quantity" class="calculator-input" placeholder="Enter quantity" min="1" value="1">
-                    
+
                     <button class="btn btn-primary" id="calculate-button" style="width: 100%;">Calculate</button>
-                    
+
                     <div id="calculator-results" style="display: none;">
                         <div class="calculator-result">
                             <div class="calculator-result-item">
@@ -773,7 +733,7 @@
                                 <span class="calculator-value" id="calc-total-col">0</span>
                             </div>
                         </div>
-                        
+
                         <div style="margin-top: 24px;">
                             <h3 style="font-weight: 600; color: #374151; margin-bottom: 12px;">Quantity Breakpoints</h3>
                             <div id="calc-breakpoints" style="background: #f9fafb; padding: 16px; border-radius: 8px;"></div>
@@ -786,140 +746,67 @@
 
     <script>
         const items = {
-            weapons: {
-                'one-handed': [
-                    {
-                        name: 'Test Sword',
-                        maxSkill: 10,
-                        attack: 25,
-                        colValue: 5000,
-                        resaleAmount: '1750',
-                        resaleAmountVM: '2250',
-                        howToObtain: 'Floor 1 Shop'
-                    },
-                    {
-                        name: 'Epic Blade',
-                        maxSkill: 50,
-                        attack: 100,
-                        colValue: 25000,
-                        resaleAmount: '8750',
-                        resaleAmountVM: '11250',
-                        howToObtain: 'Boss Drop'
-                    }
+                weapons: {
+                    'one-handed': [{
+                            id: 1,
+                            "name": "Beginner Sword",
+                            "maxSkill": 1,
+                            "attack": 3.4,
+                            "colValue": 231,
+                            "resaleAmount": "80",
+                            "resaleAmountVM": "103",
+                            "howToObtain": "Starter Inventory, Floor 1 shop"
+                        },
+                        {
+                            id: 2,
+                            "name": "Iron Sword",
+                            "maxSkill": 1,
+                            "attack": 3.4,
+                            "colValue": 231,
+                            "resaleAmount": "80",
+                            "resaleAmountVM": "103",
+                            "howToObtain": "Floor 1 Shop"
+                        },
+                    
                 ],
-                'two-handed': [
-                    {
-                        name: 'Test Greatsword',
-                        maxSkill: 15,
-                        attack: 45,
-                        colValue: 8000,
-                        resaleAmount: '2800',
-                        resaleAmountVM: '3600',
-                        howToObtain: 'Floor 2 Shop'
-                    }
-                ],
-                'rapier': [
-                    {
-                        name: 'Test Rapier',
-                        maxSkill: 20,
-                        attack: 35,
-                        colValue: 10000,
-                        resaleAmount: '3500',
-                        resaleAmountVM: '4500',
-                        howToObtain: 'Blacksmithing'
-                    }
-                ],
-                'dagger': [
-                    {
-                        name: 'Test Dagger',
-                        maxSkill: 8,
-                        attack: 20,
-                        colValue: 3000,
-                        resaleAmount: '1050',
-                        resaleAmountVM: '1350',
-                        howToObtain: 'Mob Drop'
-                    }
-                ],
-                'melee': [
-                    {
-                        name: 'Test Fists',
-                        maxSkill: 5,
-                        attack: 15,
-                        colValue: 1000,
-                        resaleAmount: '350',
-                        resaleAmountVM: '450',
-                        howToObtain: 'Starter'
-                    }
-                ]
+                'two-handed': [],
+                'rapier': [],
+                'dagger': [],
+                'melee': []
             },
-            armor: [
-                {
-                    name: 'Test Armor',
-                    maxSkill: 10,
-                    defense: 30,
-                    dexterity: 5,
-                    colValue: 6000,
-                    resaleAmount: '2100',
-                    resaleAmountVM: '2700',
-                    howToObtain: 'Floor 1 Shop'
-                },
-                {
-                    name: 'Epic Chestplate',
-                    maxSkill: 40,
-                    defense: 80,
-                    dexterity: 15,
-                    colValue: 20000,
-                    resaleAmount: '7000',
-                    resaleAmountVM: '9000',
-                    howToObtain: 'Quest Reward'
-                }
-            ],
-            'upper-headwear': [
-                {
-                    name: 'Test Helmet',
-                    maxSkill: 12,
-                    defense: 20,
-                    dexterity: 3,
-                    colValue: 4000,
-                    resaleAmount: '1400',
-                    resaleAmountVM: '1800',
-                    howToObtain: 'Floor 2 Shop'
-                }
-            ],
-            'lower-headwear': [
-                {
-                    name: 'Test Mask',
-                    maxSkill: 8,
-                    defense: 15,
-                    dexterity: 2,
-                    colValue: 2500,
-                    resaleAmount: '875',
-                    resaleAmountVM: '1125',
-                    howToObtain: 'Blacksmithing'
-                }
-            ],
-            shields: [
-                {
-                    name: 'Test Shield',
-                    maxSkill: 15,
-                    defense: 40,
-                    dexterity: 8,
-                    colValue: 7000,
-                    resaleAmount: '2450',
-                    resaleAmountVM: '3150',
-                    howToObtain: 'Floor 3 Shop'
-                }
-            ]
+            armor: [],
+            'upper-headwear': [],
+            'lower-headwear': [],
+            shields: []
         };
 
         let ownedItems = new Set();
-        let wishlistedItems = new Set();
         let currentSection = 'weapons';
         let currentSubcategory = 'one-handed';
         let currentCategory = 'all';
         let filteredItems = [];
 
-        // Helper functions
+        // Load from localStorage
+        function loadOwnedItems() {
+            try {
+                const stored = window.localStorage.getItem('sbor-owned-items');
+                if (stored) {
+                    ownedItems = new Set(JSON.parse(stored));
+                }
+            } catch (error) {
+                console.warn('Could not load owned items:', error);
+            }
+        }
+
+        // Save to localStorage
+        function saveOwnedItems() {
+            try {
+                window.localStorage.setItem('sbor-owned-items', JSON.stringify(Array.from(ownedItems)));
+            } catch (error) {
+                console.warn('Could not save owned items:', error);
+            }
+        }
+
         function getAllItems() {
             if (currentSection === 'weapons') {
                 return Object.values(items.weapons).flat();
@@ -945,28 +832,15 @@
             return `${currentSection}-${currentSubcategory}-${item.name}`;
         }
 
-        function getItemIcon(item) {
-            return '';
-        }
-
-        function getRarityClass(item) {
-            if (!item.colValue) return 'rarity-common';
-            if (item.colValue < 10000) return 'rarity-common';
-            if (item.colValue < 30000) return 'rarity-uncommon';
-            if (item.colValue < 60000) return 'rarity-rare';
-            if (item.colValue < 90000) return 'rarity-epic';
-            return 'rarity-legendary';
-        }
-
         function wikiUrl(name) {
             return "https://swordbloxonlinerebirth.fandom.com/wiki/" + name.replace(/ /g, "_");
         }
 
         function updateStats() {
             const allItems = getAllItems();
-            const completedItems = allItems.filter(item => item.colValue !== null).length;
+            const completedItems = allItems.filter(item => item.colValue !== null && item.colValue !== 'N/A').length;
             const completionPercentage = allItems.length > 0 ? Math.round((completedItems / allItems.length) * 100) : 0;
-            
+
             const ownedCount = Array.from(ownedItems).filter(id => {
                 return allItems.some(item => getItemId(item) === id);
             }).length;
@@ -981,11 +855,12 @@
 
             allItems.forEach(item => {
                 const itemId = getItemId(item);
-                if (ownedItems.has(itemId) && item.colValue) {
+                if (ownedItems.has(itemId) && item.colValue && item.colValue !== 'N/A') {
                     totalValue += item.colValue;
-                    
-                    if (item.resaleAmount !== 'Cannot be sold' && 
-                        item.resaleAmount !== 'cannot be sold' && 
+
+                    if (item.resaleAmount !== 'Cannot be sold' &&
+                        item.resaleAmount !== 'cannot be sold' &&
+                        item.resaleAmount !== 'N/A' &&
                         item.colValue > highestValue) {
                         highestValue = item.colValue;
                         mostValuableItem = item.name;
@@ -1006,7 +881,7 @@
             if (currentSection === 'weapons') {
                 Object.keys(items.weapons).forEach(category => {
                     const categoryItems = items.weapons[category];
-                    const completed = categoryItems.filter(item => item.colValue !== null).length;
+                    const completed = categoryItems.filter(item => item.colValue !== null && item.colValue !== 'N/A').length;
                     const percentage = categoryItems.length > 0 ? Math.round((completed / categoryItems.length) * 100) : 0;
 
                     const progressDiv = document.createElement('div');
@@ -1029,17 +904,17 @@
                     'lower-headwear': items['lower-headwear'],
                     'shields': items.shields
                 };
-                
+
                 Object.keys(gearCategories).forEach(category => {
                     const categoryItems = gearCategories[category];
-                    const completed = categoryItems.filter(item => item.colValue !== null).length;
+                    const completed = categoryItems.filter(item => item.colValue !== null && item.colValue !== 'N/A').length;
                     const percentage = categoryItems.length > 0 ? Math.round((completed / categoryItems.length) * 100) : 0;
 
                     const progressDiv = document.createElement('div');
                     progressDiv.className = 'category-progress';
-                    const displayName = category === 'upper-headwear' ? 'Upper Headwear' : 
-                                       category === 'lower-headwear' ? 'Lower Headwear' : 
-                                       category.charAt(0).toUpperCase() + category.slice(1);
+                    const displayName = category === 'upper-headwear' ? 'Upper Headwear' :
+                        category === 'lower-headwear' ? 'Lower Headwear' :
+                        category.charAt(0).toUpperCase() + category.slice(1);
                     progressDiv.innerHTML = `
                         <div class="category-progress-label">
                             <span>${displayName}</span>
@@ -1061,16 +936,8 @@
             } else {
                 ownedItems.delete(itemId);
             }
+            saveOwnedItems();
             updateStats();
-        }
-
-        function toggleWishlist(item, checkbox) {
-            const itemId = getItemId(item);
-            if (checkbox.checked) {
-                wishlistedItems.add(itemId);
-            } else {
-                wishlistedItems.delete(itemId);
-            }
         }
 
         function renderItemRow(item) {
@@ -1088,34 +955,12 @@
             ownCell.appendChild(ownCheckbox);
             tr.appendChild(ownCell);
 
-            const wishCheckbox = document.createElement('input');
-            wishCheckbox.type = 'checkbox';
-            wishCheckbox.className = 'item-checkbox';
-            wishCheckbox.checked = wishlistedItems.has(itemId);
-            wishCheckbox.addEventListener('change', () => toggleWishlist(item, wishCheckbox));
-
-            const wishCell = document.createElement('td');
-            wishCell.className = 'checkbox-cell';
-            wishCell.appendChild(wishCheckbox);
-            tr.appendChild(wishCell);
-
             const nameCell = document.createElement('td');
             const nameLink = document.createElement('a');
             nameLink.href = wikiUrl(item.name);
             nameLink.target = '_blank';
-            nameLink.className = `item-name tooltip ${getRarityClass(item)}`;
-            nameLink.innerHTML = `
-                <span>${item.name}</span>
-                <span class="tooltiptext">
-                    <strong>${item.name}</strong><br>
-                    Max Skill: ${item.maxSkill || 'N/A'}<br>
-                    ${currentSection === 'gear' ? 
-                      `Defense: ${item.defense || 'N/A'}<br>Dexterity: ${item.dexterity || 'N/A'}` : 
-                      `Attack: ${item.attack || 'N/A'}`}<br>
-                    Col Value: ${item.colValue !== null ? item.colValue.toLocaleString() : 'TBD'}<br>
-                    How to Obtain: ${item.howToObtain || 'Unknown'}
-                </span>
-            `;
+            nameLink.className = 'item-name';
+            nameLink.textContent = item.name;
             nameCell.appendChild(nameLink);
             tr.appendChild(nameCell);
 
@@ -1133,8 +978,8 @@
 
             const colValueCell = document.createElement('td');
             const colValueSpan = document.createElement('span');
-            colValueSpan.className = 'col-value ' + (item.colValue === null ? 'missing' : 'completed');
-            colValueSpan.textContent = item.colValue === null ? 'TBD' : item.colValue.toLocaleString();
+            colValueSpan.className = 'col-value ' + (item.colValue === null || item.colValue === 'N/A' ? 'missing' : 'completed');
+            colValueSpan.textContent = item.colValue === null || item.colValue === 'N/A' ? 'TBD' : item.colValue.toLocaleString();
             colValueCell.appendChild(colValueSpan);
             tr.appendChild(colValueCell);
 
@@ -1185,12 +1030,11 @@
 
             filteredItems = itemList.filter(item => {
                 const itemId = getItemId(item);
-                
+
                 if (searchTerm && !item.name.toLowerCase().includes(searchTerm)) return false;
 
                 if (ownershipFilter === 'owned' && !ownedItems.has(itemId)) return false;
                 if (ownershipFilter === 'missing' && ownedItems.has(itemId)) return false;
-                if (ownershipFilter === 'wishlisted' && !wishlistedItems.has(itemId)) return false;
 
                 if (obtainFilter !== 'all') {
                     const obtain = (item.howToObtain || '').toLowerCase();
@@ -1204,17 +1048,17 @@
                 if (maxSkill < skillMin || maxSkill > skillMax) return false;
 
                 const colValue = item.colValue || 0;
-                if (colValue < colMin || colValue > colMax) return false;
+                if (colValue !== 'N/A' && (colValue < colMin || colValue > colMax)) return false;
 
                 return true;
             });
 
             filteredItems.sort((a, b) => {
-                switch(sortFilter) {
+                switch (sortFilter) {
                     case 'col-asc':
-                        return (a.colValue || 0) - (b.colValue || 0);
+                        return (a.colValue === 'N/A' ? Infinity : (a.colValue || 0)) - (b.colValue === 'N/A' ? Infinity : (b.colValue || 0));
                     case 'col-desc':
-                        return (b.colValue || 0) - (a.colValue || 0);
+                        return (b.colValue === 'N/A' ? -Infinity : (b.colValue || 0)) - (a.colValue === 'N/A' ? -Infinity : (a.colValue || 0));
                     case 'skill-asc':
                         return (parseInt(a.maxSkill) || 0) - (parseInt(b.maxSkill) || 0);
                     case 'skill-desc':
@@ -1227,9 +1071,9 @@
             });
 
             const categoryName = currentCategory === 'all' ? currentSection : currentSubcategory;
-            const displayName = categoryName === 'upper-headwear' ? 'Upper Headwear' : 
-                               categoryName === 'lower-headwear' ? 'Lower Headwear' :
-                               categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
+            const displayName = categoryName === 'upper-headwear' ? 'Upper Headwear' :
+                categoryName === 'lower-headwear' ? 'Lower Headwear' :
+                categoryName.charAt(0).toUpperCase() + categoryName.slice(1);
             document.getElementById('table-title').textContent = `${displayName} (${filteredItems.length} items)`;
 
             renderTable();
@@ -1239,7 +1083,7 @@
             let exportItems;
             const allItems = getAllItems();
 
-            switch(filterType) {
+            switch (filterType) {
                 case 'owned':
                     exportItems = allItems.filter(item => ownedItems.has(getItemId(item)));
                     break;
@@ -1261,7 +1105,7 @@
                 const attack = item.attack || "";
                 const defense = item.defense || "";
                 const dexterity = item.dexterity || "";
-                const colValue = item.colValue !== null ? item.colValue : "TBD";
+                const colValue = item.colValue !== null && item.colValue !== 'N/A' ? item.colValue : "TBD";
                 const resale = `"${item.resaleAmount || ""}"`;
                 const resaleVM = `"${item.resaleAmountVM || ""}"`;
                 const howToObtain = `"${item.howToObtain || ""}"`;
@@ -1271,7 +1115,9 @@
             }).join("\n");
 
             const csvContent = csvHeader + csvRows;
-            const blob = new Blob([csvContent], { type: "text/csv" });
+            const blob = new Blob([csvContent], {
+                type: "text/csv"
+            });
             const url = URL.createObjectURL(blob);
 
             const link = document.createElement("a");
@@ -1324,17 +1170,15 @@
                 </div>
                 <div class="comparison-stat">
                     <span class="comparison-label">${currentSection === 'gear' ? 'Defense:' : 'Attack:'}</span>
-                    <span class="comparison-value">${currentSection === 'gear' ? 
-                      (item.defense || 'N/A') : (item.attack || 'N/A')}</span>
+                    <span class="comparison-value">${currentSection === 'gear' ? (item.defense || 'N/A') : (item.attack || 'N/A')}</span>
                 </div>
-                ${currentSection === 'gear' ? 
-                  `<div class="comparison-stat">
+                ${currentSection === 'gear' ? `<div class="comparison-stat">
                     <span class="comparison-label">Dexterity:</span>
                     <span class="comparison-value">${item.dexterity || 'N/A'}</span>
                 </div>` : ''}
                 <div class="comparison-stat">
                     <span class="comparison-label">Col Value:</span>
-                    <span class="comparison-value">${item.colValue !== null ? item.colValue.toLocaleString() : 'TBD'}</span>
+                    <span class="comparison-value">${item.colValue !== null && item.colValue !== 'N/A' ? item.colValue.toLocaleString() : 'TBD'}</span>
                 </div>
                 <div class="comparison-stat">
                     <span class="comparison-label">Resale (Base):</span>
@@ -1360,29 +1204,31 @@
 
             let analysis = [];
 
-            const attack1 = parseFloat(item1.attack) || 0;
-            const attack2 = parseFloat(item2.attack) || 0;
-            if (attack1 > attack2) {
-                analysis.push(`✓ ${item1.name} has higher attack (${attack1} vs ${attack2})`);
-            } else if (attack2 > attack1) {
-                analysis.push(`✓ ${item2.name} has higher attack (${attack2} vs ${attack1})`);
+            const stat1 = currentSection === 'gear' ? (parseFloat(item1.defense) || 0) : (parseFloat(item1.attack) || 0);
+            const stat2 = currentSection === 'gear' ? (parseFloat(item2.defense) || 0) : (parseFloat(item2.attack) || 0);
+            const statName = currentSection === 'gear' ? 'defense' : 'attack';
+
+            if (stat1 > stat2) {
+                analysis.push(`✓ ${item1.name} has higher ${statName} (${stat1} vs ${stat2})`);
+            } else if (stat2 > stat1) {
+                analysis.push(`✓ ${item2.name} has higher ${statName} (${stat2} vs ${stat1})`);
             }
 
-            const col1 = item1.colValue || 0;
-            const col2 = item2.colValue || 0;
+            const col1 = item1.colValue === 'N/A' ? 0 : (item1.colValue || 0);
+            const col2 = item2.colValue === 'N/A' ? 0 : (item2.colValue || 0);
             if (col1 > col2) {
                 analysis.push(`✓ ${item1.name} has higher col value (${col1.toLocaleString()} vs ${col2.toLocaleString()})`);
             } else if (col2 > col1) {
                 analysis.push(`✓ ${item2.name} has higher col value (${col2.toLocaleString()} vs ${col1.toLocaleString()})`);
             }
 
-            if (attack1 > 0 && attack2 > 0 && col1 > 0 && col2 > 0) {
-                const value1 = col1 / attack1;
-                const value2 = col2 / attack2;
+            if (stat1 > 0 && stat2 > 0 && col1 > 0 && col2 > 0) {
+                const value1 = col1 / stat1;
+                const value2 = col2 / stat2;
                 if (value1 < value2) {
-                    analysis.push(`✓ ${item1.name} is better value (${Math.round(value1)} col per attack point vs ${Math.round(value2)})`);
+                    analysis.push(`✓ ${item1.name} is better value (${Math.round(value1)} col per ${statName} point vs ${Math.round(value2)})`);
                 } else if (value2 < value1) {
-                    analysis.push(`✓ ${item2.name} is better value (${Math.round(value2)} col per attack point vs ${Math.round(value1)})`);
+                    analysis.push(`✓ ${item2.name} is better value (${Math.round(value2)} col per ${statName} point vs ${Math.round(value1)})`);
                 }
             }
 
@@ -1429,31 +1275,29 @@
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                
+
                 const section = tab.dataset.section;
-                
+
                 document.getElementById('calculator-section').style.display = 'none';
                 document.getElementById('subcategory-selector').style.display = 'none';
                 document.querySelector('.stats-grid').style.display = section === 'calculator' ? 'none' : 'grid';
                 document.getElementById('category-progress-section').style.display = section === 'calculator' ? 'none' : 'block';
                 document.querySelector('.controls').style.display = section === 'calculator' ? 'none' : 'flex';
                 document.querySelector('.table-container').style.display = section === 'calculator' ? 'none' : 'block';
-                
+
                 if (section === 'calculator') {
                     document.getElementById('calculator-section').style.display = 'block';
                 } else {
                     currentSection = section;
                     document.getElementById('subcategory-selector').style.display = 'block';
-                    
-                    // Update table header based on section
+
                     const statHeader = document.getElementById('stat-header');
                     if (section === 'gear') {
                         statHeader.textContent = 'Defense / Dexterity';
                     } else {
                         statHeader.textContent = 'Attack';
                     }
-                    
-                    // Update subcategory dropdown options
+
                     const subcategoryFilter = document.getElementById('main-subcategory-filter');
                     if (section === 'weapons') {
                         subcategoryFilter.innerHTML = `
@@ -1473,11 +1317,9 @@
                         `;
                         currentSubcategory = 'armor';
                     }
-                    
-                    const categoryFilter = document.getElementById('category-filter');
-                    categoryFilter.innerHTML = '<option value="all">All Items</option>';
+
                     currentCategory = 'all';
-                    
+
                     updateStats();
                     filterItems();
                 }
@@ -1488,6 +1330,18 @@
             currentSubcategory = e.target.value;
             currentCategory = 'specific';
             filterItems();
+        });
+
+        document.getElementById('toggle-advanced-search').addEventListener('click', () => {
+            const panel = document.getElementById('advanced-search-panel');
+            const btn = document.getElementById('toggle-advanced-search');
+            if (panel.style.display === 'none') {
+                panel.style.display = 'block';
+                btn.textContent = 'Hide Advanced Search';
+            } else {
+                panel.style.display = 'none';
+                btn.textContent = 'Advanced Search';
+            }
         });
 
         document.getElementById('search-input').addEventListener('input', filterItems);
@@ -1516,7 +1370,7 @@
             const allItems = getAllItems();
             const item = allItems[e.target.value];
             displayComparisonStats(item, 'comparison-stats-1');
-            
+
             const item2Index = document.getElementById('compare-item-2').value;
             if (item2Index) {
                 compareItems(item, allItems[item2Index]);
@@ -1527,7 +1381,7 @@
             const allItems = getAllItems();
             const item = allItems[e.target.value];
             displayComparisonStats(item, 'comparison-stats-2');
-            
+
             const item1Index = document.getElementById('compare-item-1').value;
             if (item1Index) {
                 compareItems(allItems[item1Index], item);
@@ -1544,6 +1398,7 @@
         });
 
         // Initialize
+        loadOwnedItems();
         updateStats();
         filterItems();
     </script>
